@@ -1,2 +1,4 @@
-# serverless-examples
-Example projects and patterns for use with Scaleway's serverless products
+# Scaleway Serverless Examples
+
+This is a collection of example projects and patterns for use with Scaleway's serverless products.
+
