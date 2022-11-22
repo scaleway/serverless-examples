@@ -1,0 +1,2 @@
+[workspace]
+members = ["function", "training", "common"]

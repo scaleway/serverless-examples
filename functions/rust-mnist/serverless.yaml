@@ -1,0 +1,31 @@
+service: rust-examples
+configValidationMode: off
+useDotenv: true
+provider:
+  name: scaleway
+  scwToken: ${env:SCW_SECRET_KEY}
+  scwProject: ${env:SCW_DEFAULT_PROJECT_ID}
+
+plugins:
+  - serverless-scaleway-functions
+
+package:
+  patterns:
+    - "!node_modules/**"
+    - "!.gitignore"
+    - "!.git/**"
+
+custom:
+  containers:
+    rust-mnist-example:
+      directory: .
+      minScale: 1
+      memoryLimit: 512
+      maxScale: 1
+      maxConcurrency: 50
+      port: 3000
+      env:
+        RUST_LOG: ${env:RUST_LOG}
+      secret:
+        SCW_ACCESS_KEY: ${env:SCW_ACCESS_KEY}
+        SCW_SECRET_KEY: ${env:SCW_SECRET_KEY}
