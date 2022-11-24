@@ -1,0 +1,20 @@
+# serverless-compose.yml
+services:
+  myApp:
+    path: myApp
+  getToken:
+    path: getToken
+    params:
+      namespace: ${myApp.functions.commands.namespace_id}
+      region: ${myApp.functions.commands.region}
+    dependsOn:
+      - myApp
+  apiGateway:
+    path: apiGateway
+    params:
+      token: ${getToken.token}
+      commandUrl: ${myApp.functions.commands.domain_name}
+      orderUrl: ${myApp.functions.orders.domain_name}
+    dependsOn:
+      - myApp
+      - getToken

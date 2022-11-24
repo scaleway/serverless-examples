@@ -1,0 +1,28 @@
+service: myApp
+configValidationMode: off
+provider:
+  name: scaleway
+  scwRegion: nl-ams
+  runtime: python310
+
+plugins:
+  - serverless-scaleway-functions
+
+package:
+  patterns:
+    - '!node_modules/**'
+    - '!.gitignore'
+    - '!.git/**'
+    - '!Makefile'
+
+functions:
+  orders:
+    handler: orders.order
+    memoryLimit: 256
+    minScale: 1
+    privacy: private
+  commands:
+    handler: commands.command
+    memoryLimit: 256
+    minScale: 1
+    privacy: private

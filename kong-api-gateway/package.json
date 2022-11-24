@@ -1,0 +1,16 @@
+{
+  "name": "fullApp",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@serverless/compose": "^1.2.4",
+    "serverless-scaleway-functions": ">=0.4.0"
+  },
+  "description": ""
+}
