@@ -1,0 +1,41 @@
+service: scaleway-image-transform
+configValidationMode: off
+
+provider:
+  name: scaleway
+  runtime: node16
+
+  secret:
+    ACCESS_KEY: <bucket scw access key>
+    ACCESS_KEY_ID: <bucket scw access key id>
+    SOURCE_BUCKET: <source bucket name>
+    DESTINATION_BUCKET: <bucket name>
+    S3_ENDPOINT_URL: http://s3.fr-par.scw.cloud
+    TRANSFORM_URL: <image transform url>
+
+  scwToken: <your scw token>
+  scwProject: <project ID>
+  scwRegion: fr-par
+
+plugins:
+  - serverless-scaleway-functions
+
+patterns:
+    - '!.gitignore'
+    - '!.git/**'
+
+functions:
+  imagetransform:
+    handler: ImageTransform.handle
+    memoryLimit: 1024
+    minScale: 0
+    env:
+      RESIZED_WIDTH: '300'
+
+  bucketscan:
+    handler: BucketScan.handle
+    memoryLimit: 1024
+    minScale: 0
+    events:
+     - schedule:
+         rate: '0 * * * *'

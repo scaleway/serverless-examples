@@ -1,0 +1,20 @@
+{
+  "name": "scaleway-image-transform",
+  "version": "0.0.1",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "aws-sdk": "^2.987.0",
+    "sharp": "^0.30.7",
+    "util": "^0.12.4"
+  },
+  "devDependencies": {
+    "serverless-scaleway-functions": "^0.3.0"
+  },
+  "description": ""
+}
