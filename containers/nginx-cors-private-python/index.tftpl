@@ -5,11 +5,13 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
     <script>
-      var functionUrl = '${ gateway_func_url }';
+      var functionDomain = '${ gateway_func_url }';
+
       var token = '${ server_auth_token }';
 
       // Build the request
-      var imgUrl = 'http://' + functionUrl + '/img/hello.png';
+      var functionUrl = 'http://' + functionDomain;
+      var imgUrl = functionUrl + '/img/hello.png';
 
       $(window).on('load', function() {
         // Check that a simple request works

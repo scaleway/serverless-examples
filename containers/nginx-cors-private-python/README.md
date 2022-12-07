@@ -20,6 +20,13 @@ make build-gateway push-gateway
 make build-server push-server
 ```
 
+Edit `terraform/vars/main.tfvars` to set your project ID:
+
+```
+# Replace with your project ID
+project_id = "12ef4x91-yh12-1234-g22g-83er2q4z51ec"
+```
+
 Set up Terraform with:
 
 ```
@@ -38,20 +45,28 @@ Deploy with:
 make tf-apply
 ```
 
-This will template a file at `index.html` in the root of the project, with the function URL and token populated. You can then open `index.html` in your browser, e.g.
+This will generate a script at `curl.sh` which will use cURL to invoke the private function directly to test:
+
+```
+./curl.sh
+```
+
+This will also generate `index.html` in the root of the project, which you can open in your browser, e.g.
 
 ```
 firefox index.html
 ```
 
+This will then make CORS requests to the public function, which will respond properly, and forward other requests to the private container.
+
 ## Local test
 
-Test the setup locally by running the deploy, then modifying `functionUrl` in `index.html` to `localhost:8080`.
+Test the setup locally by running the deploy, then modifying `functionDomain` in `index.html` to `localhost:8080`.
 
 You can then run:
 
 ```
-docker-compose up
+docker compose up
 ```
 
 Then open `index.html` in your browser, e.g.

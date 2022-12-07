@@ -8,6 +8,7 @@ terraform {
   required_providers {
     scaleway = {
       source = "scaleway/scaleway"
+      version = ">= 2.8.0"
     }
   }
   required_version = ">= 0.13"
@@ -50,7 +51,7 @@ resource "scaleway_container" "gateway_container" {
   name           = "gateway-container"
   description    = "Container for the gateway"
   namespace_id   = scaleway_container_namespace.main.id
-  registry_image = "rg.fr-par.scw.cloud/cors-demo/gateway:0.0.1"
+  registry_image = "rg.fr-par.scw.cloud/cors-demo/gateway:0.0.6"
   port           = 8080
   min_scale      = 1
   max_scale      = 1
@@ -73,20 +74,19 @@ resource scaleway_container_token server {
   container_id = scaleway_container.server_container.id
 }
 
-resource local_sensitive_file token {
-  filename = "../token"
-  content = scaleway_container_token.server.token
+# Template cURL script
+resource local_sensitive_file curl {
+  filename = "../curl.sh"
+  content = templatefile(
+    "../curl.tftpl", {
+      server_func_url = "${scaleway_container.server_container.domain_name}",
+      gateway_func_url = "${scaleway_container.gateway_container.domain_name}",
+      server_auth_token = "${scaleway_container_token.server.token}",
+    }
+  )
 }
 
 # Template HTML file
-data template_file html_data {
-  template = "${file("../index.tftpl")}"
-  vars = {
-    gateway_func_url = "${scaleway_container.gateway_container.domain_name}",
-    server_auth_token = "${scaleway_container_token.server.token}",
-  }
-}
-
 resource local_sensitive_file html {
   filename = "../index.html"
   content = templatefile(

@@ -1,0 +1,32 @@
+#!/bin/bash
+
+set -e
+
+# URLs of gateway and server functions
+GATEWAY_URL=https://${ gateway_func_url }
+SERVER_URL=https://${ server_func_url }
+
+# Auth token
+TOKEN=${ server_auth_token }
+
+echo "--- Invoking private endpoint directly ---"
+echo "URL = $SERVER_URL"
+
+# Do the curl
+echo ""
+echo "GET"
+curl -H "X-Auth-Token: $TOKEN" $SERVER_URL
+echo ""
+
+echo ""
+echo "--- Invoking private endpoint through gateway ---"
+echo "URL = $GATEWAY_URL"
+
+# Do the curl
+echo ""
+echo "OPTIONS"
+curl -i -X OPTIONS -H "X-Auth-Token: $TOKEN" $GATEWAY_URL
+
+echo "GET"
+curl -i -H "X-Auth-Token: $TOKEN" $GATEWAY_URL
+echo ""
