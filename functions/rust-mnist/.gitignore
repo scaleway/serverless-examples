@@ -1,5 +1,8 @@
-**target/
+
+datasets/
+debug/
+target/
+Cargo.lock
 node_modules/
 package*.json
-.vscode/
-datasets/
+!www/*
