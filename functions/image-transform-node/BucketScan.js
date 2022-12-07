@@ -1,15 +1,8 @@
-/*
-Work in progress : il s'agit de la fonction permettant de collecter l'ensemble des fichiers images présents 
-sur un bucket (voir si on doit mettre des limites)
-et d'envoyer leurs identifiants à la fonction de transformation d'image
-Elle doit être déployer de préférence avec un CRON
-*/
-
 const AWS = require("aws-sdk");
 const https = require("https");
 const { isNull } = require("util");
 
-// get info from env variable
+// Get info from env variables
 
 const SOURCE_BUCKET = process.env.SOURCE_BUCKET;
 const S3_ENDPOINT_URL = process.env.S3_ENDPOINT_URL;
@@ -25,7 +18,8 @@ const s3 = new AWS.S3({
     secretAccessKey: SECRET,
   },
 });
-//configure parameters for the listObjectsV2 method
+
+// Configure parameters for the listObjectsV2 method
 const params = {
   Bucket: SOURCE_BUCKET,
 };
