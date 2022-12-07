@@ -1,14 +1,10 @@
-use axum::{
-    routing::{get, post},
-    Router,
-};
+use axum::{routing::post, Router};
 use tower_http::cors::CorsLayer;
 
 #[tokio::main]
 async fn main() {
     let cors = CorsLayer::permissive();
     let app = Router::new()
-        .route("/", get(|| async { "Hello, World!" }))
         .route("/", post(function::handler))
         .layer(cors);
     axum::Server::bind(&"0.0.0.0:3000".parse().unwrap())

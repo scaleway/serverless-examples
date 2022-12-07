@@ -5,27 +5,30 @@ provider:
   name: scaleway
   scwToken: ${env:SCW_SECRET_KEY}
   scwProject: ${env:SCW_DEFAULT_PROJECT_ID}
+  runtime: rust165
+  scwRegion: ${env:SCW_DEFAULT_REGION}
 
 plugins:
   - serverless-scaleway-functions
 
 package:
   patterns:
+    - "!target/**"
+    - "!www/**"
+    - "!training/**"
     - "!node_modules/**"
     - "!.gitignore"
     - "!.git/**"
 
-custom:
-  containers:
-    rust-mnist-example:
-      directory: .
-      minScale: 1
-      memoryLimit: 512
-      maxScale: 1
-      maxConcurrency: 50
-      port: 3000
-      env:
-        RUST_LOG: ${env:RUST_LOG}
-      secret:
-        SCW_ACCESS_KEY: ${env:SCW_ACCESS_KEY}
-        SCW_SECRET_KEY: ${env:SCW_SECRET_KEY}
+functions:
+  main:
+    handler: "sync_handler"
+    memoryLimit: 4096
+    env:
+      RUST_LOG: ${env:RUST_LOG}
+      S3_BUCKET: ${env:S3_BUCKET}
+      SCW_ACCESS_KEY: ${env:SCW_ACCESS_KEY}
+      SCW_DEFAULT_REGION: ${env:SCW_DEFAULT_REGION}
+    secret:
+      SCW_ACCESS_KEY: ${env:SCW_ACCESS_KEY}
+      SCW_SECRET_KEY: ${env:SCW_SECRET_KEY}

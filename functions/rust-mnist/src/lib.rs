@@ -9,7 +9,10 @@ use dfdx::prelude::*;
 
 pub async fn load_model() -> Result<Mlp> {
     // Obtain the model from the bucket
-    let bucket = scaleway_bucket_from_env("fr-par", "rust-example-bucket")?;
+    let bucket = scaleway_bucket_from_env(
+        &env::var("SCW_DEFAULT_REGION").unwrap_or("fr-par".to_owned()),
+        &env::var("S3_BUCKET")?,
+    )?;
     let data = bucket.get_object(MODEL_PATH).await?;
 
     // Write the model to a temporary file
@@ -41,6 +44,25 @@ fn handle_error<Err: Display>(err: Err, status: Option<StatusCode>) -> Response<
         .status(status)
         .body(Body::from(format!("{}", err)))
         .unwrap()
+}
+
+pub fn sync_handler(req: Request<Body>) -> Response<Body> {
+    let (sender, receiver) = std::sync::mpsc::channel();
+    std::thread::spawn(move || {
+        let rt = tokio::runtime::Builder::new_current_thread()
+            .enable_all()
+            .build()
+            .unwrap();
+        rt.block_on(async {
+            let resp = handler(req).await;
+            sender
+                .send(resp)
+                .expect("Error when sending response back to rt")
+        })
+    });
+    receiver
+        .recv()
+        .expect("Error when receiving response from thread")
 }
 
 pub async fn handler(req: Request<Body>) -> Response<Body> {

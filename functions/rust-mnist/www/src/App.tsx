@@ -12,7 +12,7 @@ function App() {
   const [chartData, setChartData] = useState<any[]>([...Array(10).keys()].map(i => ({ id: i, value: 1.0 })));
 
   const inferDigit = (data: Number[]) => {
-    fetch("https://rustexamplesdetfo3u5-rust-mnist-example.functions.fnc.fr-par.scw.cloud", {
+    fetch(import.meta.env.VITE_SLS_FUNCTION_URL, {
       method: "POST",
       body: JSON.stringify({
         data: data

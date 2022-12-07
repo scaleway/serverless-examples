@@ -7,7 +7,7 @@ use dfdx::prelude::*;
 use indicatif::ProgressBar;
 use mnist::*;
 use rand::prelude::{SeedableRng, StdRng};
-use std::{fs::File, io::Read, time::Instant};
+use std::{env, fs::File, io::Read, time::Instant};
 
 use common::Mlp;
 
@@ -109,7 +109,11 @@ async fn main() {
     let mut buffer = Vec::new();
     model.read_to_end(&mut buffer).unwrap();
 
-    let bucket = common::scaleway_bucket_from_env("fr-par", "rust-example-bucket").unwrap();
+    let bucket = common::scaleway_bucket_from_env(
+        &env::var("SCW_DEFAULT_REGION").unwrap_or("fr-par".to_owned()),
+        &env::var("S3_BUCKET").expect(""),
+    )
+    .unwrap();
 
     bucket
         .put_object(common::MODEL_PATH, &buffer)
