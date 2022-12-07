@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <script>
+      var functionDomain = '${ gateway_func_url }';
+
+      var token = '${ server_auth_token }';
+
+      // Build the request
+      var functionUrl = 'http://' + functionDomain;
+      var imgUrl = functionUrl + '/img/hello.png';
+
+      $(window).on('load', function() {
+        // Check that a simple request works
+        console.log('Making simple request to ' + functionUrl);
+        $.ajax({
+          url: functionUrl,
+          headers: {
+            'X-Auth-Token': token,
+          },
+          success: function(data) {
+            $("#response-text").text(data);
+          }
+        });
+
+        // Check loading an image
+        console.log('Loading image from ' + imgUrl);
+        $.ajax({
+          url: imgUrl,
+          headers: {
+            'X-Auth-Token': token,
+          },
+          xhrFields: {
+            withCredentials: false,
+            responseType: 'blob'
+          },
+          success: function(data) {
+            var blobData = data;
+            var url = window.URL || window.webkitURL;
+            var src = url.createObjectURL(data);
+            $('#holder').attr('src', src);
+          }
+        });
+      });
+    </script>
+
+  </head>
+
+  <body>
+
+    <h1>Image serving example</h1>
+
+    <div id='response-text'>
+      This will be replaced by response text
+    </div>
+
+    <div>
+    <img id='holder' width=300px />
+    </div>
+
+  </body>
+</html>

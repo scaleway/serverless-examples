@@ -1,0 +1,35 @@
+server {
+  listen        8080;
+  server_name   gateway;
+  error_log     /var/log/gateway-error.log warn;
+  access_log    /var/log/gateway-access.log;
+
+  client_body_buffer_size     32k;
+  client_header_buffer_size   8k;
+  large_client_header_buffers 4 32k;
+
+  location / {
+    if ($request_method = OPTIONS) {
+      add_header 'Access-Control-Allow-Origin' '*';
+      add_header 'Access-Control-Allow-Methods' 'GET,POST,OPTIONS,PUT,DELETE,PATCH';
+      add_header 'Access-Control-Allow-Credentials' 'true';
+      add_header 'Access-Control-Allow-Headers' '*';
+
+      add_header 'Content-Type' 'text/plain charset=UTF-8';
+      add_header 'Content-Length' 0;
+
+      add_header 'Server' 'nginx';
+
+      return 200;
+    }
+
+    proxy_redirect                  off;
+    proxy_http_version              1.1;
+    proxy_pass_request_headers      on;
+
+    proxy_set_header                X-Real-IP $remote_addr;
+    proxy_set_header                X-Forwarded-For $proxy_add_x_forwarded_for;
+
+    proxy_pass                      http://${SERVER_CONTAINER_URL};
+  }
+}
