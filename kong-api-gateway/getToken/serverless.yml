@@ -1,0 +1,27 @@
+provider:
+  name: Custom
+  environment:
+    NAMESPACE_ID: ${param:namespace}
+    REGION_NAME: ${param:region}
+
+service: getToken
+configValidationMode: off
+
+plugins:
+  - ./plugin.js
+
+package:
+  patterns:
+    - 'token'
+    - '!plugin.js'
+    - '!node_modules/**'
+    - '!.gitignore'
+    - '!.git/**'
+    - '!Makefile'
+
+custom:
+  scripts:
+    commands:
+      deploy: ./deploy.sh
+      info: ./info.sh
+      remove: ./remove.sh

@@ -1,0 +1,19 @@
+version: "3"
+
+services:
+  gateway:
+    build:
+      context: ./gateway
+    ports:
+      - "8080:8080"
+    depends_on:
+      - server
+    environment:
+      SERVER_CONTAINER_URL: "server:8080"
+
+  server:
+    build:
+      context: ./server
+    image: rg.fr-par.scw.cloud/cors-demo/server:0.0.1
+    ports:
+      - "8081:8080"
