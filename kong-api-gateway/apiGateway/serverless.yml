@@ -1,0 +1,28 @@
+service: apiGateway
+configValidationMode: off
+provider:
+  name: scaleway
+  scwRegion: nl-ams
+
+plugins:
+  - serverless-scaleway-functions
+
+package:
+  patterns:
+    - '!node_modules/**'
+    - '!.gitignore'
+    - '!.git/**'
+    - '!Makefile'
+
+custom:
+  containers:
+    kong:
+      directory: kong
+      minScale: 1
+      memoryLimit: 512
+      port: 8000
+      env:
+        COMMANDS_URL: ${param:commandUrl}
+        ORDERS_URL: ${param:orderUrl}
+      secret:
+        TOKEN: ${param:token}

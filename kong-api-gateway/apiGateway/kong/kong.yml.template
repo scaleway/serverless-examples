@@ -1,0 +1,30 @@
+_format_version: '2.1'
+_transform: true
+consumers:
+- plugins:
+  - config:
+      hour: 10000
+      policy: local
+      second: 5
+    name: rate-limiting
+  username: appuser
+routes:
+- name: default-route
+  paths:
+  - /
+  service: commands
+- name: orders
+  paths:
+  - /orders
+  service: orders
+services:
+- name: commands
+  url: https://${COMMANDS_URL}
+- name: orders
+  url: https://${ORDERS_URL} 
+plugins:
+- name: request-transformer
+  config: 
+    add:
+      headers:
+      - X-Auth-Token:${TOKEN}
