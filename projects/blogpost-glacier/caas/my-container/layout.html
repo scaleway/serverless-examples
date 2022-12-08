@@ -1,0 +1,6 @@
+<h1>{{.PageTitle}}</h1>
+<ul>
+    {{range .Glaciers}}
+        <li>Image : {{.ImageURI}} : <a href="/img?id={{ .ID }}">Download</a></li>
+    {{end}}
+</ul>
