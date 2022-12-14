@@ -1,0 +1,5 @@
+{
+  "devDependencies": {
+    "@serverless/compose": "^1.3.0"
+  }
+}

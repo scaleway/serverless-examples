@@ -1,0 +1,35 @@
+service: caas
+configValidationMode: off
+useDotenv: true
+provider:
+  name: scaleway
+  scwToken: ${env:SCW_SECRET_KEY}
+  scwProject: ${env:SCW_DEFAULT_PROJECT_ID}
+
+plugins:
+  - serverless-scaleway-functions
+
+package:
+  patterns:
+    - '!node_modules/**'
+    - '!.gitignore'
+    - '!.git/**'
+
+custom:
+  containers:
+    glacier:
+      directory: my-container 
+      minScale: 0
+      memoryLimit: 512
+      maxScale: 1
+      maxConcurrency: 50
+      port: 8080
+      secret:
+        S3_ENDPOINT: ${env:S3_ENDPOINT}
+        S3_ACCESSKEY: ${env:S3_ACCESSKEY}
+        S3_SECRET: ${env:S3_SECRET}
+        DB_HOST: ${env:DB_HOST}
+        DB_PORT: ${env:DB_PORT}
+        DB_USER: ${env:DB_USER}
+        DB_PASS: ${env:DB_PASS}
+        DB_NAME: ${env:DB_NAME}
