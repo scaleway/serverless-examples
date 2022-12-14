@@ -1,0 +1,17 @@
+[package]
+name = "training"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+rand = "0.8.5"
+mnist = "0.5.0"
+indicatif = "0.16.2"
+dfdx = { version = "0.10.0", features = ["numpy"] }
+tokio = { version = "1.2", features = ["rt", "macros"] }
+
+
+[dependencies.common]
+path = "../common"

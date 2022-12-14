@@ -1,0 +1,31 @@
+service: rust-examples
+configValidationMode: off
+useDotenv: true
+provider:
+  name: scaleway
+  runtime: rust165
+
+plugins:
+  - serverless-scaleway-functions
+
+package:
+  patterns:
+    - "!target/**"
+    - "!www/**"
+    - "!training/**"
+    - "!node_modules/**"
+    - "!.gitignore"
+    - "!.git/**"
+
+functions:
+  main:
+    handler: "sync_handler"
+    memoryLimit: 4096
+    env:
+      RUST_LOG: ${env:RUST_LOG}
+      S3_BUCKET: ${env:S3_BUCKET}
+      SCW_ACCESS_KEY: ${env:SCW_ACCESS_KEY}
+      SCW_DEFAULT_REGION: ${env:SCW_DEFAULT_REGION}
+    secret:
+      SCW_ACCESS_KEY: ${env:SCW_ACCESS_KEY}
+      SCW_SECRET_KEY: ${env:SCW_SECRET_KEY}

@@ -1,0 +1,6 @@
+dist
+dist-ssr
+logs
+*.log
+node_modules
+*.local

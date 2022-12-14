@@ -1,0 +1,7 @@
+datasets/
+debug/
+target/
+Cargo.lock
+node_modules/
+package*.json
+!www/*
