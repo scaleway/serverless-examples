@@ -3,10 +3,7 @@ configValidationMode: off
 useDotenv: true
 provider:
   name: scaleway
-  scwToken: ${env:SCW_SECRET_KEY}
-  scwProject: ${env:SCW_DEFAULT_PROJECT_ID}
   runtime: rust165
-  scwRegion: ${env:SCW_DEFAULT_REGION}
 
 plugins:
   - serverless-scaleway-functions
