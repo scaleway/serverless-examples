@@ -1,0 +1,14 @@
+{
+  "name": "cors-python",
+  "version": "1.0.0",
+  "main": "handler.js",
+  "type": "module",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {},
+  "devDependencies": {
+    "serverless-scaleway-functions": "^0.4.4"
+  },
+  "description": ""
+}
