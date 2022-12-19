@@ -8,9 +8,9 @@ The Redis certificate is provided via a secret to the function and then written 
 
 ## Setup
 
-This examples requires [Terraform](https://www.scaleway.com/en/docs/tutorials/terraform-quickstart/).
+This example requires [Terraform](https://www.scaleway.com/en/docs/tutorials/terraform-quickstart/).
 
-This example is deployed entirely with Terraform. The terraform config files will also create a Redis cluster, so be sure to disable it if you do not need one.
+Everything is managed with Terraform. The terraform config files will also create a Redis cluster, so be sure to disable it if you do not need one.
 
 ```sh
 terraform init
