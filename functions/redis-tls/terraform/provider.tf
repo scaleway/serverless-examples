@@ -4,7 +4,7 @@ terraform {
       source = "scaleway/scaleway"
     }
     pypi = {
-      source = "jeffwecan/pypi"
+      source  = "jeffwecan/pypi"
       version = "0.0.11"
     }
   }

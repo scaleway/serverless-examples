@@ -43,7 +43,7 @@ resource "scaleway_function" "weather_redis" {
 
 resource "scaleway_function_cron" "weather_daily" {
   function_id = scaleway_function.weather_redis.id
-  args = ""
+  args        = ""
   // Everyday at 8:00 UTC
   schedule = "0 8 * * *"
 }
