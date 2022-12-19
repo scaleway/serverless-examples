@@ -2,7 +2,7 @@ service: cors-go
 configValidationMode: off
 provider:
   name: scaleway
-  runtime: go117
+  runtime: go119
 
 plugins:
   - serverless-scaleway-functions
