@@ -1,0 +1,20 @@
+service: cors-node
+configValidationMode: off
+provider:
+  name: scaleway
+  runtime: node18
+
+plugins:
+  - serverless-scaleway-functions
+
+package:
+  patterns:
+    - "!node_modules/**"
+    - "!.gitignore"
+    - "!.git/**"
+
+functions:
+  cors-permissive:
+    handler: handler.handleCorsPermissive
+  cors-very-permissive:
+    handler: handler.handleCorsVeryPermissive
