@@ -1,0 +1,5 @@
+package/
+terraform/*
+
+# Only allow the configuration files
+!terraform/**/*.tf
