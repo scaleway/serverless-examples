@@ -1,0 +1,26 @@
+service: generate_wallet
+configValidationMode: off
+provider:
+  name: scaleway
+  runtime: python311 # Available python runtimes are listed in documentation
+  # Global Environment variables - used in every functions
+  env:
+    test: test
+  svwProject: f8983157-9a25-4661-89b4-a862292862d9
+
+plugins:
+  - serverless-scaleway-functions
+
+package:
+  patterns:
+    - '!node_modules/**'
+    - '!.gitignore'
+    - '!.git/**'
+
+functions:
+  first:
+    handler: handler.handle
+    # description: ""
+    # Local environment variables - used only in given function
+    env:
+      local: local
