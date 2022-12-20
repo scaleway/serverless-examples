@@ -1,0 +1,20 @@
+{
+  "name": "python-ethereum",
+  "version": "0.0.1",
+  "main": "handler.py",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "ethereum",
+    "blockchain",
+    "crypto",
+    "web"
+  ],
+  "author": "",
+  "license": "Lyra",
+  "devDependencies": {
+    "serverless-scaleway-functions": "^0.4.4"
+  },
+  "description": "Ethereum Wallet Generator and Basic Cryptography"
+}
