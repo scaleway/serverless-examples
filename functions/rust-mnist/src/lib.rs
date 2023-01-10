@@ -46,7 +46,7 @@ fn handle_error<Err: Display>(err: Err, status: Option<StatusCode>) -> Response<
         .unwrap()
 }
 
-pub fn sync_handler(req: Request<Body>) -> Response<Body> {
+pub async fn sync_handler(req: Request<Body>) -> Response<Body> {
     let (sender, receiver) = std::sync::mpsc::channel();
     std::thread::spawn(move || {
         let rt = tokio::runtime::Builder::new_current_thread()
