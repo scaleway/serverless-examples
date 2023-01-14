@@ -11,3 +11,9 @@ npm install
 # Deploy
 ./bin/deploy.sh
 ```
+
+The deploy command should print the URL of the new function. You can then use `curl` to check that it works, and should see the response:
+
+```
+Response status: 200
+```
