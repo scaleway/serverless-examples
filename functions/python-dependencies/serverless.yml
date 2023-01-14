@@ -1,0 +1,16 @@
+service: python-deps-example
+
+provider:
+  name: scaleway
+  runtime: python310
+
+plugins:
+  - serverless-scaleway-functions
+
+package:
+  patterns:
+    - '!node_modules/**'
+
+functions:
+  requests:
+    handler: handlers/handler.handle
