@@ -19,13 +19,12 @@ package:
 
 functions:
   main:
-    handler: "sync_handler"
-    memoryLimit: 4096
+    handler: "handler"
+    memoryLimit: 1024
     env:
-      RUST_LOG: ${env:RUST_LOG}
+      RUST_LOG: ${env:RUST_LOG, "info"}
       S3_BUCKET: ${env:S3_BUCKET}
       SCW_ACCESS_KEY: ${env:SCW_ACCESS_KEY}
-      SCW_DEFAULT_REGION: ${env:SCW_DEFAULT_REGION}
+      SCW_DEFAULT_REGION: ${env:SCW_DEFAULT_REGION, "fr-par"}
     secret:
-      SCW_ACCESS_KEY: ${env:SCW_ACCESS_KEY}
       SCW_SECRET_KEY: ${env:SCW_SECRET_KEY}

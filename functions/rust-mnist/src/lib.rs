@@ -2,17 +2,15 @@ use anyhow::{Context, Result};
 use serde::{Deserialize, Serialize};
 use std::{env, fmt::Display, fs::File, io::Write};
 
-use hyper::{Body, Request, Response, StatusCode};
+use hyper::http::response;
+use hyper::{Body, Method, Request, Response, StatusCode};
 
 use common::{scaleway_bucket_from_env, Mlp, MODEL_PATH};
 use dfdx::prelude::*;
 
-pub async fn load_model() -> Result<Mlp> {
+pub async fn load_model(bucket_name: &str, region: &str) -> Result<Mlp> {
     // Obtain the model from the bucket
-    let bucket = scaleway_bucket_from_env(
-        &env::var("SCW_DEFAULT_REGION").unwrap_or("fr-par".to_owned()),
-        &env::var("S3_BUCKET")?,
-    )?;
+    let bucket = scaleway_bucket_from_env(region, bucket_name)?;
     let data = bucket.get_object(MODEL_PATH).await?;
 
     // Write the model to a temporary file
@@ -38,6 +36,7 @@ struct LabelingResponse {
     output: Vec<f32>,
 }
 
+// A helper function to generate a response from an error
 fn handle_error<Err: Display>(err: Err, status: Option<StatusCode>) -> Response<Body> {
     let status = status.unwrap_or(StatusCode::INTERNAL_SERVER_ERROR);
     Response::builder()
@@ -46,27 +45,25 @@ fn handle_error<Err: Display>(err: Err, status: Option<StatusCode>) -> Response<
         .unwrap()
 }
 
-pub fn sync_handler(req: Request<Body>) -> Response<Body> {
-    let (sender, receiver) = std::sync::mpsc::channel();
-    std::thread::spawn(move || {
-        let rt = tokio::runtime::Builder::new_current_thread()
-            .enable_all()
-            .build()
-            .unwrap();
-        rt.block_on(async {
-            let resp = handler(req).await;
-            sender
-                .send(resp)
-                .expect("Error when sending response back to rt")
-        })
-    });
-    receiver
-        .recv()
-        .expect("Error when receiving response from thread")
+// A helper function to inject CORS headers
+pub fn with_permissive_cors(r: response::Builder) -> response::Builder {
+    r.header("Access-Control-Allow-Headers", "*")
+        .header("Access-Control-Allow-Methods", "*")
+        .header("Access-Control-Allow-Origin", "*")
 }
 
 pub async fn handler(req: Request<Body>) -> Response<Body> {
-    let model = match load_model().await {
+    if req.method() == Method::OPTIONS {
+        return with_permissive_cors(Response::builder())
+            .status(StatusCode::OK)
+            .body(Body::from(""))
+            .unwrap();
+    }
+
+    let bucket_name = env::var("S3_BUCKET").expect("should specify a bucket");
+    let region = env::var("SCW_DEFAULT_REGION").unwrap_or("fr-par".to_owned());
+
+    let model = match load_model(&bucket_name, &region).await {
         Ok(m) => m,
         Err(e) => return handle_error(e, None),
     };
@@ -97,7 +94,7 @@ pub async fn handler(req: Request<Body>) -> Response<Body> {
         Err(e) => return handle_error(e, None),
     };
 
-    Response::builder()
+    with_permissive_cors(Response::builder())
         .status(StatusCode::OK)
         .body(Body::from(body))
         .unwrap()

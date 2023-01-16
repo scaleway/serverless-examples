@@ -4,12 +4,12 @@ Serverless functions are a great choice to deploy inference models! In this exam
 
 In addition, this example shows how to load objects from Scaleway's S3 in rust.
 
-You can test the sample application on: <https://rust-example-www.s3-website.fr-par.scw.cloud/>
+You can test the sample application at: <https://rust-example-www.s3-website.fr-par.scw.cloud/>
 
 ## Setup
 
 - Install and configure [Cargo](https://doc.rust-lang.org/stable/cargo/getting-started/installation.html)
-- [Create a S3 bucket](https://www.scaleway.com/en/docs/storage/object/quickstart/#how-to-create-a-bucket)
+- [Create an S3 bucket](https://www.scaleway.com/en/docs/storage/object/quickstart/#how-to-create-a-bucket)
 - Install and configure [Scaleway's Serverless Framework provider](https://github.com/scaleway/serverless-scaleway-functions#quick-start)
 - Setup your local environment:
 
