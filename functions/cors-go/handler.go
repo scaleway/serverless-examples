@@ -20,7 +20,7 @@ func HandleWithCors(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, fmt.Sprint(err), http.StatusInternalServerError)
 		return
 	}
-	fmt.Fprintf(w, "%q", dump)
+	fmt.Printf("%q", dump)
 
 	// Sets the response headers to allow CORS requests.
 	setCorsHeaders(w)
