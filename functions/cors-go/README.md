@@ -39,7 +39,7 @@ curl -i -X GET <function URL>
 The result should be similar to:
 
 ```console
-HTTP/1.1 200 OK
+HTTP/2 200
 access-control-allow-headers: *
 access-control-allow-methods: *
 access-control-allow-origin: *
@@ -52,4 +52,4 @@ server: envoy
 This function is allowing most CORS requests
 ```
 
-You can also check the result of your function in a browser. It should be "This is checking CORS".
+You can also check the result of your function in a browser. It should be "This function is allowing most CORS requests".
