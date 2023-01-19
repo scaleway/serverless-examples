@@ -1,5 +1,8 @@
 # Title of the function example
 
+**Give a short description/introduction**  
+When calling a function from a frontend application in a browser, you may receive an error about missing CORS headers. Here's how you can allow cross-origin requests to a Python function
+
 ## Requirements
 
 This example assumes you are familiar with how serverless functions work. If needed, you can check [Scaleway official documentation](https://www.scaleway.com/en/docs/serverless/functions/quickstart/)
@@ -23,6 +26,8 @@ npm install
 
 serverless deploy
 ```
+
+## Running
 
 **Update with the tests to run for your example**  
 Then, from the given URL, you can run:
