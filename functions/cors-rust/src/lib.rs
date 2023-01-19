@@ -7,7 +7,7 @@ pub fn with_permissive_cors(r: response::Builder) -> response::Builder {
         .header("Access-Control-Allow-Origin", "*")
 }
 
-async pub fn handler_with_cors(req: Request<Body>) -> Response<Body> {
+pub async fn handler_with_cors(req: Request<Body>) -> Response<Body> {
     println!("{:?}", req);
 
     with_permissive_cors(Response::builder())
