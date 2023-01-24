@@ -56,8 +56,8 @@ resource "scaleway_iam_application" "instance_power_toggler" {
 }
 
 resource "scaleway_iam_policy" "can_manage_instances" {
-  name        = "can-manage-instances"
-  description = "policy to manage instances in a specific project"
+  name           = "can-manage-instances"
+  description    = "policy to manage instances in a specific project"
   application_id = scaleway_iam_application.instance_power_toggler.id
   rule {
     project_ids = [var.project_id]
