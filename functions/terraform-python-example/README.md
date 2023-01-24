@@ -98,21 +98,15 @@ variable "project_id" {
   type        = string
   description = "Your project ID"
 }
-
-variable "auth_token" {
-    type = string
-    description = "Scaleway authtentication token used in the function"
-}
 ```
 
-7. Add the variables value to 'terraform.tfvars' 
+7. Add the variables value to 'terraform.tfvars'
 
 ```ini
 zone                           = "fr-par-1"
 region                         = "fr-par"
 env                            = "dev"
 project_id                     = "Your project ID"
-auth_token                     = "Your Scaleway Auth Token"
 ```
 
 ## Writing the code
@@ -209,6 +203,32 @@ resource "scaleway_instance_server" "scw-instance-dev" {
 }
 ```
 
+* An IAM application and API key so that the function can manage instances
+
+```hcl
+# Create an IAM application to provide the a scoped token for the function
+resource "scaleway_iam_application" "instance_power_toggler" {
+  name        = "Instance power toggler"
+  description = "IAM application for the function to toggle instances"
+}
+
+resource "scaleway_iam_policy" "can_manage_instances" {
+  name        = "can-manage-instances"
+  description = "policy to manage instances in a specific project"
+  application_id = scaleway_iam_application.instance_power_toggler.id
+  rule {
+    project_ids = [var.project_id]
+    # Currently the least possible privilege to manage instances
+    permission_set_names = ["InstancesFullAccess"]
+  }
+}
+
+resource "scaleway_iam_api_key" "instance_toggler_key" {
+  application_id = scaleway_iam_application.instance_power_toggler.id
+  description    = "API key for the function to toggle instances"
+}
+```
+
 * A function that will run code you've just written
   
 ```hcl
@@ -238,7 +258,7 @@ resource "scaleway_function" "main" {
   deploy = true
   max_scale    = "5"
   environment_variables = {
-      "X-AUTH-TOKEN" = var.auth_token
+      "X-AUTH-TOKEN" = scaleway_iam_api_key.instance_toggler_key.secret_key
   }
 }
 ```
