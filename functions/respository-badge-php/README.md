@@ -15,7 +15,7 @@ out the example.
 
 ## In this example
 
-This example how to create a basic php function with dependencies provided in a composer.json file.
+This example shows to create a basic php function with dependencies provided in a composer.json file.
 
 The function generate a svg image using Twig based on user input.
 
