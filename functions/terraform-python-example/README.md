@@ -1,23 +1,23 @@
+# Terraform Python example
 
-In this tutorial you will discover an example of Instance automation using Python and Terraform: 
+In this tutorial you will discover an example of Instance automation using Python and Terraform:
 
-*  Automatically shut down / start instances
-
+* Automatically shut down / start instances
 
 ## Requirements
 
-  - You have an account and are logged into the [Scaleway console](https://console.scaleway.com)
-  - You have [generated an API key](/console/my-project/how-to/generate-api-key/)
-  - You have [Python](https://www.python.org/) installed on your machine
-  - You have [Terraform](https://registry.terraform.io/providers/scaleway/scaleway/latest/docs) installed on your machine
-
-
+* You have an account and are logged into the [Scaleway console](https://console.scaleway.com)
+* You have [generated an API key](/console/my-project/how-to/generate-api-key/)
+* You have [Python](https://www.python.org/) installed on your machine
+* You have [Terraform](https://registry.terraform.io/providers/scaleway/scaleway/latest/docs) installed on your machine
 
 ## Context
-In this tutorial we will simulate a project with a production environment that will be running all the time and a development environment that will be turn off on week-ends to save costs.
+
+In this tutorial, we will simulate a project with a production environment that will be running all the time and a development environment that will be turn off on week-ends to save costs.
 
 ## Initialize your Terraform project
-1. Create a 'Terraform' folder to store your configuration as explain in the terraform documentation.
+
+1. Create a 'Terraform' folder to store your configuration as explained in the terraform documentation.
 2. Create 5 files to configure your infrastructure:
   a. 'main.tf': will contain the main set of configurations for your project. Here, it will be our instance
   b. 'provider.tf': Terraform relies on plugins called “providers” to interact with remote systems
@@ -26,57 +26,62 @@ In this tutorial we will simulate a project with a production environment that w
   e. 'terraform.tfvars': allows you to set the actual value of the variables
 3. Create the following folder:
   a. 'function': to store your function code
-  b. 'files': to temporary store your zip function code
+  b. 'files': to temporarily store your zip function code
 
-Your folder should now look like:
+   Your folder should now look like this:
+
 ```bash
 Terraform
- | -- files
- | -- function
- -- main.tf
- -- backend.tf
- -- provider.tf
- -- terraform.tfvars
- -- variables.tf
+| -- files
+| -- function
+-- main.tf
+-- backend.tf
+-- provider.tf
+-- terraform.tfvars
+-- variables.tf
 ```
 
 4. Edit the 'backend.tf' file to enable distant configuration backup
-```json
-    terraform {
-    backend "s3" {
-        bucket                      = "XXXXXXXXX"
-        key                         = "terraform.tfstate"
-        region                      = "fr-par"
-        endpoint                    = "https://s3.fr-par.scw.cloud"
-        skip_credentials_validation = true
-        skip_region_validation      = true
-    }
-    }
 
+```hcl
+terraform {
+  backend "s3" {
+    bucket                      = "XXXXXXXXX"
+    key                         = "terraform.tfstate"
+    region                      = "fr-par"
+    endpoint                    = "https://s3.fr-par.scw.cloud"
+    skip_credentials_validation = true
+    skip_region_validation      = true
+  }
+}
 
-    /*
-    For the credentials part:
-    ==> Create a ~/.aws/credentials:
-    [default]
-    aws_access_key_id=<SCW_ACCESS_KEY>
-    aws_secret_access_key=<SCW_SECRET_KEY>
-    region=fr-par
-    */
+/*
+For the credentials part:
+==> Create a ~/.aws/credentials:
+[default]
+aws_access_key_id=<SCW_ACCESS_KEY>
+aws_secret_access_key=<SCW_SECRET_KEY>
+region=fr-par
+*/
 ```
+
 5. Edit the 'provider.tf' file and add Scaleway as a provider
-```json
+
+```hcl
 terraform {
   required_providers {
     scaleway = {
       source  = "scaleway/scaleway"
-      version = "2.2.7"
+      version = "2.9.1"
     }
   }
   required_version = ">= 0.13"
 }
 ```
+
 6. Specify the following variable in the 'variables.tf' file
-```json
+
+```hcl
 variable "zone" {
   type = string
 }
@@ -99,8 +104,10 @@ variable "auth_token" {
     description = "Scaleway authtentication token used in the function"
 }
 ```
-6. Add the variables value to 'terraform.tfvars' 
-```bash
+
+7. Add the variables value to 'terraform.tfvars' 
+
+```ini
 zone                           = "fr-par-1"
 region                         = "fr-par"
 env                            = "dev"
@@ -108,51 +115,53 @@ project_id                     = "Your project ID"
 auth_token                     = "Your Scaleway Auth Token"
 ```
 
-
 ## Writing the code
 
-For this example we will use the native python library `urllib`, which will enable to keep the package slim.
-All information about the Instance API can be found in the [developers documentation](https://developers.scaleway.com/en/products/instance/api/#get-2c1c6f)
-
+For this example, we will use the native python library `urllib`, which will enable us to keep the package slim.
+All information about the Instance API can be found in the [developers documentation](https://developers.scaleway.com/en/products/instance/api/#get-2c1c6f).
 
 1. In the 'function folder", create a `handler.py` file as follows:
-    ```py
-    import os
-    from urllib import request,parse,error
-    import json
 
-    auth_token=os.environ['X-AUTH-TOKEN']
+```py
+import os
+from urllib import request,parse,error
+import json
 
-    def handle(event, context):
-        ## get information from cron
-        event_body=eval(event["body"])
-        zone=event_body["zone"]
-        server_id=event_body["server_id"]
-        action=event_body["action"] #action should be "poweron" or "poweroff"
+auth_token=os.environ['X-AUTH-TOKEN']
+
+def handle(event, context):
+    ## get information from cron
+    event_body=eval(event["body"])
+    zone=event_body["zone"]
+    server_id=event_body["server_id"]
+    action=event_body["action"] #action should be "poweron" or "poweroff"
+    
+    #create request
+    url=f"https://api.scaleway.com/instance/v1/zones/{zone}/servers/{server_id}/action"
+    data=json.dumps({"action":action}).encode('ascii')
+    req = request.Request(url, data=data,  method="POST")
+    req.add_header('Content-Type', 'application/json')
+    req.add_header('X-Auth-Token',auth_token)
+    
+    #Sending request to Instance API
+    try: 
+        res=request.urlopen(req).read().decode()
+    except error.HTTPError as e:
+        res=e.read().decode()
         
-        #create request
-        url=f"https://api.scaleway.com/instance/v1/zones/{zone}/servers/{server_id}/action"
-        data=json.dumps({"action":action}).encode('ascii')
-        req = request.Request(url, data=data,  method="POST")
-        req.add_header('Content-Type', 'application/json')
-        req.add_header('X-Auth-Token',auth_token)
-        
-        #Sending request to Instance API
-        try: 
-            res=request.urlopen(req).read().decode()
-        except error.HTTPError as e:
-            res=e.read().decode()
-            
-        return {
-            "body": json.loads(res),
-            "statusCode": 200,
-        }
-    ```
+    return {
+        "body": json.loads(res),
+        "statusCode": 200,
+    }
+```
 
 ## Configure your infrastructure
+
 Edit 'main.tf' to add:
-- A production instance using a GP1-S named "Prod"
-```json
+
+* A production instance using a GP1-S named "Prod"
+  
+```hcl
 ## Configuring Producion environment 
 resource "scaleway_instance_ip" "public_ip-prod" {
     project_id = var.project_id
@@ -174,8 +183,10 @@ resource "scaleway_instance_server" "scw-instance-prod" {
   }
 }
 ```
-- A development instance using a DEV1-L named "Dev"
-```json
+
+* A development instance using a DEV1-L named "Dev"
+  
+```hcl
 ## Configuring Development environment that will be automatically turn off on week-ends and turn on monday mornings
 resource "scaleway_instance_ip" "public_ip-dev" {
     project_id = var.project_id
@@ -197,8 +208,10 @@ resource "scaleway_instance_server" "scw-instance-dev" {
   }
 }
 ```
-- A function that will run code you've just written
-```json
+
+* A function that will run code you've just written
+  
+```hcl
 # Creating function code archive that will then be updated
 data "archive_file" "source_zip" {
   type             = "zip"
@@ -229,8 +242,10 @@ resource "scaleway_function" "main" {
   }
 }
 ```
-- A cronjob attached to the function to turn your function off every Friday evening
-```json
+
+* A cronjob attached to the function to turn your function off every Friday evening
+
+```hcl
 # Adding a first cron to turn off the instance every friday evening (11:30 pm)
 resource "scaleway_function_cron" "turn-off" {
     function_id = scaleway_function.main.id
@@ -243,8 +258,10 @@ resource "scaleway_function_cron" "turn-off" {
     )
 }
 ```
-- A cronjob attached to the function to turn your function on every Monday mornings
-```json
+
+* A cronjob attached to the function to turn your function on every Monday mornings
+
+```hcl
 # Adding a second cron to turn on the instance every monday morning (7:00 am)
 resource "scaleway_function_cron" "turn-on" {
     function_id = scaleway_function.main.id
@@ -259,22 +276,30 @@ resource "scaleway_function_cron" "turn-on" {
 ```
 
 ## Deploy your infrastructure
-Now that every thing is set up, deploy everything using Terraform
+
+Now that everything is set up, deploy everything using Terraform
+
 1. Add your Scaleway credentials to your environment variables
+
 ```bash
-$ export SCW_ACCESS_KEY="my-access-key"
-$ export SCW_SECRET_KEY="my-secret-key"
+export SCW_ACCESS_KEY="my-access-key"
+export SCW_SECRET_KEY="my-secret-key"
 ```
-2. Initialize Terraform 
+
+2. Initialize Terraform
+
 ```bash
 terraform init 
-````
-3. Let terraform verify your configuration 
+```
+
+3. Let terraform verify your configuration
+
 ```bash
 terraform plan
 ```
+
 4. Deploy your infrastructure
+  
 ```bash
 terraform apply
 ````
-
