@@ -35,7 +35,7 @@ Then, from the given URL, you can run open your browser and navigate to it.
 You should see the default
 example: ![Scaleway: approved](https://repositorybadgephpohmogwjd-repository-badge.functions.fnc.fr-par.scw.cloud/)
 
-You can tweak the following qury parameter to make this badge your own:
+You can tweak the following query parameters to make this badge your own:
 
 | key    | description                                                                                                                   |
 |--------|-------------------------------------------------------------------------------------------------------------------------------|
