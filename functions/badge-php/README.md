@@ -2,7 +2,7 @@
 
 This example demonstrate how PHP functions works using a dependency from composer.  
 With this example, you can generate a simple badge width the text, status and color of your choice, just like this
-one: ![PHP Example: OK](https://repositorybadgephpohmogwjd-repository-badge.functions.fnc.fr-par.scw.cloud/?text=PHP%20Example&status=OK&color=purple)
+one: ![PHP Example: OK](https://serverlessexamplesmpjacsh6-badge.functions.fnc.fr-par.scw.cloud/?text=PHP%20Example&status=OK&color=purple)
 
 ## Requirements
 
@@ -33,7 +33,7 @@ serverless deploy
 
 Then, from the given URL, you can run open your browser and navigate to it.
 You should see the default
-example: ![Scaleway: approved](https://repositorybadgephpohmogwjd-repository-badge.functions.fnc.fr-par.scw.cloud/)
+example: ![Scaleway: approved](https://serverlessexamplesmpjacsh6-badge.functions.fnc.fr-par.scw.cloud/)
 
 You can tweak the following query parameters to make this badge your own:
 
