@@ -1,0 +1,27 @@
+{% set margin = 50 %}
+
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="{{ (text.width + status.width + (margin * 4)) / 10 }}" height="20">
+    <linearGradient id="b" x2="0" y2="100%">
+        <stop offset="0" stop-color="#bbb" stop-opacity=".1"/>
+        <stop offset="1" stop-opacity=".1"/>
+    </linearGradient>
+    <clipPath id="a">
+        <rect width="{{ (text.width + status.width + (margin * 4)) / 10 }}" height="20" rx="3" fill="#fff"/>
+    </clipPath>
+    <g clip-path="url(#a)">
+        <path fill="#555" d="M0 0h{{ (text.width + (margin * 2)) / 10 }}v20H0z"/>
+        <path fill="{{ color }}"
+              d="M{{ (text.width + (margin * 2)) / 10 }} 0h{{ (status.width + (margin * 3)) / 10 }}v20H{{ (text.width + (margin * 2)) / 10 }}z"/>
+        <path fill="url(#b)" d="M0 0h{{ (text.width + status.width + (margin * 5)) / 10 }}v20H0z"/>
+    </g>
+    <g fill="#fff" text-anchor="start" font-family="Monospace" font-size="110">
+        <text x="{{ margin }}" y="150" fill="#010101" fill-opacity=".3" transform="scale(.1)"
+              textLength="{{ text.width }}">{{ text.text }}</text>
+        <text x="{{ margin }}" y="140" transform="scale(.1)" textLength="{{ text.width }}">{{ text.text }}</text>
+        <text x="{{ text.width + (margin * 3) }}" y="150" fill="#010101" fill-opacity=".3" transform="scale(.1)"
+              textLength="{{ status.width }}">{{ status.text }}</text>
+        <text x="{{ text.width + (margin * 3) }}" y="140" transform="scale(.1)"
+              textLength="{{ status.width }}">{{ status.text }}</text>
+    </g>
+</svg>
