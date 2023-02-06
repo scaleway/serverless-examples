@@ -17,7 +17,7 @@ package:
 
 custom:
   containers:
-    first:
+    function-handler-java:
       directory: java-container
       # description: ""
       # minScale: 1
