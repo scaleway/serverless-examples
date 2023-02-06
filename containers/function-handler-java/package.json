@@ -1,5 +1,5 @@
 {
-  "name": "container-scaleway-starter",
+  "name": "function-handler-java",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
