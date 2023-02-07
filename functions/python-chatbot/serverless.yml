@@ -1,0 +1,22 @@
+service: chatbot-python-function
+
+provider:
+  name: scaleway
+  runtime: python310
+
+plugins:
+  - serverless-scaleway-functions
+
+package:
+  patterns:
+    - '!node_modules/**'
+    - '!bin/**'
+    - '!.gitignore'
+    - '!.idea'
+    - '!.git/**'
+
+functions:
+  chatbot-python:
+    handler: app/chatbot.handle
+    env:
+      database_model: english-corpus.sqlite3
