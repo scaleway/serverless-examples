@@ -9,7 +9,7 @@ Useful Links:
 - [Slack Community][slack-scaleway] [#serverless-functions][slack-functions] [#serverless-containers][slack-containers]
 
 [slack-scaleway]: https://slack.scaleway.com/
-[slack-functions]: https://scaleway-community.slack.com/app_redirect?channel=#serverless-functions
+[slack-functions]: https://scaleway-community.slack.com/app_redirect?channel=serverless-functions
 [slack-containers]: https://scaleway-community.slack.com/app_redirect?channel=serverless-containers
 
 Table of Contents:
@@ -36,7 +36,7 @@ Table of Contents:
 | **[Image Transform](functions/image-transform-node/README.md)** <br/> A function that resizes images from an S3 bucket.                            | node16    | [Serverless Framework] |
 | **[Python Dependencies](functions/python-dependencies/README.md)** <br/> Example showing how to use Python requirements with Serverless Framework. | python310 | [Serverless Framework] |
 | **[Redis TLS](functions/redis-tls/README.md)** <br/> How to connect a function to a Scaleway Redis cluster with TLS enabled.                       | python310 | [Serverless Framework] |
-| **[Rust MNIST](functions/rust-mnist/README.md)** <br/> A Rust function to recognize hand-written digits with a simple neural network.              | rust165   | [Terraform]            |
+| **[Rust MNIST](functions/rust-mnist/README.md)** <br/> A Rust function to recognize hand-written digits with a simple neural network.              | rust165   | [Serverless Framework]            |
 | **[Terraform Python](functions/terraform-python-example/README.md)** <br/> A Python function deployed with Terraform.                              | python310 | [Terraform]            |
 
 ### 📦 Containers
@@ -60,6 +60,7 @@ Want to share an example with the community? 🚀
 
 We'd love to accept your contributions. Here are the steps to provide an example:
   
+- [Fork the repository](https://github.com/scaleway/serverless-examples/fork)
 - Write your example.
 - Add a README.md. Please use [the provided template](docs/templates/readme-example-template.md).
 - Open a new [Pull Request](https://github.com/scaleway/serverless-examples/compare).
