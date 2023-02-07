@@ -8,7 +8,7 @@ The example is strongly inspired by this [Flask project written in Python](https
 
 - Install and configure [Serverless Framework](https://www.serverless.com/)
 - Install the [Scaleway plugin](https://github.com/scaleway/serverless-scaleway-functions)
-- Install [Your Favorite Java IDE](https://www.jetbrains.com/idea/) with Maven support
+- For local testing install Java and Maven
 
 ### Build and Deploy
 
