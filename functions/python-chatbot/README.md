@@ -10,7 +10,7 @@ This example uses the Scaleway Serverless Framework Plugin. Please set up your e
 
 ## Example explanation
 
-**Context:** This example shows how to handle GET and POST methods. For this example, [Chatterbot](https://github.com/gunthercox/ChatterBot/tree/1.0.4) (a machine learning, conversational dialog engine) was used. The model has already been trained and the results are saved in a sqlite database.
+**Context:** This example shows how to handle GET and POST methods. For this example, [Chatterbot](https://github.com/gunthercox/ChatterBot/tree/1.0.4) (a machine learning, conversational dialog engine) was used. The model used here has already been trained to communicate in english to speed up the installation. The results of the training are stored in a sqlite database (in `app/english-corpus.sqlite3`). If you wish to train your own model, you can follow the instructions given in [Chatterbot documentation](https://chatterbot.readthedocs.io/en/stable/training.html).
 
 **Explanation:** When the function is triggered by a GET method, it renders an HTML file. When the function is triggered by a POST method with the parameter "message", a response is given by the trained chatbot. In all other cases (method not handled or parameter missing), an error is thrown.
 
@@ -32,7 +32,7 @@ Then, you can test your function by sending the following request:
 
 ```console
 # POST request
-curl -i -X POST <function URL> -d '{"question":"Hello"}'
+curl -i -X POST <function URL> -d '{"message":"Hello"}'
 ```  
 
 This will tell the chatbot "Hello". The expected answer should be something similar to "Hello" or "Hi".
