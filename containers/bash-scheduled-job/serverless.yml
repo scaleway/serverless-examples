@@ -15,7 +15,7 @@ package:
 
 custom:
   containers:
-    first:
+    scheduled-bash-job:
       directory: app
       events:
         - schedule:
