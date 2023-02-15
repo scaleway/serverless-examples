@@ -44,6 +44,7 @@ Table of Contents:
 | Example                                                                                                                              | Language     | Deployment  |
 |--------------------------------------------------------------------------------------------------------------------------------------|--------------|-------------|
 | **[Nginx CORS Private](containers/nginx-cors-private/README.md)** <br/> A Nginx proxy to allow CORS requests to a private container. | Python Flask | [Terraform] |
+| **[Container bash script](containers/bash-scheduled-job/README.md)** <br/> A Bash script runnning on a schedule using serverless containers | Bash | [Serverless Framework] |
 
 ### 💜 Projects
 
