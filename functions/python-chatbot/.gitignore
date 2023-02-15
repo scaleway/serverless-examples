@@ -1,0 +1,9 @@
+node_modules
+
+.serverless
+
+__pycache__/
+package/
+*.py[cod]
+*$py.class
+*.so

@@ -1,0 +1,11 @@
+{
+    "name": "chatbot-python-function",
+    "version": "1.0.0",
+    "keywords": [],
+    "author": "",
+    "dependencies": {},
+    "devDependencies": {
+        "serverless-scaleway-functions": "^0.4.5"
+    },
+    "description": ""
+}
