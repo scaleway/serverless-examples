@@ -1,12 +1,7 @@
 import * as tf from '@tensorflow/tfjs';
 import * as mobilenet from '@tensorflow-models/mobilenet';
 import * as imagedata from '@andreekeberg/imagedata';
-import * as path from 'path';
-import { fileURLToPath } from 'url';
 import S3 from "aws-sdk/clients/s3.js";
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
 const s3EndpointUrl = process.env.S3_ENDPOINT_URL;
 const userAccessKey = process.env.USER_ACCESS_KEY;
@@ -59,14 +54,12 @@ async function getImageFromS3(sourceBucket, sourceKey, s3EndpointUrl, userAccess
         Bucket: sourceBucket,
         Key: sourceKey,
     };
-    var imageObject = await s3.getObject(params).promise();
+    const imageObject = await s3.getObject(params).promise();
+    const image = imagedata.getSync(imageObject["Body"])
+    return image
   } catch (error) {
     console.log(error);
   }
-
-  const image = imagedata.getSync(imageObject["Body"])
-
-  return image
 }
 
 function imageToTensor(image){
