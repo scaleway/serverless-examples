@@ -1,0 +1,22 @@
+{
+    "name": "node-scaleway-starter",
+    "version": "1.0.0",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "@andreekeberg/imagedata": "^1.0.2",
+        "@tensorflow-models/mobilenet": "^2.1.0",
+        "@tensorflow/tfjs": "^3.7.0",
+        "aws-sdk": "^2.1314.0"
+    },
+    "devDependencies": {
+        "serverless-scaleway-functions": "^0.4.5"
+    },
+    "description": "",
+    "type": "module"
+}

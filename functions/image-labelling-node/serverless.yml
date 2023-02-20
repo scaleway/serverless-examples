@@ -1,0 +1,23 @@
+service: scaleway-node18
+configValidationMode: off
+singleSource: false
+provider:
+  name: scaleway
+  runtime: node18
+
+  secret:
+    USER_ACCESS_KEY: #<bucket scw access key>
+    USER_SECRET_KEY: #<bucket scw access key id>
+    S3_ENDPOINT_URL: http://s3.fr-par.scw.cloud
+
+plugins:
+  - serverless-scaleway-functions
+
+package:
+  patterns:
+    - '!.gitignore'
+    - '!.git/**'
+
+functions:
+  image-labelling:
+    handler: handler.handle
