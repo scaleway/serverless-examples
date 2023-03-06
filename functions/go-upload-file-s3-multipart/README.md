@@ -9,7 +9,7 @@ Additionnaly it uses the [serverless-functions-go](https://github.com/scaleway/s
 
 ## Requirements
 
-If you want to enable S3 upload, ensure to have the following variables available in the environment:
+If you want to enable S3 upload, ensure to create a bucket and have the following secrets variables available in your environment:
 
 ```
 S3_ENABLED=true
@@ -20,7 +20,7 @@ S3_BUCKET_NAME=
 S3_REGION= # ex: fr-par
 ```
 
-If s3 not enabled the file will be saved on the ephemeral storage of your function and will be lost.
+If s3 not enabled the file will be saved on the ephemeral storage of your function.
 
 ```sh
 go get
@@ -29,7 +29,7 @@ go get
 go run cmd/main.go
 ```
 
-To call the function (replace `go.sum` with the file you want to upload) : 
+To call the function (replace `go.sum` with the file you want to upload):
 
 ```sh
 curl -X POST -H "Content-Type: multipart/form-data"  -F "data=@go.sum" http://localhost:8080
