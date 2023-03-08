@@ -15,6 +15,11 @@ import (
 )
 
 func Handle(w http.ResponseWriter, r *http.Request) {
+	if r.Header.Get("Content-Type") != "multipart/from-data" {
+		http.Error(w, "this func only support multipart/from-data type", http.StatusBadRequest)
+
+		return
+	}
 	// Entire files are sent as "multipart/form-data" so we need first to parse
 	// the request before accessing file content.
 	if err := r.ParseMultipartForm(32<<20 + 1024); err != nil {
@@ -57,7 +62,7 @@ func Handle(w http.ResponseWriter, r *http.Request) {
 	if strings.ToLower(os.Getenv("S3_ENABLED")) == "true" {
 		log.Println("S3 upload enabled")
 
-		if err := connectToS3AndPushFile(tempFile); err != nil {
+		if err := connectToS3AndPushFile(r.Context(), tempFile); err != nil {
 			panic(err)
 		}
 	} else {
@@ -67,7 +72,7 @@ func Handle(w http.ResponseWriter, r *http.Request) {
 
 // connectToS3AndPushFile will push file in parameter to the S3 bucket. Env variables (secrets)
 // must be initialized to be able to upload files.
-func connectToS3AndPushFile(filePath string) error {
+func connectToS3AndPushFile(ctx context.Context, filePath string) error {
 	// Read required s3 variables
 	var (
 		endpoint        = os.Getenv("S3_ENDPOINT")
@@ -85,8 +90,6 @@ func connectToS3AndPushFile(filePath string) error {
 	if err != nil {
 		return fmt.Errorf("error opening s3 connexion : %w", err)
 	}
-
-	ctx := context.Background()
 
 	if err := minioClient.MakeBucket(ctx, bucketName, minio.MakeBucketOptions{Region: region}); err != nil {
 		exists, errBucketExists := minioClient.BucketExists(ctx, bucketName)
