@@ -37,6 +37,7 @@ Table of Contents:
 | **[Go MultiPart Upload to S3](functions/go-mnq-sqs-publish/README.md)** <br/> A function to upload file from form-data to S3.                      | go119     | [Serverless Framework] |
 | **[CORS Rust](functions/cors-rust/README.md)** <br/> A Rust function which allows CORS requests.                                                   | rust165   | [Serverless Framework] |
 | **[Image Transform](functions/image-transform-node/README.md)** <br/> A function that resizes images from an S3 bucket.                            | node16    | [Serverless Framework] |
+| **[Python ChatBot](functions/python-dependencies/README.md)** <br/> A chatbot example with ChatterBot.                                             | python310 | [Serverless Framework] |
 | **[Python Dependencies](functions/python-dependencies/README.md)** <br/> Example showing how to use Python requirements with Serverless Framework. | python310 | [Serverless Framework] |
 | **[Redis TLS](functions/redis-tls/README.md)** <br/> How to connect a function to a Scaleway Redis cluster with TLS enabled.                       | python310 | [Serverless Framework] |
 | **[Rust MNIST](functions/rust-mnist/README.md)** <br/> A Rust function to recognize hand-written digits with a simple neural network.              | rust165   | [Serverless Framework] |
@@ -46,8 +47,9 @@ Table of Contents:
 
 | Example                                                                                                                                      | Language     | Deployment             |
 |----------------------------------------------------------------------------------------------------------------------------------------------|--------------|------------------------|
+| **[Container Bash Script](containers/bash-scheduled-job/README.md)** <br/> A Bash script runnning on a schedule using serverless containers. | Bash         | [Serverless Framework] |
+| **[Function Handler Java](containers/bash-scheduled-job/README.md)** <br/> A Java function handler deployed on CaaS.                         | Java         | [Serverless Framework] |
 | **[Nginx CORS Private](containers/nginx-cors-private/README.md)** <br/> A Nginx proxy to allow CORS requests to a private container.         | Python Flask | [Terraform]            |
-| **[Container bash script](containers/bash-scheduled-job/README.md)** <br/> A Bash script runnning on a schedule using serverless containers. | Bash         | [Serverless Framework] |
 
 ### 💜 Projects
 
