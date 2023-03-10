@@ -1,4 +1,4 @@
-# Image labelling example with TensorFlow.js
+# Image labeling example with TensorFlow.js
 
 ## Requirements
 

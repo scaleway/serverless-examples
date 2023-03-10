@@ -1,4 +1,4 @@
-# Repository Badge PHP example
+# Repository Badge PHP Example
 
 This example demonstrates how PHP functions work using a dependency from composer.
 With this example, you can generate a simple badge with the text, status and color of your choice, just like this

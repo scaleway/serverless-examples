@@ -5,11 +5,11 @@ When calling a function from a frontend application in a browser, you may receiv
 
 ## Requirements
 
-This example assumes you are familiar with how serverless functions work. If needed, you can check [Scaleway official documentation](https://www.scaleway.com/en/docs/serverless/functions/quickstart/)
+This example assumes you are familiar with how serverless functions work. If needed, you can check [Scaleway's official documentation](https://www.scaleway.com/en/docs/serverless/functions/quickstart/)
 
 This example uses the Scaleway Serverless Framework Plugin. Please set up your environment with the requirements stated in the [Scaleway Serverless Framework Plugin](https://github.com/scaleway/serverless-scaleway-functions) before trying out the example.
 
-## Describe the goal of this example
+## Context
 
 **State the context of the example**
 *This example shows how to handle preflight CORS requests that will be sent by a browser when invoking a function. The example uses totally permissive, open CORS, you will may want to modify this to make it more secure.*

@@ -12,7 +12,7 @@ This example uses the Scaleway Serverless Framework Plugin. Please set up your e
 
 **Context:** This example shows how to handle preflight CORS requests that will be sent by a browser when invoking a function. It uses totally permissive, open CORS. You may want to modify this to make it more secure.
 
-**Explanation** The function of the example is allowing most CORS requests. For more documentation on how to control access for CORS requests, see [HTTP response headers](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS#the_http_response_headers)
+**Explanation** The function of the example is to allow most CORS requests. For more documentation on how to control access for CORS requests, see [HTTP response headers](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS#the_http_response_headers)
 
 ## Setup
 
