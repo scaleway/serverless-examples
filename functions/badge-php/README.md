@@ -1,6 +1,6 @@
 # Repository Badge Php example
 
-This example demonstrate how PHP functions works using a dependency from composer.  
+This example demonstrate how PHP functions works using a dependency from composer.
 With this example, you can generate a simple badge width the text, status and color of your choice, just like this
 one: ![PHP Example: OK](https://serverlessexamplesmpjacsh6-badge.functions.fnc.fr-par.scw.cloud/?text=PHP%20Example&status=OK&color=purple)
 

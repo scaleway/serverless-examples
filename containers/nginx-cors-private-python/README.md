@@ -74,4 +74,3 @@ Then open `index.html` in your browser, e.g.
 ```
 firefox index.html
 ```
-

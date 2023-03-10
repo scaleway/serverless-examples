@@ -65,7 +65,7 @@ Table of Contents:
 Want to share an example with the community? 🚀
 
 We'd love to accept your contributions. Here are the steps to provide an example:
-  
+
 - [Fork the repository](https://github.com/scaleway/serverless-examples/fork)
 - Write your example.
 - Add a README.md. Please use [the provided template](docs/templates/readme-example-template.md).

@@ -39,7 +39,7 @@ curl -i -X GET <function URL>
 The output should be similar to:
 
 ```console
-HTTP/2 200 
+HTTP/2 200
 access-control-allow-headers: *
 access-control-allow-methods: *
 access-control-allow-origin: *
@@ -49,7 +49,7 @@ date: Tue, 17 Jan 2023 14:02:46 GMT
 server: envoy
 x-envoy-upstream-service-time: 222
 
-This is checking CORS%  
+This is checking CORS%
 ```
 
 You can also check the output of your function in a browser. It should be: "This is checking CORS".

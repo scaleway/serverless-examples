@@ -2,7 +2,7 @@
 
 ## Requirements
 
-This example assumes that you are familiar with: 
+This example assumes that you are familiar with:
  * how serverless functions work. If needed, you can check [Scaleway official documentation](https://www.scaleway.com/en/docs/serverless/functions/quickstart/).
  * how S3 object storage works, and especially how to create a bucket and upload files within a bucket. Please refer to scaleway's documentation [here](https://www.scaleway.com/en/docs/storage/object/quickstart/).
  * how to create and get user API access and secret keys using IAM. Please refer to IAM documentation [here](https://www.scaleway.com/en/docs/identity-and-access-management/iam/concepts/).
@@ -17,15 +17,15 @@ This example shows how to label an RGB image in an S3 bucket using serverless fu
 
 ## Description
 
-The function gets an RGB image (jpg, jpeg, or png formats) from an S3 bucket, transforms it into a TensorFlow-compatible object (namely, a tensor), and then applys a pretrained `mobilenet` model to return the labels and their respective logits in a json format. 
+The function gets an RGB image (jpg, jpeg, or png formats) from an S3 bucket, transforms it into a TensorFlow-compatible object (namely, a tensor), and then applys a pretrained `mobilenet` model to return the labels and their respective logits in a json format.
 
 This function uses Node 18 runtime. Used package are specified in `package.json`.
 
 ## Setup
 
-### Upload an image on an S3 bucket 
+### Upload an image on an S3 bucket
 
-Create an S3 bucket and upload an RGB image (jpg, jpeg or png format) within this bucket. Keep the name of your bucket and the name of your file (namely, the source key). 
+Create an S3 bucket and upload an RGB image (jpg, jpeg or png format) within this bucket. Keep the name of your bucket and the name of your file (namely, the source key).
 
 ### Fill environment variables
 

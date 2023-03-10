@@ -33,7 +33,7 @@ Then, you can test your function by sending the following request:
 ```console
 # POST request
 curl -i -X POST <function URL> -d '{"message":"Hello"}'
-```  
+```
 
 This will tell the chatbot "Hello". The expected answer should be something similar to "Hello" or "Hi".
 

@@ -42,4 +42,3 @@ tf-plan:
 .PHONY: tf-apply
 tf-apply:
 	cd terraform && terraform apply -auto-approve -var-file=vars/main.tfvars
-

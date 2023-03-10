@@ -17,4 +17,3 @@ def order(event, context):
         "body": template.render(),
         "statusCode": 200,
     }
-
