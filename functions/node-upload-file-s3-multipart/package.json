@@ -1,5 +1,5 @@
 {
-  "name": "cors-node",
+  "name": "s3-form-data",
   "version": "1.0.0",
   "main": "handler.js",
   "type": "module",
