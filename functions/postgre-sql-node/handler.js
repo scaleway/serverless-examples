@@ -18,7 +18,7 @@ exports.handle = async (event, context, callback) => {
   try {
       const { rows } = await query("SELECT *")
       console.log(JSON.stringify(rows[0]))
-      var response = {
+      const response = {
           "statusCode": 200,
           "headers": {
               "Content-Type" : "application/json"
