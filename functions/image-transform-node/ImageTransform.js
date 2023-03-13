@@ -8,6 +8,7 @@ const S3_ENDPOINT_URL = process.env.S3_ENDPOINT_URL;
 const ID = process.env.ACCESS_KEY_ID;
 const SECRET = process.env.ACCESS_KEY;
 const dstBucket = process.env.DESTINATION_BUCKET;
+
 let width = parseInt(process.env.RESIZED_WIDTH, 10);
 if (width < 1 || width > 1000) {
   width = 200;
@@ -26,6 +27,7 @@ const s3 = new AWS.S3({
 exports.handle = async (event, context, callback) => {
   // Read options from the event parameter.
   console.log("Reading options from event");
+
   // Object key may have spaces or unicode non-ASCII characters.
   const srcKey = event.queryStringParameters.key;
   console.log(srcKey);
@@ -36,12 +38,14 @@ exports.handle = async (event, context, callback) => {
     console.log("Could not determine the image type.");
     return;
   }
+
   // Check that the image type is supported
   const imageType = typeMatch[1].toLowerCase();
   if (["jpeg", "jpg", "png"].includes(imageType) !== true) {
     console.log(`Unsupported image type: ${imageType}`);
     return;
   }
+
   // Download the image from the S3 source bucket.
   try {
     const params = {
@@ -53,6 +57,7 @@ exports.handle = async (event, context, callback) => {
     console.log(error);
     return;
   }
+
   // Use the sharp module to resize the image and save in a buffer.
   try {
     var buffer = await sharp(origimage.Body)
@@ -62,6 +67,7 @@ exports.handle = async (event, context, callback) => {
     console.log(error);
     return;
   }
+
   // Upload the image to the destination bucket
   try {
     const destparams = {
@@ -70,20 +76,20 @@ exports.handle = async (event, context, callback) => {
       Body: buffer,
       ContentType: "image",
     };
-    const putResult = await s3.putObject(destparams).promise();
+    await s3.putObject(destparams).promise();
   } catch (error) {
     console.log(error);
     return;
   }
   console.log(
     "Successfully resized " +
-      srcBucket +
-      "/" +
-      srcKey +
-      " and uploaded to " +
-      dstBucket +
-      "/" +
-      dstKey
+    srcBucket +
+    "/" +
+    srcKey +
+    " and uploaded to " +
+    dstBucket +
+    "/" +
+    dstKey
   );
   return {
     statusCode: 201,

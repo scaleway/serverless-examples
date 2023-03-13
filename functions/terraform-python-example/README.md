@@ -129,20 +129,20 @@ def handle(event, context):
     zone=event_body["zone"]
     server_id=event_body["server_id"]
     action=event_body["action"] #action should be "poweron" or "poweroff"
-    
+
     #create request
     url=f"https://api.scaleway.com/instance/v1/zones/{zone}/servers/{server_id}/action"
     data=json.dumps({"action":action}).encode('ascii')
     req = request.Request(url, data=data,  method="POST")
     req.add_header('Content-Type', 'application/json')
     req.add_header('X-Auth-Token',auth_token)
-    
+
     #Sending request to Instance API
-    try: 
+    try:
         res=request.urlopen(req).read().decode()
     except error.HTTPError as e:
         res=e.read().decode()
-        
+
     return {
         "body": json.loads(res),
         "statusCode": 200,
@@ -154,9 +154,9 @@ def handle(event, context):
 Edit 'main.tf' to add:
 
 * A production instance using a GP1-S named "Prod"
-  
+
 ```hcl
-## Configuring Producion environment 
+## Configuring Producion environment
 resource "scaleway_instance_ip" "public_ip-prod" {
     project_id = var.project_id
 }
@@ -179,7 +179,7 @@ resource "scaleway_instance_server" "scw-instance-prod" {
 ```
 
 * A development instance using a DEV1-L named "Dev"
-  
+
 ```hcl
 ## Configuring Development environment that will be automatically turn off on week-ends and turn on monday mornings
 resource "scaleway_instance_ip" "public_ip-dev" {
@@ -230,7 +230,7 @@ resource "scaleway_iam_api_key" "instance_toggler_key" {
 ```
 
 * A function that will run code you've just written
-  
+
 ```hcl
 # Creating function code archive that will then be updated
 data "archive_file" "source_zip" {
@@ -309,7 +309,7 @@ export SCW_SECRET_KEY="my-secret-key"
 2. Initialize Terraform
 
 ```bash
-terraform init 
+terraform init
 ```
 
 3. Let terraform verify your configuration
@@ -319,7 +319,7 @@ terraform plan
 ```
 
 4. Deploy your infrastructure
-  
+
 ```bash
 terraform apply
 ````

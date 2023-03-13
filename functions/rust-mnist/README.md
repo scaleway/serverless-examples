@@ -60,6 +60,6 @@ If you want to play around with the model, you can try the interface!
 Replace `<my-function-url>` with your serverless function endpoint or `localhost:3000` when using the local test server.
 
 ```console
-export VITE_SLS_FUNCTION_URL=<my-function-url> 
+export VITE_SLS_FUNCTION_URL=<my-function-url>
 pnpm run dev
 ```

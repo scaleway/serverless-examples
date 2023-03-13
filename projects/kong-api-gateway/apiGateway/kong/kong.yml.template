@@ -21,10 +21,10 @@ services:
 - name: commands
   url: https://${COMMANDS_URL}
 - name: orders
-  url: https://${ORDERS_URL} 
+  url: https://${ORDERS_URL}
 plugins:
 - name: request-transformer
-  config: 
+  config:
     add:
       headers:
       - X-Auth-Token:${TOKEN}

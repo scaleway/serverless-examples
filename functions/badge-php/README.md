@@ -1,7 +1,7 @@
-# Repository Badge Php example
+# Repository Badge PHP Example
 
-This example demonstrate how PHP functions works using a dependency from composer.  
-With this example, you can generate a simple badge width the text, status and color of your choice, just like this
+This example demonstrates how PHP functions work using a dependency from composer.
+With this example, you can generate a simple badge with the text, status and color of your choice, just like this
 one: ![PHP Example: OK](https://serverlessexamplesmpjacsh6-badge.functions.fnc.fr-par.scw.cloud/?text=PHP%20Example&status=OK&color=purple)
 
 ## Requirements
@@ -15,9 +15,8 @@ out the example.
 
 ## In this example
 
-This example shows to create a basic php function with dependencies provided in a composer.json file.
-
-The function generate a svg image using Twig based on user input.
+This example shows to create a basic PHP function with dependencies provided in a composer.json file.
+The function generates an SVG image using Twig based on user input.
 
 ## Setup
 

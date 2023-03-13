@@ -8,8 +8,8 @@ resource "scaleway_redis_cluster" "weather_store" {
   cluster_size = 1
   tls_enabled  = "true"
 
-  // Due to the nature of serverless functions, 
-  // the IPs we use are unpredictable. 
+  // Due to the nature of serverless functions,
+  // the IPs we use are unpredictable.
   // Here we will restrict to IPs from Scaleway's AS (http://as12876.net/)
   dynamic "acl" {
     for_each = [

@@ -18,7 +18,7 @@ package:
 custom:
   containers:
     glacier:
-      directory: my-container 
+      directory: my-container
       minScale: 0
       memoryLimit: 512
       maxScale: 1

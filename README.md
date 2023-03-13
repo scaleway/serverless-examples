@@ -33,24 +33,30 @@ Table of Contents:
 | **[CORS Node](functions/cors-node/README.md)** <br/> A Node function which allows CORS requests.                                                   | node18    | [Serverless Framework] |
 | **[CORS Python](functions/cors-python/README.md)** <br/> A Python function which allows CORS requests.                                             | python310 | [Serverless Framework] |
 | **[CORS Rust](functions/cors-rust/README.md)** <br/> A Rust function which allows CORS requests.                                                   | rust165   | [Serverless Framework] |
+| **[Go SQS Publish](functions/go-mnq-sqs-publish/README.md)** <br/> A Go function to publish messages to SQS.                                       | go118     | [Serverless Framework] |
+| **[Go MultiPart Upload to S3](functions/go-mnq-sqs-publish/README.md)** <br/> A function to upload file from form-data to S3.                      | go119     | [Serverless Framework] |
+| **[CORS Rust](functions/cors-rust/README.md)** <br/> A Rust function which allows CORS requests.                                                   | rust165   | [Serverless Framework] |
 | **[Image Transform](functions/image-transform-node/README.md)** <br/> A function that resizes images from an S3 bucket.                            | node16    | [Serverless Framework] |
+| **[Python ChatBot](functions/python-dependencies/README.md)** <br/> A chatbot example with ChatterBot.                                             | python310 | [Serverless Framework] |
 | **[Python Dependencies](functions/python-dependencies/README.md)** <br/> Example showing how to use Python requirements with Serverless Framework. | python310 | [Serverless Framework] |
 | **[Redis TLS](functions/redis-tls/README.md)** <br/> How to connect a function to a Scaleway Redis cluster with TLS enabled.                       | python310 | [Serverless Framework] |
-| **[Rust MNIST](functions/rust-mnist/README.md)** <br/> A Rust function to recognize hand-written digits with a simple neural network.              | rust165   | [Serverless Framework]            |
+| **[Rust MNIST](functions/rust-mnist/README.md)** <br/> A Rust function to recognize hand-written digits with a simple neural network.              | rust165   | [Serverless Framework] |
 | **[Terraform Python](functions/terraform-python-example/README.md)** <br/> A Python function deployed with Terraform.                              | python310 | [Terraform]            |
 
 ### 📦 Containers
 
-| Example                                                                                                                              | Language     | Deployment  |
-|--------------------------------------------------------------------------------------------------------------------------------------|--------------|-------------|
-| **[Nginx CORS Private](containers/nginx-cors-private/README.md)** <br/> A Nginx proxy to allow CORS requests to a private container. | Python Flask | [Terraform] |
-| **[Container bash script](containers/bash-scheduled-job/README.md)** <br/> A Bash script runnning on a schedule using serverless containers | Bash | [Serverless Framework] |
+| Example                                                                                                                                      | Language     | Deployment             |
+|----------------------------------------------------------------------------------------------------------------------------------------------|--------------|------------------------|
+| **[Container Bash Script](containers/bash-scheduled-job/README.md)** <br/> A Bash script runnning on a schedule using serverless containers. | Bash         | [Serverless Framework] |
+| **[Function Handler Java](containers/bash-scheduled-job/README.md)** <br/> A Java function handler deployed on CaaS.                         | Java         | [Serverless Framework] |
+| **[Nginx CORS Private](containers/nginx-cors-private/README.md)** <br/> A Nginx proxy to allow CORS requests to a private container.         | Python Flask | [Terraform]            |
 
 ### 💜 Projects
 
-| Example                                                                                                                              | Services   | Language | Deployment             |
-|--------------------------------------------------------------------------------------------------------------------------------------|------------|----------|------------------------|
-| **[Monitoring Glaciers](projects/blogpost-glacier/README.md)** <br/> A project to monitor glaciers and the impact of global warming. | S3 and RDB | Golang   | [Serverless Framework] |
+| Example                                                                                                                                   | Services    | Language | Deployment             |
+|-------------------------------------------------------------------------------------------------------------------------------------------|-------------|----------|------------------------|
+| **[Kong API Gateway](projects/kong-api-gateway/README.md)** <br/> Deploying a Kong Gateway on containers to provide routing to functions. | CaaS & FaaS | Python   | [Serverless Framework] |
+| **[Monitoring Glaciers](projects/blogpost-glacier/README.md)** <br/> A project to monitor glaciers and the impact of global warming.      | S3 & RDB    | Golang   | [Serverless Framework] |
 
 [Serverless Framework]: https://github.com/scaleway/serverless-scaleway-functions
 [Terraform]: https://registry.terraform.io/providers/scaleway/scaleway/latest/docs
@@ -60,7 +66,7 @@ Table of Contents:
 Want to share an example with the community? 🚀
 
 We'd love to accept your contributions. Here are the steps to provide an example:
-  
+
 - [Fork the repository](https://github.com/scaleway/serverless-examples/fork)
 - Write your example.
 - Add a README.md. Please use [the provided template](docs/templates/readme-example-template.md).

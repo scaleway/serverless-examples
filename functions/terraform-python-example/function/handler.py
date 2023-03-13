@@ -10,20 +10,20 @@ def handle(event, context):
     zone=event_body["zone"]
     server_id=event_body["server_id"]
     action=event_body["action"] #action should be "poweron" or "poweroff"
-    
+
     #create request
     url=f"https://api.scaleway.com/instance/v1/zones/{zone}/servers/{server_id}/action"
     data=json.dumps({"action":action}).encode('ascii')
     req = request.Request(url, data=data,  method="POST")
     req.add_header('Content-Type', 'application/json')
     req.add_header('X-Auth-Token',auth_token)
-    
+
     #Sending request to Instance API
-    try: 
+    try:
         res=request.urlopen(req).read().decode()
     except error.HTTPError as e:
         res=e.read().decode()
-        
+
     return {
         "body": json.loads(res),
         "statusCode": 200,

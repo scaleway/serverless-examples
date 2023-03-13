@@ -1,10 +1,11 @@
 from jinja2 import Environment, DictLoader, select_autoescape
 
-def order(event, context):
+def command(event, context):
     index_html = """
     <html>
       <body>
-        orders
+        commands</br>
+        <a href="/orders">Check orders</a>
       </body>
     </html>
     """
@@ -17,4 +18,3 @@ def order(event, context):
         "body": template.render(),
         "statusCode": 200,
     }
-

@@ -1,7 +1,7 @@
 'use strict';
 
 const { execSync } = require('child_process');
- 
+
 class Custom {
   constructor(serverless, options) {
     this.serverless = serverless;
@@ -42,7 +42,7 @@ class Custom {
       this.hooks[`${name}:${name}`] = this.runCommand.bind(this, name);
     }
   }
-  
+
     runCommand(name) {
     const commands = this.getConfig().commands;
     const command = commands[name];
@@ -52,6 +52,6 @@ class Custom {
   execute(command) {
     execSync(command, { env: { ...process.env, ...this.getEnv() }, stdio: [this.stdin, this.stdout, this.stderr] })
   }
-}  
+}
 
 module.exports = Custom;

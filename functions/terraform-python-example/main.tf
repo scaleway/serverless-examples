@@ -1,4 +1,4 @@
-# Configuring Producion environment 
+# Configuring Producion environment
 resource "scaleway_instance_ip" "public_ip-prod" {
   project_id = var.project_id
 }
