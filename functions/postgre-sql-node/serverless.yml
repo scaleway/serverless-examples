@@ -1,0 +1,25 @@
+service: scaleway-node18
+configValidationMode: off
+singleSource: false
+provider:
+  name: scaleway
+  runtime: node18
+
+  secret:
+    PG_HOST: "your host IP address"
+    PG_USER: "your database username"
+    PG_DATABASE: "your database name"
+    PG_PASSWORD: "your databse user password"
+    PG_PORT: "your database port"
+
+plugins:
+  - serverless-scaleway-functions
+
+package:
+  patterns:
+    - '!.gitignore'
+    - '!.git/**'
+
+functions:
+  image-labelling:
+    handler: handler.handle
