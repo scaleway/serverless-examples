@@ -16,7 +16,7 @@ const pool = new pg.Pool({
 
 exports.handle = async (event, context, callback) => {
   try {
-      const { rows } = await query("SELECT *")
+      const { rows } = await query("SELECT * FROM table LIMIT 10")
       console.log(JSON.stringify(rows[0]))
       const response = {
           "statusCode": 200,
