@@ -1,4 +1,4 @@
-# Manage a PostgreSQL database using functions
+# Interact with a PostgreSQL database using functions
 
 ## Requirements
 
