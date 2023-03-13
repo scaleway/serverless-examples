@@ -1,0 +1,23 @@
+service: s3-form-data
+configValidationMode: off
+provider:
+  name: scaleway
+  runtime: node19
+  env:
+    BUCKET_NAME: ${env:BUCKET_NAME}
+    S3_REGION: ${env:S3_REGION, "fr-par"}
+  secret:
+    ACCESS_KEY_ID: ${env:SCW_ACCESS_KEY}
+    SECRET_KEY: ${env:SCW_SECRET_KEY}
+
+plugins:
+  - serverless-scaleway-functions
+
+package:
+  patterns:
+    - "!.gitignore"
+    - "!.git/**"
+
+functions:
+  upload:
+    handler: handler.uploadFormDataS3

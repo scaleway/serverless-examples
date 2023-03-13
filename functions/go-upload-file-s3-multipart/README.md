@@ -20,7 +20,7 @@ S3_BUCKET_NAME=
 S3_REGION= # ex: fr-par
 ```
 
-If s3 not enabled the file will be saved on the ephemeral storage of your function.
+If s3 is not enabled the file will be saved on the ephemeral storage of your function.
 
 ```sh
 go get

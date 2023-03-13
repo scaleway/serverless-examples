@@ -34,12 +34,12 @@ Table of Contents:
 | **[CORS Python](functions/cors-python/README.md)** <br/> A Python function which allows CORS requests.                                             | python310 | [Serverless Framework] |
 | **[CORS Rust](functions/cors-rust/README.md)** <br/> A Rust function which allows CORS requests.                                                   | rust165   | [Serverless Framework] |
 | **[Go SQS Publish](functions/go-mnq-sqs-publish/README.md)** <br/> A Go function to publish messages to SQS.                                       | go118     | [Serverless Framework] |
-| **[Go MultiPart Upload to S3](functions/go-mnq-sqs-publish/README.md)** <br/> A function to upload file from form-data to S3.                      | go119     | [Serverless Framework] |
-| **[CORS Rust](functions/cors-rust/README.md)** <br/> A Rust function which allows CORS requests.                                                   | rust165   | [Serverless Framework] |
+| **[Go MultiPart Upload to S3](functions/go-upload-file-s3-multipart)** <br/> A function to upload file from form-data to S3.                       | go119     | [Serverless Framework] |
 | **[Image Transform](functions/image-transform-node/README.md)** <br/> A function that resizes images from an S3 bucket.                            | node16    | [Serverless Framework] |
+| **[Node MultiPart Upload to S3](functions/node-upload-file-s3-multipart/README.md)** <br/> A function to upload file from form-data to S3.         | node19    | [Serverless Framework] |
 | **[Python ChatBot](functions/python-dependencies/README.md)** <br/> A chatbot example with ChatterBot.                                             | python310 | [Serverless Framework] |
 | **[Python Dependencies](functions/python-dependencies/README.md)** <br/> Example showing how to use Python requirements with Serverless Framework. | python310 | [Serverless Framework] |
-| **[Redis TLS](functions/redis-tls/README.md)** <br/> How to connect a function to a Scaleway Redis cluster with TLS enabled.                       | python310 | [Serverless Framework] |
+| **[Redis TLS](functions/redis-tls/README.md)** <br/> How to connect a function to a Scaleway Redis cluster with TLS enabled.                       | python310 | [Terraform]            |
 | **[Rust MNIST](functions/rust-mnist/README.md)** <br/> A Rust function to recognize hand-written digits with a simple neural network.              | rust165   | [Serverless Framework] |
 | **[Terraform Python](functions/terraform-python-example/README.md)** <br/> A Python function deployed with Terraform.                              | python310 | [Terraform]            |
 
