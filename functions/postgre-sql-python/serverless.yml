@@ -1,0 +1,26 @@
+service: get-all-from-database
+
+configValidationMode: off
+
+provider:
+  name: scaleway
+  runtime: python310
+  secret:
+    PG_HOST: "your database host IP address"
+    PG_USER: "your database username"
+    PG_DATABASE: "your database name"
+    PG_PASSWORD: "your database user password"
+    PG_PORT: "your database port"
+
+plugins:
+  - serverless-scaleway-functions
+
+package:
+  patterns:
+    - '!node_modules/**'
+    - '!.gitignore'
+    - '!.git/**'
+
+functions:
+  first:
+    handler: handlers/handler.handle
