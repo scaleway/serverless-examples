@@ -29,7 +29,7 @@ exports.handle = async (event, context, callback) => {
       callback(null, response);
   } catch (err) {
       console.log('Database ' + err)
-      callback(null, 'Database ' + err);
+      callback(err);
   }
   };
 
