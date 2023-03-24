@@ -14,6 +14,10 @@ SCW_ACCESS_KEY = os.environ["SCW_ACCESS_KEY"]
 SCW_SECRET_KEY = os.environ["SCW_SECRET_KEY"]
 BUCKET_NAME = os.environ["BUCKET_NAME"]
 
+# Files will be uploaded to cold storage
+# See: https://www.scaleway.com/en/glacier-cold-storage/
+STORAGE_CLASS = "GLACIER"
+
 app = Serverless(
     "s3-utilities",
     secret={
@@ -60,7 +64,7 @@ def upload(event: "Event", _context: "Context") -> "Response":
     name = target.multipart_filename
 
     logging.info("Uploading file %s to Glacier on %s", name, bucket.name)
-    bucket.put_object(Key=name, Body=target.value, StorageClass="GLACIER")
+    bucket.put_object(Key=name, Body=target.value, StorageClass=STORAGE_CLASS)
 
     return {"statusCode": 200, "body": f"Successfully uploaded {name} to bucket!"}
 
