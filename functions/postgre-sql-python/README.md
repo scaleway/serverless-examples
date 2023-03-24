@@ -35,6 +35,7 @@ secret:
     PG_DATABASE: "your database name"
     PG_PASSWORD: "your database user password"
     PG_PORT: "your database port"
+    PG_SSL_ROOT_CERT: "path to your database ssl certificate"
 ```
 
 ### Install npm modules
