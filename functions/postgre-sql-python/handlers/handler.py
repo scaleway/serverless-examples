@@ -8,6 +8,7 @@ PG_USER=os.environ.get('PG_USER')
 PG_DATABASE=os.environ.get('PG_DATABASE')
 PG_PASSWORD=os.environ.get('PG_PASSWORD')
 PG_PORT=os.environ.get('PG_PORT')
+PG_SSL_ROOT_CERT=os.environ.get('PG_SSL_ROOT_CERT')
 
 def handle(event, context):
 
@@ -18,7 +19,9 @@ def handle(event, context):
             host=PG_HOST,
             password=PG_PASSWORD,
             port=PG_PORT,
-            sslmode="disable")
+            sslmode="require",
+            sslrootcert=PG_SSL_ROOT_CERT,
+            )
 
     except (Exception, Error) as error:
         logging.error("Error while connecting to PostgreSQL database", error)
