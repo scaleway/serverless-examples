@@ -1,0 +1,3 @@
+scw-serverless~=0.0.4
+boto3~=1.26
+streaming_form_data~=1.11.0
