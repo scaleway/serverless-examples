@@ -21,7 +21,7 @@ export BUCKET_NAME =
 
 ### Running locally
 
-This examples uses [Serverless Offline Python](https://github.com/scaleway/serverless-functions-python) and can be executed locally:
+This examples uses [Serverless Functions Python Framework](https://github.com/scaleway/serverless-functions-python) and can be executed locally:
 
 ```console
 pip install -r requirements-dev.txt
@@ -32,7 +32,7 @@ python app.py
 The upload endpoint allows you to upload files to Glacier via the `file` form-data key:
 
 ```console
-echo -e "Hello world!\n My contents will be stored in a bunker!" > myfile.dat
+echo -e 'Hello world!\n My contents will be stored in a bunker!' > myfile.dat
 curl -F file=@myfile.dat localhost:8080
 ```
 
