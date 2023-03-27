@@ -1,0 +1,5 @@
+{
+  "devDependencies": {
+    "serverless-scaleway-functions": "^0.4.6"
+  }
+}

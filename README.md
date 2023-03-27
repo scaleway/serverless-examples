@@ -40,11 +40,12 @@ Table of Contents:
 | **[PostgeSQL Node](functions/postgre-sql-node/README.md)** <br/> A Node function to connect and interact with PostgreSQL database.                 | node18    | [Serverless Framework]         |
 | **[Python ChatBot](functions/python-dependencies/README.md)** <br/> A chatbot example with ChatterBot.                                             | python310 | [Serverless Framework] |
 | **[Python Dependencies](functions/python-dependencies/README.md)** <br/> Example showing how to use Python requirements with Serverless Framework. | python310 | [Serverless Framework] |
+| **[Python MultiPart Upload to S3](functions/python-upload-file-s3-multipart/README.md)** <br/> A function to upload file from form-data to S3.     | python311 | [Python API Framework] |
 | **[Redis TLS](functions/redis-tls/README.md)** <br/> How to connect a function to a Scaleway Redis cluster with TLS enabled.                       | python310 | [Terraform]            |
 | **[Rust MNIST](functions/rust-mnist/README.md)** <br/> A Rust function to recognize hand-written digits with a simple neural network.              | rust165   | [Serverless Framework] |
+| **[PostgreSQL Python](functions/postgre-sql-python/README.md)** <br/> A Python function to perform a query on a PostgreSQL managed database.       | python310 | [Serverless Framework] |
 | **[Terraform Python](functions/terraform-python-example/README.md)** <br/> A Python function deployed with Terraform.                              | python310 | [Terraform]            |
-| **[Typescript with Node runtime](functions/typescript-with-node/README.md)** <br/> A Typescript function using Node runtime. | node18 | [Serverless Framework]            |
-
+| **[Typescript with Node runtime](functions/typescript-with-node/README.md)** <br/> A Typescript function using Node runtime.                       | node18    | [Serverless Framework]            |
 
 ### 📦 Containers
 
@@ -63,6 +64,7 @@ Table of Contents:
 
 [Serverless Framework]: https://github.com/scaleway/serverless-scaleway-functions
 [Terraform]: https://registry.terraform.io/providers/scaleway/scaleway/latest/docs
+[Python API Framework]: https://github.com/scaleway/serverless-api-project
 
 ## Contributing
 

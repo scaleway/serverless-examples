@@ -1,0 +1,3 @@
+-r requirements.txt
+
+scaleway-functions-python~=0.1.0
