@@ -46,6 +46,7 @@ Table of Contents:
 | **[PostgreSQL Python](functions/postgre-sql-python/README.md)** <br/> A Python function to perform a query on a PostgreSQL managed database.       | python310 | [Serverless Framework] |
 | **[Terraform Python](functions/terraform-python-example/README.md)** <br/> A Python function deployed with Terraform.                              | python310 | [Terraform]            |
 | **[Typescript with Node runtime](functions/typescript-with-node/README.md)** <br/> A Typescript function using Node runtime.                       | node18    | [Serverless Framework]            |
+| **[Serverless Gateway Python Example](functions/serverless-gateway-python/README.md)** <br/> A Python serverless API using Serverless Gateway.     | node18    | [Serverless Framework]            |
 
 ### 📦 Containers
 
@@ -60,6 +61,7 @@ Table of Contents:
 | Example                                                                                                                                   | Services    | Language | Deployment             |
 |-------------------------------------------------------------------------------------------------------------------------------------------|-------------|----------|------------------------|
 | **[Kong API Gateway](projects/kong-api-gateway/README.md)** <br/> Deploying a Kong Gateway on containers to provide routing to functions. | CaaS & FaaS | Python   | [Serverless Framework] |
+| **[Serverless Gateway](https://github.com/scaleway/serverless-gateway)** <br/> Our serverless gateway for functions and containers.       | API Gateway | Python   | CaaS |
 | **[Monitoring Glaciers](projects/blogpost-glacier/README.md)** <br/> A project to monitor glaciers and the impact of global warming.      | S3 & RDB    | Golang   | [Serverless Framework] |
 
 [Serverless Framework]: https://github.com/scaleway/serverless-scaleway-functions
