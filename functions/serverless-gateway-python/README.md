@@ -25,7 +25,7 @@ pip install -r requirements.txt
 scw_serverless deploy app.py
 ```
 
-### Add your functions to gateway endpoints
+### Add routes to your functions in the gateway
 
 You can add your function to the gateway with a chosen relative path using:
 ```
