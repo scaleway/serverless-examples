@@ -46,7 +46,7 @@ Table of Contents:
 | **[PostgreSQL Python](functions/postgre-sql-python/README.md)** <br/> A Python function to perform a query on a PostgreSQL managed database.       | python310 | [Serverless Framework] |
 | **[Terraform Python](functions/terraform-python-example/README.md)** <br/> A Python function deployed with Terraform.                              | python310 | [Terraform]            |
 | **[Typescript with Node runtime](functions/typescript-with-node/README.md)** <br/> A Typescript function using Node runtime.                       | node18    | [Serverless Framework]            |
-| **[Serverless Gateway Python Example](functions/serverless-gateway-python/README.md)** <br/> A Python serverless API using Serverless Gateway.     | node18    | [Serverless Framework]            |
+| **[Serverless Gateway Python Example](functions/serverless-gateway-python/README.md)** <br/> A Python serverless API using Serverless Gateway.     | python310    | [Python API Framework]            |
 
 ### 📦 Containers
 
