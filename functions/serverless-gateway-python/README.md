@@ -46,7 +46,7 @@ You can use:
 curl scripts/http://${GATEWAY_URL}/<chosen_relative_path>
 ```
 
-### Delete your function through gateway
+### Delete your routes
 
 You can use:
 ```
