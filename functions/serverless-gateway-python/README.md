@@ -36,20 +36,20 @@ You can add your function to the gateway with a chosen relative path using:
 
 You can use:
 ```
-sh list_gateway_endpoints.sh
+./list_gateway_endpoints.sh
 ```
 
 ### Call your functions via the routes
 
 You can use:
 ```
-curl scripts/http://${GATEWAY_URL}/<chosen_relative_path>
+curl http://${GATEWAY_URL}/<chosen_relative_path>
 ```
 
 ### Delete your routes
 
 You can use:
 ```
-sh scripts/delete_function_to_gateway.sh http://<function_domain_name> /<chosen_relative_path>
+./scripts/delete_function_to_gateway.sh http://<function_domain_name> /<chosen_relative_path>
 ```
 
