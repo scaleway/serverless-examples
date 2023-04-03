@@ -61,7 +61,7 @@ Table of Contents:
 | Example                                                                                                                                   | Services    | Language | Deployment             |
 |-------------------------------------------------------------------------------------------------------------------------------------------|-------------|----------|------------------------|
 | **[Kong API Gateway](projects/kong-api-gateway/README.md)** <br/> Deploying a Kong Gateway on containers to provide routing to functions. | CaaS & FaaS | Python   | [Serverless Framework] |
-| **[Serverless Gateway](https://github.com/scaleway/serverless-gateway)** <br/> Our serverless gateway for functions and containers.       | API Gateway | Python   | CaaS |
+| **[Serverless Gateway](https://github.com/scaleway/serverless-gateway)** <br/> Our serverless gateway for functions and containers.       | API Gateway | Python   | [Python API Framework] |
 | **[Monitoring Glaciers](projects/blogpost-glacier/README.md)** <br/> A project to monitor glaciers and the impact of global warming.      | S3 & RDB    | Golang   | [Serverless Framework] |
 
 [Serverless Framework]: https://github.com/scaleway/serverless-scaleway-functions
