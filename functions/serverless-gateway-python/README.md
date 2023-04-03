@@ -32,7 +32,7 @@ You can add your function to the gateway with a chosen relative path using:
 sh scripts/add_function_to_gateway.sh http://<function_domain_name> /<chosen_relative_path>
 ```
 
-### Verify that your function is added to the gateway:
+### Check your route has been added
 
 You can use:
 ```
