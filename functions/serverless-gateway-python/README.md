@@ -12,7 +12,7 @@ This example uses:
 
 Deploy the serverless gateway as a container following the Serverless Gateway project instructions.
 
-Make sure to export your gateway base URL (`GATEWAY_URL`) and an authentication token (`$GATEWAY_TOKEN`)
+Make sure to export your gateway base URL (`GATEWAY_URL`) and an authentication token (`GATEWAY_TOKEN`)
 
 ## Running 
 
