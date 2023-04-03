@@ -29,7 +29,7 @@ scw_serverless deploy app.py
 
 You can add your function to the gateway with a chosen relative path using:
 ```
-sh scripts/add_function_to_gateway.sh http://<function_domain_name> /<chosen_relative_path>
+./scripts/add_function_to_gateway.sh http://<function_domain_name> /<chosen_relative_path>
 ```
 
 ### Check your route has been added
