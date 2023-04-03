@@ -39,7 +39,7 @@ You can use:
 sh list_gateway_endpoints.sh
 ```
 
-### Call your functions through gateway
+### Call your functions via the routes
 
 You can use:
 ```
