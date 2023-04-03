@@ -6,7 +6,7 @@ This example shows how to serve a Serverless API composed of many functions thro
 
 This example uses:
 * [Python API Framework](https://github.com/scaleway/serverless-api-project) to deploy the functions.
-* [Serverless Gateway](https://github.com/scaleway/serverless-gateway) to deploy the a serverless gateway as a container.
+* [Serverless Gateway](https://github.com/scaleway/serverless-gateway) to deploy a serverless gateway container.
 
 ## Gateway set-up
 
