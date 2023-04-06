@@ -18,35 +18,28 @@ Make sure to export your gateway base URL (`GATEWAY_URL`) and an authentication 
 
 ### Deploy your serverless API
 
-Deploy your functions using:
+Deploy your functions and add them automatically as endpoints to your serverless gateway using:
 
 ```
 pip install -r requirements.txt
-scw_serverless deploy app.py
+scw_serverless deploy app.py --gateway-url ${GATEWAY_URL} --gateway-api-key ${GATEWAY_TOKEN}
 ```
 
-### Add routes to your functions in the gateway
-
-You can add your function to the gateway with a chosen relative path using:
-```
-./scripts/add_function_to_gateway.sh http://<function_domain_name> /<chosen_relative_path>
-```
-
-### Check your route has been added
+### Check your endpoint has been added
 
 You can use:
 ```
 ./list_gateway_endpoints.sh
 ```
 
-### Call your functions via the routes
+### Call your function via its route
 
 You can use:
 ```
 curl http://${GATEWAY_URL}/<chosen_relative_path>
 ```
 
-### Delete your routes
+### Delete your endpoint
 
 You can use:
 ```
