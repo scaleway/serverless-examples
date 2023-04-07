@@ -35,7 +35,16 @@ provider "scaleway" {
 
 # S3 bucket
 resource "scaleway_object_bucket" "example_bucket" {
-  name = "php-s3-example"
+  name = "php-s3-output"
+}
+
+# Function zip
+data "archive_file" "func_archive" {
+  type             = "zip"
+  source_dir       = "${path.module}/../function"
+  excludes         = ["composer.lock", "function.zip", "vendor"]
+  output_file_mode = "0666"
+  output_path      = "${path.module}/../function/function.zip"
 }
 
 # Function namespace and function
@@ -53,14 +62,15 @@ resource "scaleway_function" "php_function" {
   handler        = "handler.run"
   min_scale      = 0
   max_scale      = 2
-  zip_file       = "../function/function.zip"
+  zip_file       = data.archive_file.func_archive.output_path
+  zip_hash       = data.archive_file.func_archive.output_sha
   privacy        = "public"
   deploy         = true
 
   environment_variables = {
     "S3_ENDPOINT" = "https://s3.fr-par.scw.cloud"
     "S3_REGION" = "fr-par"
-    "S3_BUCKET" = "php-s3-example"
+    "S3_BUCKET" = scaleway_object_bucket.example_bucket.name
   }
 
   secret_environment_variables = {
