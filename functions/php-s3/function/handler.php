@@ -2,6 +2,8 @@
 
 require __DIR__ . "/vendor/autoload.php";
 
+use Aws\S3\S3Client;
+
 function run($event, $context)
 {
     // Get values from function environment variables
@@ -14,7 +16,7 @@ function run($event, $context)
     $s3_key = 'example-key';
 
     // Connect to S3
-    $s3 = new Aws\S3\S3Client([
+    $s3 = new S3Client([
         'region'      => $s3_region,
         'version'     => 'latest',
         'endpoint'    => $s3_endpoint,
@@ -38,5 +40,3 @@ function run($event, $context)
         'body' => 'S3 function succeeded',
     ];
 }
-
-?>
