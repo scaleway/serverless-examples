@@ -1,0 +1,13 @@
+# Function
+function.zip
+vendor/
+
+# Terraform
+state
+state.backup
+.state.lock.info
+.terraform/
+.terraform.lock.hcl
+
+# Generated
+curl.sh
