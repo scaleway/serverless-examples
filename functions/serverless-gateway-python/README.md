@@ -12,7 +12,7 @@ This example uses:
 
 Deploy the serverless gateway as a container following the Serverless Gateway project instructions.
 
-Make sure to export your gateway base URL (`GATEWAY_URL`) and an authentication token (`GATEWAY_TOKEN`)
+Make sure to export your gateway base URL (`GATEWAY_HOST`) and an authentication token (`TOKEN`)
 
 ## Running 
 
@@ -22,7 +22,7 @@ Deploy your functions and add them automatically as endpoints to your serverless
 
 ```
 pip install -r requirements.txt
-scw_serverless deploy app.py --gateway-url ${GATEWAY_URL} --gateway-api-key ${GATEWAY_TOKEN}
+scw-serverless deploy app.py --gateway-url https://${GATEWAY_HOST} --gateway-api-key ${TOKEN}
 ```
 
 ### Check your endpoint has been added
@@ -36,7 +36,7 @@ You can use:
 
 You can use:
 ```
-curl http://${GATEWAY_URL}/<chosen_relative_path>
+curl http://${GATEWAY_HOST}/<chosen_relative_path>
 ```
 
 ### Delete your endpoint
