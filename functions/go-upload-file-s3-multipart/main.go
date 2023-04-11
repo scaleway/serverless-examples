@@ -15,11 +15,11 @@ import (
 )
 
 func Handle(w http.ResponseWriter, r *http.Request) {
-	if r.Header.Get("Content-Type") != "multipart/from-data" {
-		http.Error(w, "this func only support multipart/from-data type", http.StatusBadRequest)
-
+	if !strings.Contains(r.Header.Get("Content-Type"), "multipart/form-data") {
+		http.Error(w, "this func only support multipart/form-data type", http.StatusBadRequest)
 		return
 	}
+
 	// Entire files are sent as "multipart/form-data" so we need first to parse
 	// the request before accessing file content.
 	if err := r.ParseMultipartForm(32<<20 + 1024); err != nil {

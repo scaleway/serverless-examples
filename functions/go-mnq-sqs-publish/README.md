@@ -9,7 +9,9 @@ This example assumes that you are familiar with some products of Scaleway's ecos
 * how serverless functions work. If needed, you can check [Scaleway official documentation](https://www.scaleway.com/en/docs/serverless/functions/quickstart/).
 * how Messaging and Queuing works. Please refer to scaleway's documentation [here](https://www.scaleway.com/en/docs/serverless/messaging/quickstart/).
 
-This example uses the Scaleway Serverless Framework Plugin to deploy. Please set up your environment with the requirements stated in the [Scaleway Serverless Framework Plugin](https://github.com/scaleway/serverless-scaleway-functions) before trying out the example.
+This example uses the Scaleway Serverless Framework Plugin. Please set up your environment with the requirements stated in the [Scaleway Serverless Framework Plugin](https://github.com/scaleway/serverless-scaleway-functions) before trying out the example.
+
+Additionnaly it uses the [serverless-functions-go](https://github.com/scaleway/serverless-functions-go) library for local testing.
 
 ## Context
 
