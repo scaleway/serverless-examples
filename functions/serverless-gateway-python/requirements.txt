@@ -1,1 +1,1 @@
-scw-serverless~=1.0.0
+scw-serverless==1.0.1
