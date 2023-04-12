@@ -34,7 +34,7 @@ Table of Contents:
 | **[CORS Python](functions/cors-python/README.md)** <br/> A Python function which allows CORS requests.                                             | python310 | [Serverless Framework] |
 | **[CORS Rust](functions/cors-rust/README.md)** <br/> A Rust function which allows CORS requests.                                                   | rust165   | [Serverless Framework] |
 | **[Go SQS Publish](functions/go-mnq-sqs-publish/README.md)** <br/> A Go function to publish messages to SQS.                                       | go118     | [Serverless Framework] |
-| **[Go MultiPart Upload to S3](functions/go-upload-file-s3-multipart)** <br/> A function to upload file from form-data to S3.                       | go119     | [Serverless Framework] |
+| **[Go MultiPart Upload to S3](functions/go-upload-file-s3-multipart)** <br/> A function to upload file from form-data to S3.                       | go120     | [Serverless Framework] |
 | **[Image Transform](functions/image-transform-node/README.md)** <br/> A function that resizes images from an S3 bucket.                            | node16    | [Serverless Framework] |
 | **[Node MultiPart Upload to S3](functions/node-upload-file-s3-multipart/README.md)** <br/> A function to upload file from form-data to S3.         | node19    | [Serverless Framework] |
 | **[PHP write to S3](functions/php-s3/README.md)** <br/> A PHP function that connects to, and writes to an S3 bucket.                               | php82     | [Terraform]            |
