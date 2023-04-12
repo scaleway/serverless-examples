@@ -36,13 +36,13 @@ You can use:
 
 You can use:
 ```
-curl http://${GATEWAY_HOST}/<chosen_relative_path>
+curl https://${GATEWAY_HOST}/<chosen_relative_path>
 ```
 
 ### Delete your endpoint
 
 You can use:
 ```
-./scripts/delete_function_to_gateway.sh http://<function_domain_name> /<chosen_relative_path>
+./scripts/delete_function_to_gateway.sh https://<function_domain_name> /<chosen_relative_path>
 ```
 
