@@ -37,7 +37,8 @@ Table of Contents:
 | **[Go MultiPart Upload to S3](functions/go-upload-file-s3-multipart)** <br/> A function to upload file from form-data to S3.                       | go119     | [Serverless Framework] |
 | **[Image Transform](functions/image-transform-node/README.md)** <br/> A function that resizes images from an S3 bucket.                            | node16    | [Serverless Framework] |
 | **[Node MultiPart Upload to S3](functions/node-upload-file-s3-multipart/README.md)** <br/> A function to upload file from form-data to S3.         | node19    | [Serverless Framework] |
-| **[PostgeSQL Node](functions/postgre-sql-node/README.md)** <br/> A Node function to connect and interact with PostgreSQL database.                 | node18    | [Serverless Framework]         |
+| **[PHP write to S3](functions/php-s3/README.md)** <br/> A PHP function that connects to, and writes to an S3 bucket.                               | php82     | [Terraform]            |
+| **[PostgeSQL Node](functions/postgre-sql-node/README.md)** <br/> A Node function to connect and interact with PostgreSQL database.                 | node18    | [Serverless Framework] |
 | **[Python ChatBot](functions/python-dependencies/README.md)** <br/> A chatbot example with ChatterBot.                                             | python310 | [Serverless Framework] |
 | **[Python Dependencies](functions/python-dependencies/README.md)** <br/> Example showing how to use Python requirements with Serverless Framework. | python310 | [Serverless Framework] |
 | **[Python MultiPart Upload to S3](functions/python-upload-file-s3-multipart/README.md)** <br/> A function to upload file from form-data to S3.     | python311 | [Python API Framework] |
