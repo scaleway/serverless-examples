@@ -12,7 +12,7 @@ This example uses:
 
 Deploy the serverless gateway as a container following the Serverless Gateway project instructions.
 
-Make sure to export your gateway base URL (`GATEWAY_HOST`) and an authentication token (`TOKEN`)
+*Make sure to export your gateway base URL (`GATEWAY_HOST`) and an authentication token (`TOKEN`)*
 
 ## Running 
 
@@ -29,7 +29,7 @@ scw-serverless deploy app.py --gateway-url https://${GATEWAY_HOST} --gateway-api
 
 You can use:
 ```
-./list_gateway_endpoints.sh
+./scripts/list_gateway_endpoints.sh
 ```
 
 ### Call your function via its route
