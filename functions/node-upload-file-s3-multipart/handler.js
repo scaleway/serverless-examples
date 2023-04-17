@@ -22,14 +22,14 @@ const s3 = new S3({
 
 const uploadFormDataS3 = async (event, _context, cb) => {
   if (
-    !event.headers["Content-Type"] ||
-    !event.headers["Content-Type"].startsWith("multipart/form-data")
+    !event.headers["content-type"] ||
+    !event.headers["content-type"].startsWith("multipart/form-data")
   ) {
     return { statusCode: 400, body: STATUS_CODES[400] };
   }
 
   // Get the boundary from the Content-Type header
-  const boundary = event.headers["Content-Type"].split("=").pop();
+  const boundary = event.headers["content-type"].split("=").pop();
   const parts = parse(Buffer.from(event["body"], "utf-8"), boundary);
 
   let promises = [];
@@ -57,3 +57,10 @@ const uploadFormDataS3 = async (event, _context, cb) => {
 };
 
 export { uploadFormDataS3 };
+
+/* This is used to test locally and will not be executed on Scaleway Functions */
+if (process.env.NODE_ENV === 'test') {
+  import("@scaleway/serverless-functions").then(scw_fnc_node => {
+    scw_fnc_node.serveHandler(uploadFormDataS3, 8080);
+  });
+}

@@ -1,5 +1,4 @@
 "use strict"
-import { pathToFileURL } from "url";
 
 const handleCorsPermissive = (event, context, cb) => {
     console.log(event);
@@ -37,9 +36,8 @@ const handleCorsVeryPermissive = (event, context, cb) => {
 
 export { handleCorsPermissive, handleCorsVeryPermissive };
 
-/* Module was not imported but called directly, so we can test locally.
-This will not be executed on Scaleway Functions */
-if (import.meta.url === pathToFileURL(process.argv[1]).href) {
+/* This is used to test locally and will not be executed on Scaleway Functions */
+if (process.env.NODE_ENV === 'test') {
   import("@scaleway/serverless-functions").then(scw_fnc_node => {
     scw_fnc_node.serveHandler(handleCorsPermissive, 8080);
   });
