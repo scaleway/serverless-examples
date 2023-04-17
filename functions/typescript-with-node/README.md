@@ -30,7 +30,7 @@ npm install
 
 ### Install a Typescript compiler
 
-First, it is necessary to install the [Typescript compiler package](https://www.npmjs.com/package/typescript) globally.
+Then, it is necessary to install the [Typescript compiler package](https://www.npmjs.com/package/typescript) globally.
 
 ```shell
 npm install -g typescript
@@ -56,17 +56,31 @@ Before deploying your function, you need to transpile your Typescript code into 
 tsc
 ```
 
-### Deploy your function
+### Test locally
 
-Finally, you can deploy your function with:
+The last step before deploying your function is to test it locally. For that, you can run:
+
+```shell
+NODE_ENV=test node handler.js
+```
+
+This will launch a local server, allowing you to test the function. In another terminal, you can now run:
+
+````shell
+curl -X GET http://localhost:8080
+````
+
+The expected output is "Hello world!".
+
+## Deploy and run
+
+Finally, if the test succeeded, you can deploy your function with:
 
 ```shell
 serverless deploy
 ```
 
-## Running
-
-Once your function is deployed, you can check the result in a browser or by running the following command:
+Then, from the given URL, you can check the result in a browser or by running the following command:
 
 ```console
 # Get request
