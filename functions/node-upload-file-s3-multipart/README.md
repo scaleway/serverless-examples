@@ -25,7 +25,7 @@ This function does the following steps:
 
 ## Setup
 
-Ensure to create a bucket and have the following secrets variables available in your environment:
+Ensure to create a bucket and have the following secrets variables available in your environment (to be able to test locally) and within `serverless.yml` file (to be able to deploy):
 
 ```env
 S3_REGION = # Default: fr-par

@@ -9,16 +9,12 @@ const userSecretKey = process.env.USER_SECRET_KEY;
 
 async function handle(event, context, callback) {
 
-  // useful for function logging
-  console.log(event)
-  console.log(context)
-
   const sourceBucket = event.queryStringParameters.sourceBucket;
   const sourceKey = event.queryStringParameters.sourceKey;
 
   const response = {
     statusCode: 200,
-    headers: { "Content-Type": ["application/json"] },
+    headers: { "Content-Type": "application/json" },
     body: {
       labels: await classifyImage(imageToTensor(await getImageFromS3(sourceBucket, sourceKey, s3EndpointUrl, userAccessKey, userSecretKey)))
     }
@@ -27,7 +23,6 @@ async function handle(event, context, callback) {
   return response;
 
 };
-
 
 async function getImageFromS3(sourceBucket, sourceKey, s3EndpointUrl, userAccessKey, userSecretKey) {
 
@@ -90,3 +85,10 @@ async function classifyImage(imageTensor) {
 }
 
 export { handle }
+
+/* This is used to test locally and will not be executed on Scaleway Functions */
+if (process.env.NODE_ENV === 'test') {
+  import("@scaleway/serverless-functions").then(scw_fnc_node => {
+    scw_fnc_node.serveHandler(handle, 8080);
+  });
+}
