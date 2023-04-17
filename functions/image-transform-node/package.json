@@ -14,6 +14,7 @@
     "util": "^0.12.4"
   },
   "devDependencies": {
+    "@scaleway/serverless-functions": "^1.0.1",
     "serverless-scaleway-functions": "^0.3.0"
   },
   "description": ""
