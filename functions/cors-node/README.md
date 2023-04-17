@@ -23,7 +23,7 @@ Once your environment is set up, you can run:
 ```console
 npm install
 
-node handler.js
+NODE_ENV=test node handler.js
 ```
 
 This will launch a local server, allowing you to test the function. For that, you can run in another terminal:

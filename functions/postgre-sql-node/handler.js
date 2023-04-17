@@ -16,7 +16,7 @@ const pool = new pg.Pool({
 
 exports.handle = async (event, context, callback) => {
   try {
-      const { rows } = await query("SELECT * FROM table LIMIT 10")
+      const { rows } = await query("SELECT * FROM user LIMIT 10")
       console.log(JSON.stringify(rows[0]))
       const response = {
           "statusCode": 200,
@@ -31,7 +31,7 @@ exports.handle = async (event, context, callback) => {
       console.log('Database ' + err)
       callback(err);
   }
-  };
+};
 
 async function query (q) {
   const client = await pool.connect()
@@ -50,4 +50,11 @@ async function query (q) {
   }
 
   return res
+}
+
+/* This is used to test locally and will not be executed on Scaleway Functions */
+if (process.env.NODE_ENV === 'test') {
+  import("@scaleway/serverless-functions").then(scw_fnc_node => {
+    scw_fnc_node.serveHandler(exports.handle, 8080);
+  });
 }
