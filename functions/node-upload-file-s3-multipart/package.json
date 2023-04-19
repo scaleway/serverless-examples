@@ -11,6 +11,7 @@
     "parse-multipart-data": "^1.5.0"
   },
   "devDependencies": {
+    "@scaleway/serverless-functions": "^1.0.1",
     "serverless-scaleway-functions": "^0.4.4"
   },
   "description": ""

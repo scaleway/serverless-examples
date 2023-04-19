@@ -3,13 +3,14 @@ const AWS = require("aws-sdk");
 const sharp = require("sharp");
 
 // Get connexion information from secret environment variables
-const srcBucket = process.env.SOURCE_BUCKET;
+const SOURCE_BUCKET = process.env.SOURCE_BUCKET;
 const S3_ENDPOINT_URL = process.env.S3_ENDPOINT_URL;
 const ID = process.env.ACCESS_KEY_ID;
 const SECRET = process.env.ACCESS_KEY;
-const dstBucket = process.env.DESTINATION_BUCKET;
+const DEST_BUCKET = process.env.DESTINATION_BUCKET;
+const RESIZED_WIDTH = process.env.RESIZED_WIDTH;
 
-let width = parseInt(process.env.RESIZED_WIDTH, 10);
+let width = parseInt(RESIZED_WIDTH, 10);
 if (width < 1 || width > 1000) {
   width = 200;
 }
@@ -49,7 +50,7 @@ exports.handle = async (event, context, callback) => {
   // Download the image from the S3 source bucket.
   try {
     const params = {
-      Bucket: srcBucket,
+      Bucket: SOURCE_BUCKET,
       Key: srcKey,
     };
     var origimage = await s3.getObject(params).promise();
@@ -71,7 +72,7 @@ exports.handle = async (event, context, callback) => {
   // Upload the image to the destination bucket
   try {
     const destparams = {
-      Bucket: dstBucket,
+      Bucket: DEST_BUCKET,
       Key: dstKey,
       Body: buffer,
       ContentType: "image",
@@ -83,11 +84,11 @@ exports.handle = async (event, context, callback) => {
   }
   console.log(
     "Successfully resized " +
-    srcBucket +
+    SOURCE_BUCKET +
     "/" +
     srcKey +
     " and uploaded to " +
-    dstBucket +
+    DEST_BUCKET +
     "/" +
     dstKey
   );
@@ -99,10 +100,17 @@ exports.handle = async (event, context, callback) => {
         "Image : " +
         srcKey +
         " has successfully been resized and pushed to the bucket " +
-        dstBucket,
+        DEST_BUCKET,
     }),
     headers: {
       "Content-Type": "application/json",
     },
   };
 };
+
+/* This is used to test locally and will not be executed on Scaleway Functions */
+if (process.env.NODE_ENV === 'test') {
+  import("@scaleway/serverless-functions").then(scw_fnc_node => {
+    scw_fnc_node.serveHandler(exports.handle, 8081);
+  });
+}

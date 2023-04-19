@@ -1,19 +1,22 @@
 # Image labeling example with TensorFlow.js
 
+This example shows how to label an RGB image in an S3 bucket using serverless functions.
+
 ## Requirements
 
 This example assumes that you are familiar with:
- * how serverless functions work. If needed, you can check [Scaleway official documentation](https://www.scaleway.com/en/docs/serverless/functions/quickstart/).
- * how S3 object storage works, and especially how to create a bucket and upload files within a bucket. Please refer to scaleway's documentation [here](https://www.scaleway.com/en/docs/storage/object/quickstart/).
- * how to create and get user API access and secret keys using IAM. Please refer to IAM documentation [here](https://www.scaleway.com/en/docs/identity-and-access-management/iam/concepts/).
+
+* how serverless functions work. If needed, you can check [Scaleway official documentation](https://www.scaleway.com/en/docs/serverless/functions/quickstart/).
+* how S3 object storage works, and especially how to create a bucket and upload files within a bucket. Please refer to scaleway's documentation [here](https://www.scaleway.com/en/docs/storage/object/quickstart/).
+* how to create and get user API access and secret keys using IAM. Please refer to IAM documentation [here](https://www.scaleway.com/en/docs/identity-and-access-management/iam/concepts/).
 
 This example uses the Scaleway Serverless Framework Plugin. Please set up your environment with the requirements stated in the [Scaleway Serverless Framework Plugin](https://github.com/scaleway/serverless-scaleway-functions) before trying out the example.
 
+Additionnaly it uses the [serverless-functions-node](https://github.com/scaleway/serverless-functions-node) library for local testing.
 
 ## Context
 
 This example shows how to label an RGB image in an S3 bucket using serverless functions. The example uses a pre-trained ready-to-use model from [TensorFlow.js](https://www.tensorflow.org/js/models). The model is called `mobilenet` and can be used on server or client side. It returns three labels of an image with their respective prediction probabilities (namely, logits). Check `mobilenet` Github repository [here](https://github.com/tensorflow/tfjs-models/tree/master/mobilenet).
-
 
 ## Description
 
@@ -29,40 +32,40 @@ Create an S3 bucket and upload an RGB image (jpg, jpeg or png format) within thi
 
 ### Fill environment variables
 
-Fill your environment variables within `serverless.yml` file:
+Ensure to create a bucket and have the following secrets variables available in your environment (to be able to test locally) and within `serverless.yml` file (to be able to deploy):
 
-```
+```yml
 secret:
     USER_ACCESS_KEY: <bucket scw access key>
     USER_SECRET_KEY: <bucket scw access key id>
-    S3_ENDPOINT_URL: http://s3.fr-par.scw.cloud
+    S3_ENDPOINT_URL: s3.fr-par.scw.cloud
 ```
 
 ### Install npm modules
 
 Once your environment is set up, you can install `npm` dependencies from `package.json` file using:
 
-```
+```sh
 npm install
 ```
 
-### Deploy and call the function
+### Test locally
 
-Then deploy your function and get its URL using:
+Once your environment is set up, you can test your function locally with:
 
-```
-serverless deploy
-```
-
-From the given function URL, you can get image labels in a `json` format:
-
-```
-curl -X GET "<function URL>/?sourceBucket=<source bucket name>&sourceKey=<file name within bucket>" | jq
+```sh
+NODE_ENV=test node handler.js
 ```
 
-The result should be similar to:
+This will launch a local server, allowing you to test the function. For that, you can run in another terminal:
 
+```sh
+curl -X GET "http://localhost:8080?sourceBucket=<source bucket name>&sourceKey=<filename within bucket>"
 ```
+
+The output should be similar to:
+
+```json
 {
   "labels": [
     {
@@ -79,7 +82,22 @@ The result should be similar to:
     }
   ]
 }
-
 ```
 
 You can also check the result of your function in a browser. It should return the same result.
+
+### Deploy and call the function
+
+Finally, if the test succeeded, you can deploy your function with:
+
+```sh
+serverless deploy
+```
+
+Then, from the given URL, you can run:
+
+```sh
+curl -X GET "<function url>?sourceBucket=<source bucket name>&sourceKey=<filename within bucket>"
+```
+
+When invoking this function, the output should be similar to the one obtained when testing locally.

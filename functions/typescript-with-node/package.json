@@ -10,6 +10,8 @@
     "author": "",
     "license": "ISC",
     "devDependencies": {
+        "@types/node": "^18.15.11",
+        "@scaleway/serverless-functions": "^1.0.1",
         "serverless-scaleway-functions": "^0.4.5",
         "typescript": "^5.0.2"
     }

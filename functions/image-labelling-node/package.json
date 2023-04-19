@@ -15,6 +15,7 @@
         "aws-sdk": "^2.1314.0"
     },
     "devDependencies": {
+        "@scaleway/serverless-functions": "^1.0.1",
         "serverless-scaleway-functions": "^0.4.5"
     },
     "description": "",

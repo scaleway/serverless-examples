@@ -3,7 +3,6 @@ const https = require("https");
 const { isNull } = require("util");
 
 // Get info from env variables
-
 const SOURCE_BUCKET = process.env.SOURCE_BUCKET;
 const S3_ENDPOINT_URL = process.env.S3_ENDPOINT_URL;
 const ID = process.env.ACCESS_KEY_ID;
@@ -78,3 +77,10 @@ exports.handle = async (event, context, callback) => {
     }
   });
 };
+
+/* This is used to test locally and will not be executed on Scaleway Functions */
+if (process.env.NODE_ENV === 'test') {
+  import("@scaleway/serverless-functions").then(scw_fnc_node => {
+    scw_fnc_node.serveHandler(exports.handle, 8080);
+  });
+}
