@@ -24,7 +24,7 @@ The function in this example returns a simple "Hello world!" with a status code 
 
 Once your environment is set up (see [Requirements](#requirements)), you can install `npm` dependencies from `package.json` file using:
 
-```shell
+```sh
 npm install
 ```
 
@@ -32,7 +32,7 @@ npm install
 
 Then, it is necessary to install the [Typescript compiler package](https://www.npmjs.com/package/typescript) globally.
 
-```shell
+```sh
 npm install -g typescript
 ```
 
@@ -42,7 +42,7 @@ You can run `tsc --version` to ensure the compiler is correctly installed.
 
 When this is done, you can initialize the Typescript project with Node.js. For that, you can run:
 
-```shell
+```sh
 tsc --init
 ```
 
@@ -52,7 +52,7 @@ This will create a `tsconfig.json` file in the project root directory.
 
 Before deploying your function, you need to transpile your Typescript code into brower readable JavaScript.
 
-```shell
+```sh
 tsc
 ```
 
@@ -60,13 +60,13 @@ tsc
 
 The last step before deploying your function is to test it locally. For that, you can run:
 
-```shell
+```sh
 NODE_ENV=test node handler.js
 ```
 
 This will launch a local server, allowing you to test the function. In another terminal, you can now run:
 
-````shell
+````sh
 curl -X GET http://localhost:8080
 ````
 
@@ -76,13 +76,13 @@ The expected output is "Hello world!".
 
 Finally, if the test succeeded, you can deploy your function with:
 
-```shell
+```sh
 serverless deploy
 ```
 
 Then, from the given URL, you can check the result in a browser or by running the following command:
 
-```console
+```sh
 # Get request
 curl -i -X GET <function URL>
 ```

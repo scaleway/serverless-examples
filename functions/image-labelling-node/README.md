@@ -45,7 +45,7 @@ secret:
 
 Once your environment is set up, you can install `npm` dependencies from `package.json` file using:
 
-```shell
+```sh
 npm install
 ```
 
@@ -90,7 +90,7 @@ You can also check the result of your function in a browser. It should return th
 
 Finally, if the test succeeded, you can deploy your function with:
 
-```console
+```sh
 serverless deploy
 ```
 

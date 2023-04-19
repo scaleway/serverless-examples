@@ -56,7 +56,7 @@ Successfully uploaded README.md to <bucket name>
 
 Finally, if the test succeeded, you can deploy your function with:
 
-```console
+```sh
 serverless deploy
 ```
 

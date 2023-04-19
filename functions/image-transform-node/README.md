@@ -49,7 +49,7 @@ env:
 
 Once your environment is set up, you can install `npm` dependencies from `package.json` file using:
 
-```shell
+```sh
 npm install
 ```
 
@@ -78,7 +78,7 @@ Successfully resized <SOURCE_BUCKET>/<filename> and uploaded to <DEST_BUCKET>/re
 
 Finally, if the test succeeded, you can deploy your function with:
 
-```console
+```sh
 serverless deploy
 ```
 

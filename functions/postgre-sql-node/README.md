@@ -44,7 +44,7 @@ secret:
 
 Once your environment is set up, you can install `npm` dependencies from `package.json` file using:
 
-```shell
+```sh
 npm install
 ```
 
@@ -52,19 +52,19 @@ npm install
 
 Once your environment is set up, you can run:
 
-```shell
+```sh
 NODE_ENV=test node handler.js
 ```
 
 This will launch a local server, allowing you to test the function. Then, you can run in another terminal:
 
-```shell
+```sh
 curl -X GET http://localhost:8080
 ```
 
 The output should be similar to:
 
-```shell
+```sh
 [{"user":"<PG_USER>"}]
 ```
 
@@ -72,13 +72,13 @@ The output should be similar to:
 
 Finally, if the test succeeded, you can deploy your function with:
 
-```shell
+```sh
 serverless deploy
 ```
 
 Then, from the given URL, you can run:
 
-```shell
+```sh
 curl -X GET <function URL>
 ```
 

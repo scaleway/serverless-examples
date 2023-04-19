@@ -20,7 +20,7 @@ The function of the example allows most CORS requests. For more documentation on
 
 Once your environment is set up, you can run:
 
-```console
+```sh
 npm install
 
 NODE_ENV=test node handler.js
@@ -30,7 +30,7 @@ This will launch a local server, allowing you to test the function. For that, yo
 
 The result should be similar to:
 
-```console
+```sh
 HTTP/1.1 200 OK
 access-control-allow-origin: *
 access-control-allow-headers: *
@@ -52,13 +52,13 @@ You can also check the result of your function in a browser. It should be "This 
 
 Finally, if the test succeeded, you can deploy your function with:
 
-```console
+```sh
 serverless deploy
 ```
 
 Then, from the given URL, you can run:
 
-```console
+```sh
 # Options request
 curl -i -X OPTIONS <function URL>
 
