@@ -1,20 +1,23 @@
-import type { AWS } from "@serverless/typescript";
+// import type { AWS } from "@serverless/typescript";
 
 import hello from "@functions/hello";
+import ScalewayServerlessConfiguration from "@libs/serverless";
 
-const serverlessConfiguration: AWS = {
+const serverlessConfiguration: ScalewayServerlessConfiguration = {
   service: "nodejs-typescript-test",
   frameworkVersion: "3",
-  plugins: ["serverless-esbuild"],
-  package: { individually: true },
+  configValidationMode: "off",
+  plugins: ["serverless-esbuild", "serverless-scaleway-functions"],
+  package: { individually: false },
   provider: {
-    name: "aws",
-    runtime: "nodejs14.x",
-    apiGateway: {
-      minimumCompressionSize: 1024,
-      shouldStartNameWithService: true,
-    },
-    environment: {
+    name: "scaleway",
+    runtime: "node14",
+    swcRegion: "fr-par",
+    // apiGateway: {
+    //   minimumCompressionSize: 1024,
+    //   shouldStartNameWithService: true,
+    // },
+    env: {
       AWS_NODEJS_CONNECTION_REUSE_ENABLED: "1",
       NODE_OPTIONS: "--enable-source-maps --stack-trace-limit=1000",
     },

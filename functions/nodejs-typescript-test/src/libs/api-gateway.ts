@@ -18,6 +18,10 @@ interface IformatJSONResponse {
   response: Record<string, unknown>;
 }
 
+const thing = () => {
+  return "nothing to see here";
+};
+
 export const formatJSONResponse = (props: IformatJSONResponse) => {
   return {
     statusCode: props.statusCode || 200,
