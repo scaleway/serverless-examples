@@ -55,7 +55,7 @@ Table of Contents:
 |----------------------------------------------------------------------------------------------------------------------------------------------|--------------|------------------------|
 | **[Container Bash Script](containers/bash-scheduled-job/README.md)** <br/> A Bash script runnning on a schedule using serverless containers. | Bash         | [Serverless Framework] |
 | **[Function Handler Java](containers/function-handler-java/README.md)** <br/> A Java function handler deployed on CaaS.                         | Java         | [Serverless Framework] |
-| **[Nginx CORS Private](containers/nginx-cors-private/README.md)** <br/> A Nginx proxy to allow CORS requests to a private container.         | Python Flask | [Terraform]            |
+| **[Nginx CORS Private](containers/nginx-cors-private-python/README.md)** <br/> A Nginx proxy to allow CORS requests to a private container.         | Python Flask | [Terraform]            |
 
 ### 💜 Projects
 
