@@ -40,7 +40,7 @@ Table of Contents:
 | **[PHP write to S3](functions/php-s3/README.md)** <br/> A PHP function that connects to, and writes to an S3 bucket.                               | php82     | [Terraform]            |
 | **[PostgeSQL Node](functions/postgre-sql-node/README.md)** <br/> A Node function to connect and interact with PostgreSQL database.                 | node18    | [Serverless Framework] |
 | **[Python ChatBot](functions/python-dependencies/README.md)** <br/> A chatbot example with ChatterBot.                                             | python310 | [Serverless Framework] |
-| **[Python Dependencies](functions/python-dependencies/README.md)** <br/> Example showing how to use Python requirements with Serverless Framework. | python310 | [Serverless Framework] |
+| **[Python Dependencies](functions/python-chatbot/README.md)** <br/> Example showing how to use Python requirements with Serverless Framework. | python310 | [Serverless Framework] |
 | **[Python MultiPart Upload to S3](functions/python-upload-file-s3-multipart/README.md)** <br/> A function to upload file from form-data to S3.     | python311 | [Python API Framework] |
 | **[Redis TLS](functions/redis-tls/README.md)** <br/> How to connect a function to a Scaleway Redis cluster with TLS enabled.                       | python310 | [Terraform]            |
 | **[Rust MNIST](functions/rust-mnist/README.md)** <br/> A Rust function to recognize hand-written digits with a simple neural network.              | rust165   | [Serverless Framework] |
@@ -54,8 +54,8 @@ Table of Contents:
 | Example                                                                                                                                      | Language     | Deployment             |
 |----------------------------------------------------------------------------------------------------------------------------------------------|--------------|------------------------|
 | **[Container Bash Script](containers/bash-scheduled-job/README.md)** <br/> A Bash script runnning on a schedule using serverless containers. | Bash         | [Serverless Framework] |
-| **[Function Handler Java](containers/bash-scheduled-job/README.md)** <br/> A Java function handler deployed on CaaS.                         | Java         | [Serverless Framework] |
-| **[Nginx CORS Private](containers/nginx-cors-private/README.md)** <br/> A Nginx proxy to allow CORS requests to a private container.         | Python Flask | [Terraform]            |
+| **[Function Handler Java](containers/function-handler-java/README.md)** <br/> A Java function handler deployed on CaaS.                         | Java         | [Serverless Framework] |
+| **[Nginx CORS Private](containers/nginx-cors-private-python/README.md)** <br/> A Nginx proxy to allow CORS requests to a private container.         | Python Flask | [Terraform]            |
 
 ### 💜 Projects
 
