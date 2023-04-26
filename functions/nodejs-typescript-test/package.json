@@ -4,24 +4,25 @@
   "description": "Serverless aws-nodejs-typescript template",
   "main": "serverless.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall": "patch-package"
   },
   "engines": {
     "node": ">=14.15.0"
   },
   "dependencies": {
-    "@middy/core": "^3.4.0",
-    "@middy/http-json-body-parser": "^3.4.0",
+    "@middy/core": "^4.3.1",
+    "@middy/http-json-body-parser": "^4.3.1",
     "serverless-scaleway-functions": "^0.4.6"
   },
   "devDependencies": {
-    "@serverless/typescript": "^3.0.0",
     "@types/aws-lambda": "^8.10.71",
-    "@types/node": "^14.14.25",
+    "@types/node": "^14.18.43",
     "esbuild": "^0.14.11",
     "json-schema-to-ts": "^1.5.0",
-    "serverless": "^3.0.0",
-    "serverless-esbuild": "^1.23.3",
+    "patch-package": "^7.0.0",
+    "serverless": "^3.30.1",
+    "serverless-esbuild": "^1.43.1",
     "ts-node": "^10.4.0",
     "tsconfig-paths": "^3.9.0",
     "typescript": "^4.1.3"
