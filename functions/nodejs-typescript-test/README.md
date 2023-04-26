@@ -1,6 +1,6 @@
-# Serverless - AWS Node.js Typescript
+# Serverless - Scaleway Node.js Typescript
 
-This project has been generated using the `aws-nodejs-typescript` template from the [Serverless framework](https://www.serverless.com/).
+This project has been generated using the `aws-nodejs-typescript` template from the [Serverless framework](https://www.serverless.com/). and has then be modified to run and build for Scaleway serverless functions
 
 For detailed instructions, please refer to the [documentation](https://www.serverless.com/framework/docs/providers/aws/).
 
@@ -22,13 +22,11 @@ Depending on your preferred package manager, follow the instructions below to de
 
 ## Test your service
 
-This template contains a single lambda function triggered by an HTTP request made on the provisioned API Gateway REST API `/hello` route with `POST` method. The request body must be provided as `application/json`. The body structure is tested by API Gateway against `src/functions/hello/schema.ts` JSON-Schema definition: it must contain the `name` property.
+This template contains a single lambda function triggered by an HTTP request made on the provisioned serverless function
 
-- requesting any other path than `/hello` with any other method than `POST` will result in API Gateway returning a `403` HTTP error code
-- sending a `POST` request to `/hello` with a payload **not** containing a string property named `name` will result in API Gateway returning a `400` HTTP error code
-- sending a `POST` request to `/hello` with a payload containing a string property named `name` will result in API Gateway returning a `200` HTTP status code with a message saluting the provided name and the detailed event processed by the lambda
+- sending a `POST` request to the URL with a payload containing a string property named `name` will result in API Gateway returning a `200` HTTP status code with a message saluting the provided name and the detailed event processed by the lambda
 
-> :warning: As is, this template, once deployed, opens a **public** endpoint within your AWS account resources. Anybody with the URL can actively execute the API Gateway endpoint and the corresponding lambda. You should protect this endpoint with the authentication method of your choice.
+> :warning: As is, this template, once deployed, opens a **public** endpoint within your Scalway account resources. Anybody with the URL can actively execute the API Gateway endpoint and the corresponding lambda. You should protect this endpoint with the authentication method of your choice.
 
 ### Locally
 
@@ -44,12 +42,17 @@ Check the [sls invoke local command documentation](https://www.serverless.com/fr
 Copy and replace your `url` - found in Serverless `deploy` command output - and `name` parameter in the following `curl` command in your terminal or in Postman to test your newly deployed application.
 
 ```
-curl --location --request POST 'https://myApiEndpoint/dev/hello' \
+curl --location --request POST 'https://myApiEndpoint/' \
 --header 'Content-Type: application/json' \
 --data-raw '{
     "name": "Frederic"
 }'
 ```
+
+## deployment instructions
+
+To deploy the template in its current form you need to either set the environment variables or add the project and key to the CLI parameters.
+Due to a bug in the scaleway plugin the credentials inside of the serverless.ts file wont work (yet)
 
 ## Template features
 
