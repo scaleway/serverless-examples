@@ -1,0 +1,5 @@
+{
+	"dependencies": {
+		"@types/scaleway-functions": "^1.0.0"
+	}
+}

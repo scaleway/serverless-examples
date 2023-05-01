@@ -1,29 +1,25 @@
 // import type { AWS } from "@serverless/typescript";
 
-import hello from "@functions/hello";
-import ScalewayServerlessConfiguration from "@libs/serverless";
+import functions from "@functions/index";
+import ScalewayServerlessConfiguration from "@libs/scalewayServerless";
 
 const serverlessConfiguration: ScalewayServerlessConfiguration = {
   service: "nodejs-typescript-test",
   frameworkVersion: "3",
   configValidationMode: "off",
   plugins: ["serverless-esbuild", "serverless-scaleway-functions"],
-  package: { individually: false },
+
   provider: {
     name: "scaleway",
-    runtime: "node14",
+    runtime: "node18",
     swcRegion: "fr-par",
-    // apiGateway: {
-    //   minimumCompressionSize: 1024,
-    //   shouldStartNameWithService: true,
-    // },
     env: {
       AWS_NODEJS_CONNECTION_REUSE_ENABLED: "1",
       NODE_OPTIONS: "--enable-source-maps --stack-trace-limit=1000",
     },
   },
-  // import the function via paths
-  functions: { hello },
+  // import the function via Functions index.ts file
+  functions: functions,
 
   custom: {
     esbuild: {
@@ -32,12 +28,15 @@ const serverlessConfiguration: ScalewayServerlessConfiguration = {
       minify: false,
       sourcemap: true,
       exclude: ["aws-sdk"],
-      target: "node18",
+      format: "esm",
       define: { "require.resolve": undefined },
       platform: "node",
       concurrency: 10,
     },
   },
 };
+
+// Log to check output of serverless.ts
+// console.log(JSON.stringify(serverlessConfiguration, null, 2));
 
 module.exports = serverlessConfiguration;

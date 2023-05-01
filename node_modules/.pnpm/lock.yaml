@@ -1,0 +1,13 @@
+lockfileVersion: 5.4
+
+specifiers:
+  '@types/scaleway-functions': ^1.0.0
+
+dependencies:
+  '@types/scaleway-functions': 1.0.0
+
+packages:
+
+  /@types/scaleway-functions/1.0.0:
+    resolution: {integrity: sha512-gEXvNgccqa0TEzpNGJPMDHpaItETk3ph42HLCyrKiozpURGh/EvfBq7fTx/W+VfYmVlANlG44XVRFLBkfF0bnA==}
+    dev: false

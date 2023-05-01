@@ -2,7 +2,7 @@
 import { handlerPath } from "@libs/handler-resolver";
 import { ScalewayFunction } from "@libs/scalewayServerless";
 
-const hello: ScalewayFunction = {
+const hello2: ScalewayFunction = {
   handler: `${handlerPath(__dirname)}/handler.handler`,
   memoryLimit: 256,
   events: [
@@ -21,4 +21,4 @@ const hello: ScalewayFunction = {
   ],
 };
 
-export default hello;
+export default hello2;

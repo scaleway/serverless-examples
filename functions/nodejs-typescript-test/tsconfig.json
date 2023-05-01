@@ -2,6 +2,8 @@
   "extends": "./tsconfig.paths.json",
   "compilerOptions": {
     "lib": ["ESNext"],
+
+    "allowSyntheticDefaultImports": true,
     "moduleResolution": "node",
     "noUnusedLocals": true,
     "noUnusedParameters": true,

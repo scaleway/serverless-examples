@@ -24,11 +24,11 @@ type Runtime =
   | "golang"
   | "rust165";
 
-type MemoryLimit = "128" | "256" | "512" | "1024" | "2048" | "3072" | "4096";
+type MemoryLimit = 128 | 256 | 512 | 1024 | 2048 | 3072 | 4096;
 
 type ConfigValidationMode = "warn" | "error" | "off";
 
-type Events = any;
+type Events = any; // needs to be typed!
 
 interface Package {
   individually?: false; // Not supported by scaleway
@@ -92,3 +92,55 @@ export const formatScalewayHandlerJSONResponse = (
     body: JSON.stringify(response.body),
   };
 };
+
+export interface AllScalewayFunctionData {
+  [functionName: string]: ScalewayFunction;
+}
+
+// Type definitions for non-npm package scaleway-functions 1.0
+// Project: https://www.scaleway.com/en/serverless-functions/
+// Definitions by: MrMicky <https://github.com/MrMicky-FR>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+export type Handler<TResult = Response | object> = (
+  event: Event,
+  context: Context,
+  callback: Callback<TResult>
+) => void | TResult | Promise<TResult>;
+
+export type Callback<TResult = Response | object> = (
+  error?: Error | string | null,
+  result?: TResult
+) => void;
+
+// https://github.com/scaleway/scaleway-functions-runtimes/blob/master/events/context.go
+export interface Context {
+  memoryLimitInMb: number;
+  functionName: string;
+  functionVersion: string;
+}
+
+// https://github.com/scaleway/scaleway-functions-runtimes/blob/master/events/http.go
+export interface Event {
+  path: string;
+  httpMethod: string;
+  headers: Record<string, string>;
+  queryStringParameters: Record<string, string>;
+  stageVariables: Record<string, string>;
+  body: unknown;
+  isBase64Encoded: boolean;
+  requestContext: RequestContext;
+}
+
+export interface RequestContext {
+  stage: string;
+  httpMethod: string;
+}
+
+// https://github.com/scaleway/scaleway-functions-runtimes/blob/master/handler/utils.go
+export interface Response {
+  statusCode: number;
+  body?: string | object;
+  headers?: Record<string, string>;
+  isBase64Encoded?: boolean;
+}
