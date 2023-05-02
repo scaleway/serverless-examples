@@ -1,8 +1,8 @@
 diff --git a/node_modules/serverless-esbuild/dist/helper.js b/node_modules/serverless-esbuild/dist/helper.js
-index d57c311..c813e3e 100644
+index d57c311..391188d 100644
 --- a/node_modules/serverless-esbuild/dist/helper.js
 +++ b/node_modules/serverless-esbuild/dist/helper.js
-@@ -215,11 +215,18 @@ const googleNodeMatcher = {
+@@ -215,11 +215,19 @@ const googleNodeMatcher = {
      nodejs14: 'node14',
      nodejs12: 'node12',
  };

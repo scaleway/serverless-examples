@@ -11,8 +11,6 @@
     "node": ">=14.15.0"
   },
   "dependencies": {
-    "@middy/core": "^4.4.0",
-    "@middy/http-json-body-parser": "^4.4.0",
     "hello-world-npm": "^1.1.1",
     "serverless-scaleway-functions": "^0.4.6"
   },

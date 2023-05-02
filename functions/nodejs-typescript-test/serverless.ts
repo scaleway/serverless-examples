@@ -11,7 +11,7 @@ const serverlessConfiguration: ScalewayServerlessConfiguration = {
 
   provider: {
     name: "scaleway",
-    runtime: "node18",
+    runtime: "node20",
     swcRegion: "fr-par",
     env: {
       AWS_NODEJS_CONNECTION_REUSE_ENABLED: "1",

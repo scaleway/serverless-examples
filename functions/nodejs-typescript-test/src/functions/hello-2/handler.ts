@@ -14,6 +14,7 @@ export const handler: Handler = async (event) => {
       message: {
         one: `Hello ${data.name}, welcome to the exciting Serverless world!`,
         two: helloWorld(),
+        env: process.env.TEST_2,
       },
     },
     //event,

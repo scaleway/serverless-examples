@@ -30,6 +30,8 @@ This template contains a single lambda function triggered by an HTTP request mad
 
 ### Locally
 
+### Currently not working
+
 In order to test the hello function locally, run the following command:
 
 - `npx sls invoke local -f hello --path src/functions/hello/mock.json` if you're using NPM
@@ -71,7 +73,6 @@ The project code base is mainly located within the `src` folder. This folder is 
 │   │   │   ├── handler.ts      # `Hello` lambda source code
 │   │   │   ├── index.ts        # `Hello` lambda Serverless configuration
 │   │   │   ├── mock.json       # `Hello` lambda input parameter, if any, for local invocation
-│   │   │   └── schema.ts       # `Hello` lambda input event JSON-Schema
 │   │   │
 │   │   └── index.ts            # Import/export of all lambda configurations
 │   │

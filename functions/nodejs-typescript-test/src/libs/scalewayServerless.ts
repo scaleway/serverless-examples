@@ -1,7 +1,7 @@
 type SwcRegion = "fr-par" | "nl-ams" | "pl-waw";
 
 type Runtime =
-  | "node19"
+  | "node20"
   | "node18"
   | "node17"
   | "node16"
@@ -44,15 +44,41 @@ interface ScalewayServerlessProvider {
   swcRegion: SwcRegion;
 }
 
+interface ScalewayFunctionTimeOut {
+  seconds: number;
+}
+type ScalewayFunctionScales =
+  | 0
+  | 1
+  | 2
+  | 3
+  | 4
+  | 5
+  | 6
+  | 7
+  | 8
+  | 9
+  | 10
+  | 11
+  | 12
+  | 13
+  | 14
+  | 15
+  | 16
+  | 17
+  | 18
+  | 19
+  | 20;
 export interface ScalewayFunction {
   handler: string;
+  description?: string;
   env?: Record<string, string>;
   secret?: Record<string, string>;
-  minScale?: number;
-  maxScale?: number;
+  minScale?: ScalewayFunctionScales;
+  maxScale?: ScalewayFunctionScales;
   maxConcurrency?: number;
   memoryLimit?: MemoryLimit;
-  timeout?: number;
+  // timeout?: any; NOT WORKING! 
   runtime?: Runtime;
   events?: Events;
   httpOption?: "enabled" | "redirected"; // Force HTTPS redirection
