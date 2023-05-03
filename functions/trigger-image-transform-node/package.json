@@ -1,0 +1,16 @@
+{
+  "name": "s3-sqs-triggers",
+  "version": "1.0.0",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.325.0",
+    "@aws-sdk/client-sqs": "^3.325.0",
+    "sharp": "^0.32.1"
+  },
+  "devDependencies": {
+    "@scaleway/serverless-functions": "^1.0.1",
+    "serverless-scaleway-functions": "^0.4.6"
+  }
+}

@@ -1,0 +1,46 @@
+service: scaleway-image-transform
+configValidationMode: off
+
+provider:
+  name: scaleway
+  runtime: node18
+  secret:
+    S3_ACCESS_KEY_ID: <IAM access key ID with rights over the selected bucket>
+    S3_ACCESS_KEY: <IAM access key with rights over the selected bucket>
+    SOURCE_BUCKET: <Source bucket>
+    DESTINATION_BUCKET: <Destination bucket>
+    S3_REGION: <region>
+
+  scwToken: <IAM access key with rights to create the function in the selected project>
+  scwProject: <Your project>
+  scwRegion: <region>
+
+plugins:
+  - serverless-scaleway-functions
+
+patterns:
+    - '!.gitignore'
+    - '!.git/**'
+
+functions:
+  imagetransform:
+    handler: ImageTransform.handle
+    memoryLimit: 1024
+    minScale: 0
+    privacy: public
+    env:
+      RESIZED_WIDTH: '300'
+
+  bucketscan:
+    handler: BucketScan.handle
+    memoryLimit: 1024
+    minScale: 0
+    privacy: private
+    secret:
+      SQS_ACCESS_KEY: <Generated Messaging and Queueing Access Key>
+      SQS_ACCESS_KEY_ID: <Generated Messaging and Queuing Access Key ID>
+      QUEUE_URL: <QUEUE_URL>
+      SQS_ENDPOINT: <SQS endpoint from Messaging and Queuing
+    events:
+     - schedule:
+         rate: '1 * * * *'
