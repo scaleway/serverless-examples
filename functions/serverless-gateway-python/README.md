@@ -8,6 +8,27 @@ This example uses:
 * [Python API Framework](https://github.com/scaleway/serverless-api-project) to deploy the functions.
 * [Serverless Gateway](https://github.com/scaleway/serverless-gateway) to deploy a serverless gateway container.
 
+## Testing with serverless offline for Python
+
+In order to test your functions locally before deployment in serverless functions, you can install our python offline testing library with:
+
+```
+pip install -r requirements-dev.txt
+```
+
+Launch your functions locally:
+
+```
+python app.py
+```
+
+Test your local functions using `curl`:
+```
+curl localhost:8080/func_a
+curl localhost:8080/func_b
+curl localhost:8080/func_c
+```
+
 ## Gateway set-up
 
 Deploy the serverless gateway as a container following the Serverless Gateway project instructions.

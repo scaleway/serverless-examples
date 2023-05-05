@@ -12,3 +12,7 @@ def handle(event, context):
             "Content-Type": ["text/plain"],
         },
     }
+
+if __name__ == "__main__":
+    from scaleway_functions_python import local
+    local.serve_handler(handle)

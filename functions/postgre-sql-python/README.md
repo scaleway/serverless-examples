@@ -18,6 +18,30 @@ This example shows how to connect to a managed PostgreSQL database and perform a
 
 The function connects to a PostgreSQL database and performs an example query on it. This example uses Python 3.10 runtime. Used packages are specified in `package.json`. As a requirement for this example we use a pre-compiled [`psycopg2` version](https://www.psycopg.org/docs/install.html#install-from-source).
 
+## Testing with serverless offline for Python
+
+In order to test your function locally before deployment in a serverless function, you can install our python offline testing library with:
+```
+pip install -r requirements-dev.txt
+```
+
+Import your environment variables using:
+
+```
+export PG_HOST="your host IP address" PG_USER="your database username" PG_DATABASE="your database name" PG_PASSWORD="your database user password" PG_PORT="your database port" PG_SSL_ROOT_CERT="path to your database ssl certificate"
+```
+
+Launch your function locally:
+
+```
+python handlers/handler.py
+```
+
+Test your local function using `curl`:
+```
+curl localhost:8080
+```
+
 ## Setup
 
 ### Create a managed PostgreSQL database 
