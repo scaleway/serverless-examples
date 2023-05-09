@@ -1,0 +1,30 @@
+{
+  "name": "nodejs-typescript-esbuild-demo",
+  "version": "1.0.0",
+  "description": "Serverless scaleway-nodejs-typescript template",
+  "main": "serverless.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "engines": {
+    "node": ">=16"
+  },
+  "dependencies": {
+    "@serverless/eslint-config": "^5.0.1",
+    "eslint": "^8.40.0",
+    "hello-world-npm": "^1.1.1",
+    "serverless-scaleway-functions": "^0.4.6"
+  },
+  "devDependencies": {
+    "@types/node": "^20.1.1",
+    "esbuild": "^0.17.18",
+    "json-schema-to-ts": "^2.8.0",
+    "serverless": "^3.30.1",
+    "serverless-esbuild": "^1.44.0",
+    "ts-node": "^10.9.1",
+    "tsconfig-paths": "^4.2.0",
+    "typescript": "^5.0.4"
+  },
+  "author": "Sander Kooger, The Scaleway Team and based on code from The serverless webpack authors (https://github.com/elastic-coders/serverless-webpack)",
+  "license": "MIT"
+}
