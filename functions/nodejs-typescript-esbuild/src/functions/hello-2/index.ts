@@ -5,6 +5,7 @@ import { ScalewayFunction } from "@libs/scalewayServerless";
 const hello2: ScalewayFunction = {
   handler: `${handlerPath(__dirname)}/handler.handler`,
   memoryLimit: 128,
+  privacy: "private",
   description: "test description",
   httpOption: "redirected",
   minScale: null, // working

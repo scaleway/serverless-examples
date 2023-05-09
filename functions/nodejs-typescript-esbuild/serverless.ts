@@ -4,7 +4,7 @@ import functions from "@functions/index";
 import ScalewayServerlessConfiguration from "@libs/scalewayServerless";
 
 const serverlessConfiguration: ScalewayServerlessConfiguration = {
-  service: "nodejs-typescript-test",
+  service: "nodejs-typescript-esbuild-demo",
   frameworkVersion: "3",
   configValidationMode: "off",
   plugins: ["serverless-esbuild", "serverless-scaleway-functions"],
