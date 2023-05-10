@@ -19,18 +19,19 @@ This example uses the Scaleway Serverless Framework Plugin. Please set up your e
 
 In order to test your function locally before deployment in a serverless function, you can install our python offline testing library with:
 
-```
+```bash
 pip install -r requirements-dev.txt
 ```
 
 Launch your function locally:
 
-```
+```bash
 python handler.py
 ```
 
 Test your local function using `curl`:
-```
+
+```bash
 curl localhost:8080
 ```
 
@@ -38,9 +39,8 @@ curl localhost:8080
 
 Once your environment is set up, you can run:
 
-```console
+```bash
 npm install
-
 serverless deploy
 ```
 
@@ -48,7 +48,7 @@ serverless deploy
 
 Then, from the given URL, you can run:
 
-```console
+```bash
 # Options request
 curl -i -X OPTIONS <function URL>
 

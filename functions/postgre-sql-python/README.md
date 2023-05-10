@@ -21,24 +21,26 @@ The function connects to a PostgreSQL database and performs an example query on 
 ## Testing with serverless offline for Python
 
 In order to test your function locally before deployment in a serverless function, you can install our python offline testing library with:
-```
+
+```bash
 pip install -r requirements-dev.txt
 ```
 
 Import your environment variables using:
 
-```
+```bash
 export PG_HOST="your host IP address" PG_USER="your database username" PG_DATABASE="your database name" PG_PASSWORD="your database user password" PG_PORT="your database port" PG_SSL_ROOT_CERT="path to your database ssl certificate"
 ```
 
 Launch your function locally:
 
-```
+```bash
 python handlers/handler.py
 ```
 
 Test your local function using `curl`:
-```
+
+```bash
 curl localhost:8080
 ```
 
@@ -52,7 +54,7 @@ Create a PostgreSQL database and a user profile with appropriate access permissi
 
 Fill your secrets within `serverless.yml` file:
 
-```
+```yaml
 secret:
     PG_HOST: "your host IP address"
     PG_USER: "your database username"
@@ -66,7 +68,7 @@ secret:
 
 Once your environment is set up, you can install `npm` dependencies from `package.json` file using:
 
-```
+```bash
 npm install
 ```
 
@@ -74,12 +76,12 @@ npm install
 
 Then deploy your function and get its URL using:
 
-```
+```bash
 ./bin/deploy.sh
 ```
 
 From the given function URL, you can run your function using:
 
-```
+```bash
 curl <function URL>
 ```
