@@ -14,13 +14,33 @@ This example uses the Scaleway Serverless Framework Plugin. Please set up your e
 
 **Explanation** The function of the example is to allow most CORS requests. For more documentation on how to control access for CORS requests, see [HTTP response headers](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS#the_http_response_headers)
 
+
+## Testing with serverless offline for Python
+
+In order to test your function locally before deployment in a serverless function, you can install our python offline testing library with:
+
+```bash
+pip install -r requirements-dev.txt
+```
+
+Launch your function locally:
+
+```bash
+python handler.py
+```
+
+Test your local function using `curl`:
+
+```bash
+curl localhost:8080
+```
+
 ## Setup
 
 Once your environment is set up, you can run:
 
-```console
+```bash
 npm install
-
 serverless deploy
 ```
 
@@ -28,7 +48,7 @@ serverless deploy
 
 Then, from the given URL, you can run:
 
-```console
+```bash
 # Options request
 curl -i -X OPTIONS <function URL>
 

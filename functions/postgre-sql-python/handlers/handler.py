@@ -54,3 +54,7 @@ def handle(event, context):
                     "message": "Error while getting information from PostgreSQL database, check function logs for more information"
                 }
         }
+
+if __name__ == "__main__":
+    from scaleway_functions_python import local
+    local.serve_handler(handle)

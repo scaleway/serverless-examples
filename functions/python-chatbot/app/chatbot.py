@@ -48,3 +48,7 @@ def handle(event, context):
             return chatbot_response(event)
         case _:
             return generate_response('GET and POST methods only are allowed', 405, "text/plain")
+
+if __name__ == "__main__":
+    from scaleway_functions_python import local
+    local.serve_handler(handle)

@@ -14,11 +14,37 @@ This example uses the Scaleway Serverless Framework Plugin. Please set up your e
 
 **Explanation:** When the function is triggered by a GET method, it renders an HTML file. When the function is triggered by a POST method with the parameter "message", a response is given by the trained chatbot. In all other cases (method not handled or parameter missing), an error is thrown.
 
+## Testing with serverless offline for Python
+
+In order to test your function locally before deployment in a serverless function, you can install our offline testing library with:
+
+```bash
+pip install -r requirements-dev.txt
+```
+
+Import your environment variables using:
+
+```bash
+export database_model="english-corpus.sqlite3"
+```
+
+Launch your function locally:
+
+```bash
+python app/chatbot.py
+```
+
+Test your local function using `curl`:
+
+```bash
+curl -i -X POST localhost:8080 -d '{"message":"Hello"}'
+```
+
 ## Setup
 
 Once your environment is set up, you can run:
 
-```console
+```bash
 # Install node dependencies
 npm install
 
@@ -30,7 +56,7 @@ npm install
 
 Then, you can test your function by sending the following request:
 
-```console
+```bash
 # POST request
 curl -i -X POST <function URL> -d '{"message":"Hello"}'
 ```

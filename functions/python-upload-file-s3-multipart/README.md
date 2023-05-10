@@ -23,15 +23,14 @@ export BUCKET_NAME =
 
 This examples uses [Serverless Functions Python Framework](https://github.com/scaleway/serverless-functions-python) and can be executed locally:
 
-```console
-pip install -r requirements-dev.txt
-
+```bash
+pip install -r requirements-dev.txtbash
 python app.py
 ```
 
 The upload endpoint allows you to upload files to Glacier via the `file` form-data key:
 
-```console
+```bash
 echo -e 'Hello world!\n My contents will be stored in a bunker!' > myfile.dat
 curl -F file=@myfile.dat localhost:8080
 ```
@@ -40,6 +39,6 @@ curl -F file=@myfile.dat localhost:8080
 
 Deployment can be done with `scw_serverless`:
 
-```console
+```bash
 scw_serverless deploy app.py
 ```
