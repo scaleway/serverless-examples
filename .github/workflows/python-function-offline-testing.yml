@@ -15,6 +15,8 @@ jobs:
         uses: actions/checkout@v2
       - name: Python setup
         uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
       - name: Install python dev requirements
         run: pip install -r functions/cors-python/requirements-dev.txt
       - name: Run python offline testing
