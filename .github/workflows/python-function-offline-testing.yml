@@ -22,6 +22,6 @@ jobs:
           start: |
             cd functions/cors-python
             pip install -r requirements-dev.txt
-            python handler.py
+            python functions/cors-python/handler.py
           wait-on: 'http://localhost:8080'
           wait-on-timeout: 60
