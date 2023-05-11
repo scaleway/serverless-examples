@@ -1,0 +1,28 @@
+---
+name: python-function-offline-testing
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  cors-python:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout
+        uses: actions/setup-python@v4
+      - name: Run python offline testing
+        uses: actions/setup-python@v4, BerniWittmann/background-server-action@v1
+        with:
+          command: pytest functions/cors-python
+          start: |
+            cd functions/cors-python
+            pip install -r requirements-dev.txt
+            python handler.py
+          wait-on: 'http://localhost:8080'
+          wait-on-timeout: 60 
+
+
+       
