@@ -15,13 +15,14 @@ jobs:
         uses: actions/checkout@v2
       - name: Python setup
         uses: actions/setup-python@v4
+      - name: Install python dev requirements
+        run: pip install -r requirements-dev.txt
       - name: Run python offline testing
         uses: BerniWittmann/background-server-action@v1
         with:
           command: pytest functions/cors-python
           start: |
             cd functions/cors-python
-            pip install -r requirements-dev.txt
             python functions/cors-python/handler.py
           wait-on: 'http://localhost:8080'
           wait-on-timeout: 60
