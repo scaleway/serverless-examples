@@ -18,7 +18,7 @@ Depending on your preferred package manager, follow the instructions below to de
 ### Using Yarn
 
 - Run `yarn` to install the project dependencies
-- Run `yarn sls deploy` to deploy this stack to AWS
+- Run `yarn sls deploy` to deploy this stack to Scaleway Functions
 
 ## Test your service
 
