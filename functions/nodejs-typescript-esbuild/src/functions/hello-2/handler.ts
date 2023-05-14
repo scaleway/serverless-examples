@@ -1,22 +1,36 @@
+import { middyfy } from "@libs/middyfy";
 import {
   Handler,
+  ValidatedScalewayHandlerEvent,
   formatScalewayHandlerJSONResponse,
 } from "@libs/scalewayServerless";
 
 import { helloWorld } from "hello-world-npm";
+import { Response } from "scaleway-functions";
 
-export const handler: Handler = async (event) => {
-  const data = event.body as Record<string, unknown>;
+import { ISchema } from "./schema";
+
+export const hello: Handler = async (
+  event: ValidatedScalewayHandlerEvent<ISchema>
+): Promise<Response> => {
+  const data = event?.body;
+  const timeToWait = 500;
+  await new Promise((res) => setTimeout(res, timeToWait));
 
   return formatScalewayHandlerJSONResponse({
     statusCode: 200,
+    headers: {
+      "Content-Type": "application/json",
+    },
     body: {
       message: {
-        one: `Hello ${data.name}, welcome to the exciting Serverless world!`,
+        one: `Hello ${
+          data?.name || "person"
+        }, welcome to the exciting Serverless world!`,
         two: helloWorld(),
         env: process.env.TEST_2,
       },
     },
-    //event,
   });
 };
+export const handler = middyfy(hello); // Its important that the exported funtion name is handler.

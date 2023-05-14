@@ -22,7 +22,7 @@ const serverlessConfiguration: ScalewayServerlessConfiguration = {
 
   custom: {
     esbuild: {
-      keepOutputDirectory: false, // usefull for troubleshooting
+      keepOutputDirectory: true, // usefull for troubleshooting
       bundle: true,
       minify: false,
       sourcemap: true,

@@ -4,7 +4,7 @@ import { ScalewayFunction } from "@libs/scalewayServerless";
 
 const hello: ScalewayFunction = {
   handler: `${handlerPath(__dirname)}/handler.handler`,
-  memoryLimit: 256,
+  memoryLimit: 128,
   events: [
     // {
     //   http: {

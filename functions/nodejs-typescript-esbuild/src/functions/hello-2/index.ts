@@ -1,6 +1,7 @@
 // import schema from './schema';
 import { handlerPath } from "@libs/handler-resolver";
 import { ScalewayFunction } from "@libs/scalewayServerless";
+// import schema from "./schema";
 
 const hello2: ScalewayFunction = {
   handler: `${handlerPath(__dirname)}/handler.handler`,
@@ -8,8 +9,8 @@ const hello2: ScalewayFunction = {
   privacy: "private",
   description: "test description",
   httpOption: "redirected",
-  minScale: null, // working
-  maxScale: null, // working
+  minScale: null,
+  maxScale: null,
   env: { TEST: "test", TEST_2: "test2" },
 
   events: [
@@ -27,5 +28,6 @@ const hello2: ScalewayFunction = {
     // },
   ],
 };
+// console.log(JSON.stringify(schema, null, 2));
 
 export default hello2;
