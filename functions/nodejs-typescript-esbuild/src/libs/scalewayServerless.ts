@@ -78,7 +78,7 @@ export interface ScalewayFunction {
   maxScale?: ScalewayFunctionScales;
   maxConcurrency?: number;
   memoryLimit?: MemoryLimit;
-  // timeout?: any; NOT WORKING! 
+  // timeout?: ScalewayFunctionTimeOut; NOT WORKING!
   runtime?: Runtime;
   events?: Events;
   httpOption?: "enabled" | "redirected"; // Force HTTPS redirection
@@ -101,20 +101,12 @@ export default interface ScalewayServerlessConfiguration {
   functions: ScalewayFunctionMap;
 }
 
-interface HandlerResponse {
-  statusCode?: Number;
-  headers?: Record<string, unknown>;
-  body: Record<string, unknown>;
-}
-
 export const formatScalewayHandlerJSONResponse = (
-  response: HandlerResponse
+  response: ScalewayHandlerResponse
 ) => {
   return {
-    headers: {
-      "Content-Type": "application/json",
-    },
-    statusCode: response.statusCode ? response.statusCode : 200,
+    headers: response.headers,
+    statusCode: response.statusCode,
     body: JSON.stringify(response.body),
   };
 };
@@ -128,13 +120,54 @@ export interface AllScalewayFunctionData {
 // Definitions by: MrMicky <https://github.com/MrMicky-FR>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export type Handler<TResult = Response | object> = (
-  event: Event,
+/**
+ * @example <caption>Defining a custom handler type</caption>
+ * import { Handler } from ''
+ *
+ * interface NameEvent {
+ *     fullName: string
+ * }
+ * interface NameResult {
+ *     firstName: string
+ *     middleNames: string
+ *     lastName: string
+ * }
+ * type PersonHandler = Handler<NameEvent, NameResult>
+ *
+ * export const handler: PersonHandler = async (event) => {
+ *   const names = event.fullName.split(' ')
+ *   const firstName = names.shift()
+ *   const lastName = names.pop()
+ *   return { firstName, middleNames: names, lastName }
+ * }
+ *
+ *
+ * @param event
+ *      Parsed JSON data in the lambda request payload. For an ScaleWay service triggered
+ *      lambda this should be in the format of a type ending in Event, for example the
+ *      S3Handler receives an event of type S3Event.
+ * @param context
+ *      Runtime contextual information of the current invocation, for example the caller
+ *      identity, available memory and time remaining, legacy completion callbacks, and
+ *      a mutable property controlling when the lambda execution completes.
+ * @param callback
+ *      NodeJS-style completion callback that the Scaleway Lambda runtime will provide that can
+ *      be used to provide the lambda result payload value, or any execution error. Can
+ *      instead return a promise that resolves with the result payload value or rejects
+ *      with the execution error.
+ * @return
+ *      A promise that resolves with the lambda result payload value, or rejects with the
+ *      execution error. Note that if you implement your handler as an async function,
+ *      you will automatically return a promise that will resolve with a returned value,
+ *      or reject with a thrown value.
+ */
+export type Handler<TEvent = any, TResult = any> = (
+  event: TEvent,
   context: Context,
   callback: Callback<TResult>
-) => void | TResult | Promise<TResult>;
+) => void | Promise<TResult>;
 
-export type Callback<TResult = Response | object> = (
+export type Callback<TResult = ScalewayHandlerResponse | object> = (
   error?: Error | string | null,
   result?: TResult
 ) => void;
@@ -147,16 +180,21 @@ export interface Context {
 }
 
 // https://github.com/scaleway/scaleway-functions-runtimes/blob/master/events/http.go
-export interface Event {
+export interface ScalewayHandlerEvent {
   path: string;
   httpMethod: string;
   headers: Record<string, string>;
   queryStringParameters: Record<string, string>;
   stageVariables: Record<string, string>;
-  body: unknown;
+  body: Record<string, unknown>;
   isBase64Encoded: boolean;
   requestContext: RequestContext;
 }
+
+export type ValidatedScalewayHandlerEvent<S extends object> = Omit<
+  ScalewayHandlerEvent,
+  "body"
+> & { body: S };
 
 export interface RequestContext {
   stage: string;
@@ -164,9 +202,9 @@ export interface RequestContext {
 }
 
 // https://github.com/scaleway/scaleway-functions-runtimes/blob/master/handler/utils.go
-export interface Response {
-  statusCode: number;
-  body?: string | object;
+export interface ScalewayHandlerResponse {
+  statusCode?: number;
+  body?: object;
   headers?: Record<string, string>;
   isBase64Encoded?: boolean;
 }

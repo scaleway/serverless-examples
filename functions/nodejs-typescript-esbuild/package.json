@@ -10,20 +10,24 @@
     "node": ">=16"
   },
   "dependencies": {
-    "@serverless/eslint-config": "^5.0.1",
-    "eslint": "^8.40.0",
-    "hello-world-npm": "^1.1.1",
-    "serverless-scaleway-functions": "^0.4.6"
+    "@middy/core": "^4.4.1",
+    "@middy/http-json-body-parser": "^4.4.1",
+    "hello-world-npm": "^1.1.1"
   },
   "devDependencies": {
-    "@types/node": "^20.1.1",
-    "esbuild": "^0.17.18",
-    "json-schema-to-ts": "^2.8.0",
+    "@serverless/eslint-config": "^5.0.1",
+    "@types/node": "^20.1.4",
+    "esbuild": "^0.17.19",
+    "eslint": "^8.40.0",
+    "json-schema-to-ts": "^2.8.2",
     "serverless": "^3.30.1",
     "serverless-esbuild": "^1.44.0",
+    "serverless-scaleway-functions": "^0.4.6",
     "ts-node": "^10.9.1",
+    "ts-to-json": "^1.7.3",
     "tsconfig-paths": "^4.2.0",
-    "typescript": "^5.0.4"
+    "typescript": "^5.0.4",
+    "typescript-json-schema": "^0.56.0"
   },
   "author": "Sander Kooger, The Scaleway Team and based on code from The serverless webpack authors (https://github.com/elastic-coders/serverless-webpack)",
   "license": "MIT"
