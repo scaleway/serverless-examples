@@ -84,9 +84,9 @@ The project code base is mainly located within the `src` folder. This folder is 
 │   │   │   └── schema.ts           # Typescript schema for incoming data (used for typechecking and later on for API gateway)
 │   │   └── index.ts                # Import/export of all lambda configurations (looking for a way to automate this)
 │   └── libs                        # Lambda shared code
-│       └── convertTsToJsonType     # API Gateway specific helpers
+│       └── convertTsToJsonType     # API Gateway specific helpers to convert TS types to JSON schema
 │       └── handlerResolver.ts      # Sharable library for resolving lambda handlers directories
-│       └── scalewayServerless.ts   # Scaleway's typings and helpers
+│       └── middyfy.ts              # Helper for typings and JSONization of incomming request body
 │       └── scalewayServerless.ts   # Scaleway's typings and helpers
 │
 │
