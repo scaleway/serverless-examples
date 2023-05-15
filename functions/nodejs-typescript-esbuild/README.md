@@ -96,3 +96,9 @@ The project code base is mainly located within the `src` folder. This folder is 
 ├── tsconfig.json               # Typescript compiler configuration
 ├── tsconfig.paths.json         # Typescript paths
 ```
+
+# Future Features
+
+- [ ] Auto import the functions in /src/functions/index.ts
+- [ ] support python
+- [ ] support golang
