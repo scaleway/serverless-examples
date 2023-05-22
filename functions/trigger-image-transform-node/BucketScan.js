@@ -60,7 +60,7 @@ exports.handle = async (event, context, callback) => {
     }
     const imageType = typeMatch[1].toLowerCase();
     // Check that the image type is supported
-    if (["jpeg", "jpg", "png"].includes(imageType) !== true) {
+    if (!["jpeg", "jpg", "png"].includes(imageType)) {
       console.error(`Unsupported image type: ${imageType}`)
       return {
         statusCode: 500,
