@@ -1,4 +1,4 @@
-service: get-all-from-database
+service: database-python-function
 
 configValidationMode: off
 
@@ -11,7 +11,6 @@ provider:
     PG_DATABASE: "your database name"
     PG_PASSWORD: "your database user password"
     PG_PORT: "your database port"
-    PG_SSL_ROOT_CERT: "path to your database ssl certificate"
 
 plugins:
   - serverless-scaleway-functions

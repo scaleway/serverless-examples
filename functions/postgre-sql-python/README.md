@@ -29,7 +29,7 @@ pip install -r requirements-dev.txt
 Import your environment variables using:
 
 ```bash
-export PG_HOST="your host IP address" PG_USER="your database username" PG_DATABASE="your database name" PG_PASSWORD="your database user password" PG_PORT="your database port" PG_SSL_ROOT_CERT="path to your database ssl certificate"
+export PG_HOST="your host IP address" PG_USER="your database username" PG_DATABASE="your database name" PG_PASSWORD="your database user password" PG_PORT="your database port"
 ```
 
 Launch your function locally:
@@ -61,7 +61,6 @@ secret:
     PG_DATABASE: "your database name"
     PG_PASSWORD: "your database user password"
     PG_PORT: "your database port"
-    PG_SSL_ROOT_CERT: "path to your database ssl certificate"
 ```
 
 ### Install npm modules
@@ -72,9 +71,17 @@ Once your environment is set up, you can install `npm` dependencies from `packag
 npm install
 ```
 
+### Generate Python package folder from requirements.txt modules
+
+Verify that you have the right Python runtime version in your `/bin/deps.sh` script as in your `serverless.yml`. Then you can use:
+
+```bash
+./bin/deps.sh
+```
+
 ### Deploy and call the function
 
-Then deploy your function and get its URL using:
+Then deploy your function and dependencies using:
 
 ```bash
 ./bin/deploy.sh
@@ -84,4 +91,10 @@ From the given function URL, you can run your function using:
 
 ```bash
 curl <function URL>
+```
+
+Then you can check your database using `psql` tool:
+
+```bash
+psql -h $PG_HOST --port $PG_PORT -d $ -U $PG_DATABASE -W $PG_PASSWORD
 ```

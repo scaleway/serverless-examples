@@ -3,12 +3,11 @@ from psycopg2 import Error
 import os
 import logging
 
-PG_HOST=os.environ.get('PG_HOST')
-PG_USER=os.environ.get('PG_USER')
-PG_DATABASE=os.environ.get('PG_DATABASE')
-PG_PASSWORD=os.environ.get('PG_PASSWORD')
-PG_PORT=os.environ.get('PG_PORT')
-PG_SSL_ROOT_CERT=os.environ.get('PG_SSL_ROOT_CERT')
+PG_HOST=os.getenv('PG_HOST')
+PG_USER=os.getenv('PG_USER')
+PG_DATABASE=os.getenv('PG_DATABASE')
+PG_PASSWORD=os.getenv('PG_PASSWORD')
+PG_PORT=os.getenv('PG_PORT')
 
 def handle(event, context):
 
@@ -19,9 +18,10 @@ def handle(event, context):
             host=PG_HOST,
             password=PG_PASSWORD,
             port=PG_PORT,
-            sslmode="require",
-            sslrootcert=PG_SSL_ROOT_CERT,
-            )
+            sslmode="disable",
+        )
+        logging.info("Connected to Database")
+
 
     except (Exception, Error) as error:
         logging.error("Error while connecting to PostgreSQL database", error)
@@ -33,16 +33,32 @@ def handle(event, context):
         }
 
     try:
-        cursor = connection.cursor()
-        logging.info("Connected to Database")
-        cursor.execute("SELECT * FROM table LIMIT 10")
-        record = cursor.fetchone()
-        logging.info("Successfully fetched data")
-        cursor.close()
+        sql_create_table = """CREATE TABLE dummy_table (
+            field_1 int,
+            field_2 varchar(20)
+        );"""
+
+        sql_insert_new_lines = """INSERT INTO dummy_table (field_1, field_2) 
+            VALUES
+            (10, 'dummy_data_1'),
+            (20, 'dummy_data_2');
+        """
+
+        with connection.cursor() as cursor:
+            logging.info("Successfully created database cursor")
+            cursor.execute(sql_create_table)
+            cursor.execute(sql_insert_new_lines)
+            connection.commit()
+            cursor.close()
+            logging.info("Successfully executed SQL queries")
+        
+        connection.close()
+        logging.info("Database connection is closed")
+        
         return {
                 "statusCode": 200,
                 "body": {
-                    "message": record
+                    "message": "successful sql queries"
                 }
         }
 
