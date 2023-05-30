@@ -1,4 +1,4 @@
-type SwcRegion = "fr-par" | "nl-ams" | "pl-waw";
+type SwcRegion = "fr-par" | "nl-ams" | "pl-waw"
 
 type Runtime =
   | "node20"
@@ -22,31 +22,30 @@ type Runtime =
   | "go117"
   | "go113"
   | "golang"
-  | "rust165";
+  | "rust165"
 
-type MemoryLimit = 128 | 256 | 512 | 1024 | 2048 | 3072 | 4096;
+type MemoryLimit = 128 | 256 | 512 | 1024 | 2048 | 3072 | 4096
 
-type ConfigValidationMode = "warn" | "error" | "off";
+type ConfigValidationMode = "warn" | "error" | "off"
 
-type Events = any; // needs to be typed!
+type Events = any // needs to be typed!
 
 interface Package {
-  individually?: false; // Not supported by scaleway
-  patterns?: Array<string>;
+  individually?: false // Not supported by scaleway
+  patterns?: Array<string>
 }
 
 interface ScalewayServerlessProvider {
-  name: "scaleway";
-  runtime: Runtime;
-  env?: Record<string, string>;
-  secret?: Record<string, string>;
+  name: "scaleway"
+  runtime: Runtime
+  env?: Record<string, string>
+  secret?: Record<string, string>
 
-  swcRegion: SwcRegion;
+  swcRegion: SwcRegion
 }
 
-interface ScalewayFunctionTimeOut {
-  seconds: number;
-}
+type ScalewayFunctionTimeOut = string
+
 type ScalewayFunctionScales =
   | 0
   | 1
@@ -68,37 +67,37 @@ type ScalewayFunctionScales =
   | 17
   | 18
   | 19
-  | 20;
+  | 20
 export interface ScalewayFunction {
-  handler: string;
-  description?: string;
-  env?: Record<string, string>;
-  secret?: Record<string, string>;
-  minScale?: ScalewayFunctionScales;
-  maxScale?: ScalewayFunctionScales;
-  maxConcurrency?: number;
-  memoryLimit?: MemoryLimit;
-  // timeout?: ScalewayFunctionTimeOut; NOT WORKING!
-  runtime?: Runtime;
-  events?: Events;
-  httpOption?: "enabled" | "redirected"; // Force HTTPS redirection
-  privacy?: "public" | "private"; // (Optional): defines whether a function may be executed anonymously (public) or only via an authentication mechanism (private) (default: public)
+  handler: string
+  description?: string
+  env?: Record<string, string>
+  secret?: Record<string, string>
+  minScale?: ScalewayFunctionScales
+  maxScale?: ScalewayFunctionScales
+  maxConcurrency?: number
+  memoryLimit?: MemoryLimit
+  timeout?: ScalewayFunctionTimeOut
+  runtime?: Runtime
+  events?: Events
+  httpOption?: "enabled" | "redirected" // Force HTTPS redirection
+  privacy?: "public" | "private" // (Optional): defines whether a function may be executed anonymously (public) or only via an authentication mechanism (private) (default: public)
 }
 
 interface ScalewayFunctionMap {
-  [key: string]: ScalewayFunction;
+  [key: string]: ScalewayFunction
 }
 
 export default interface ScalewayServerlessConfiguration {
-  service: string;
-  frameworkVersion: string;
-  configValidationMode?: ConfigValidationMode;
-  useDotenv?: boolean;
-  provider: ScalewayServerlessProvider;
-  plugins: Array<string>;
-  package?: Package;
-  custom?: Record<string, any>;
-  functions: ScalewayFunctionMap;
+  service: string
+  frameworkVersion: string
+  configValidationMode?: ConfigValidationMode
+  useDotenv?: boolean
+  provider: ScalewayServerlessProvider
+  plugins: Array<string>
+  package?: Package
+  custom?: Record<string, any>
+  functions: ScalewayFunctionMap
 }
 
 export const formatScalewayHandlerJSONResponse = (
@@ -108,11 +107,11 @@ export const formatScalewayHandlerJSONResponse = (
     headers: response.headers,
     statusCode: response.statusCode,
     body: JSON.stringify(response.body),
-  };
-};
+  }
+}
 
 export interface AllScalewayFunctionData {
-  [functionName: string]: ScalewayFunction;
+  [functionName: string]: ScalewayFunction
 }
 
 // Type definitions for non-npm package scaleway-functions 1.0
@@ -165,46 +164,46 @@ export type Handler<TEvent = any, TResult = any> = (
   event: TEvent,
   context: Context,
   callback: Callback<TResult>
-) => void | Promise<TResult>;
+) => void | Promise<TResult>
 
 export type Callback<TResult = ScalewayHandlerResponse | object> = (
   error?: Error | string | null,
   result?: TResult
-) => void;
+) => void
 
 // https://github.com/scaleway/scaleway-functions-runtimes/blob/master/events/context.go
 export interface Context {
-  memoryLimitInMb: number;
-  functionName: string;
-  functionVersion: string;
+  memoryLimitInMb: number
+  functionName: string
+  functionVersion: string
 }
 
 // https://github.com/scaleway/scaleway-functions-runtimes/blob/master/events/http.go
 export interface ScalewayHandlerEvent {
-  path: string;
-  httpMethod: string;
-  headers: Record<string, string>;
-  queryStringParameters: Record<string, string>;
-  stageVariables: Record<string, string>;
-  body: Record<string, unknown>;
-  isBase64Encoded: boolean;
-  requestContext: RequestContext;
+  path: string
+  httpMethod: string
+  headers: Record<string, string>
+  queryStringParameters: Record<string, string>
+  stageVariables: Record<string, string>
+  body: Record<string, unknown>
+  isBase64Encoded: boolean
+  requestContext: RequestContext
 }
 
 export type ValidatedScalewayHandlerEvent<S extends object> = Omit<
   ScalewayHandlerEvent,
   "body"
-> & { body: S };
+> & { body: S }
 
 export interface RequestContext {
-  stage: string;
-  httpMethod: string;
+  stage: string
+  httpMethod: string
 }
 
 // https://github.com/scaleway/scaleway-functions-runtimes/blob/master/handler/utils.go
 export interface ScalewayHandlerResponse {
-  statusCode?: number;
-  body?: object;
-  headers?: Record<string, string>;
-  isBase64Encoded?: boolean;
+  statusCode?: number
+  body?: object
+  headers?: Record<string, string>
+  isBase64Encoded?: boolean
 }

@@ -10,8 +10,8 @@
     "node": ">=16"
   },
   "dependencies": {
-    "@middy/core": "^4.4.1",
-    "@middy/http-json-body-parser": "^4.4.1",
+    "@middy/core": "^4.4.3",
+    "@middy/http-json-body-parser": "^4.4.3",
     "hello-world-npm": "^1.1.1"
   },
   "devDependencies": {
@@ -23,6 +23,7 @@
     "serverless": "^3.30.1",
     "serverless-esbuild": "^1.44.0",
     "serverless-scaleway-functions": "^0.4.6",
+    "@types/scaleway-functions": "^1.0.0",
     "ts-node": "^10.9.1",
     "ts-to-json": "^1.7.3",
     "tsconfig-paths": "^4.2.0",

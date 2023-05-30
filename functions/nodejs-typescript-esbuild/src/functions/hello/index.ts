@@ -5,6 +5,7 @@ import { ScalewayFunction } from "@libs/scalewayServerless";
 const hello: ScalewayFunction = {
   handler: `${handlerPath(__dirname)}/handler.handler`,
   memoryLimit: 128,
+  timeout: "3s",
   events: [
     // {
     //   http: {
