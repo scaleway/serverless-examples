@@ -3,12 +3,11 @@ from psycopg2 import Error
 import os
 import logging
 
-PG_HOST = os.getenv("PG_HOST")
-PG_USER = os.getenv("PG_USER")
-PG_DATABASE = os.getenv("PG_DATABASE")
-PG_PASSWORD = os.getenv("PG_PASSWORD")
-PG_PORT = os.getenv("PG_PORT")
-
+PG_HOST = os.environ["PG_HOST"]
+PG_USER = os.environ["PG_USER"]
+PG_DATABASE = os.environ["PG_DATABASE"]
+PG_PASSWORD = os.environ["PG_PASSWORD"]
+PG_PORT = os.environ["PG_PORT"]
 
 def handle(event, context):
     try:
