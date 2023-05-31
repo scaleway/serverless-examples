@@ -3,14 +3,14 @@ from psycopg2 import Error
 import os
 import logging
 
-PG_HOST=os.getenv('PG_HOST')
-PG_USER=os.getenv('PG_USER')
-PG_DATABASE=os.getenv('PG_DATABASE')
-PG_PASSWORD=os.getenv('PG_PASSWORD')
-PG_PORT=os.getenv('PG_PORT')
+PG_HOST = os.getenv("PG_HOST")
+PG_USER = os.getenv("PG_USER")
+PG_DATABASE = os.getenv("PG_DATABASE")
+PG_PASSWORD = os.getenv("PG_PASSWORD")
+PG_PORT = os.getenv("PG_PORT")
+
 
 def handle(event, context):
-
     try:
         connection = psycopg2.connect(
             database=PG_DATABASE,
@@ -22,14 +22,13 @@ def handle(event, context):
         )
         logging.info("Connected to Database")
 
-
     except (Exception, Error) as error:
         logging.error("Error while connecting to PostgreSQL database", error)
         return {
-                "statusCode": 500,
-                "body": {
-                    "message": "Error while connecting to PostgreSQL database, check function logs for more information"
-                }
+            "statusCode": 500,
+            "body": {
+                "message": "Error while connecting to PostgreSQL database, check function logs for more information"
+            },
         }
 
     try:
@@ -51,26 +50,23 @@ def handle(event, context):
             connection.commit()
             cursor.close()
             logging.info("Successfully executed SQL queries")
-        
+
         connection.close()
         logging.info("Database connection is closed")
-        
-        return {
-                "statusCode": 200,
-                "body": {
-                    "message": "successful sql queries"
-                }
-        }
+
+        return {"statusCode": 200, "body": {"message": "successful sql queries"}}
 
     except (Exception, Error) as error:
         logging.error("Error while interacting with PostgreSQL", error)
         return {
-                "statusCode": 500,
-                "body": {
-                    "message": "Error while getting information from PostgreSQL database, check function logs for more information"
-                }
+            "statusCode": 500,
+            "body": {
+                "message": "Error while getting information from PostgreSQL database, check function logs for more information"
+            },
         }
+
 
 if __name__ == "__main__":
     from scaleway_functions_python import local
+
     local.serve_handler(handle)
