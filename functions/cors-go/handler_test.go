@@ -18,7 +18,7 @@ func TestHandleWithCors(t *testing.T) {
 	defer resp.Body.Close()
 
 	assert.Equal(t, 200, resp.StatusCode)
-	assert.Equal(t, "*", resp.Header.Get("Access-Control-Allow-Headers"))
+	assert.Equal(t, "throw error", resp.Header.Get("Access-Control-Allow-Headers"))
 	assert.Equal(t, "*", resp.Header.Get("Access-Control-Allow-Methods"))
 	assert.Equal(t, "*", resp.Header.Get("Access-Control-Allow-Origin"))
 	assert.Equal(t, "text/plain", resp.Header.Get("Content-Type"))

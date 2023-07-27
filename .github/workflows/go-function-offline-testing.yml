@@ -8,7 +8,7 @@ on:
     branches: [main]
 
 jobs:
-  test-go-example:
+  go-example:
     runs-on: ubuntu-latest
     strategy:
       matrix:
