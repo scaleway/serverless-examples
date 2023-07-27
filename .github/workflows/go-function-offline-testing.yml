@@ -26,11 +26,7 @@ jobs:
           go-version: ${{ matrix.tests.go-version}}
 
       - name: Run test for ${{ matrix.tests.directory }}
-        uses: BerniWittmann/background-server-action@v1
-        with:
-          command: go run ./...
-          start: |
-            cd functions/${{ matrix.tests.directory }}
-            go run functions/${{ matrix.tests.directory }}/test/main.go
-          wait-on: 'http://localhost:8080'
-          wait-on-timeout: 60
+        working-directory: functions/${{ matrix.tests.directory }}
+        run: |
+          go run test/main.go &
+          go test ./...
