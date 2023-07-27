@@ -31,6 +31,6 @@ jobs:
           command: go run ./...
           start: |
             cd functions/${{ matrix.tests.directory }}
-            go run test/main.go
+            go run functions/${{ matrix.tests.directory }}/test/main.go
           wait-on: 'http://localhost:8080'
           wait-on-timeout: 60
