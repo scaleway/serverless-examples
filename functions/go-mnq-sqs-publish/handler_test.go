@@ -8,7 +8,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestHandleWithCors(t *testing.T) {
+func TestHandle(t *testing.T) {
 
 	offlineTestingServer := "http://localhost:8080"
 
