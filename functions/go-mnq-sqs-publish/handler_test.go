@@ -8,19 +8,19 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestHandle(t *testing.T) {
+const offlineTestingServer = "http://localhost:8080"
 
-	offlineTestingServer := "http://localhost:8080"
+func TestHandle(t *testing.T) {
 
 	body := []byte(`{
 		"username": "Jane Doe",
 		"message": "Hello World"
 	}`)
 	resp, err := http.Post(offlineTestingServer, "application/json", bytes.NewBuffer(body))
-	assert.Nil(t, err)
+	assert.NoError(t, err)
 
 	defer resp.Body.Close()
 
-	assert.Equal(t, 200, resp.StatusCode)
+	assert.Equal(t, http.StatusOK, resp.StatusCode)
 
 }

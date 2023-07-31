@@ -8,16 +8,16 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestHandleWithCors(t *testing.T) {
+const offlineTestingServer = "http://localhost:8080"
 
-	offlineTestingServer := "http://localhost:8080"
+func TestHandleWithCors(t *testing.T) {
 
 	resp, err := http.Get(offlineTestingServer)
 	assert.Nil(t, err)
 
 	defer resp.Body.Close()
 
-	assert.Equal(t, 200, resp.StatusCode)
+	assert.Equal(t, http.StatusOK, resp.StatusCode)
 	assert.Equal(t, "*", resp.Header.Get("Access-Control-Allow-Headers"))
 	assert.Equal(t, "*", resp.Header.Get("Access-Control-Allow-Methods"))
 	assert.Equal(t, "*", resp.Header.Get("Access-Control-Allow-Origin"))

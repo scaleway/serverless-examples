@@ -12,35 +12,37 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestHandle(t *testing.T) {
+const (
+	offlineTestingServer = "http://localhost:8080"
+	fileToUpload         = "go.sum"
+)
 
-	offlineTestingServer := "http://localhost:8080"
-	fileToUpload := "go.sum"
+func TestHandle(t *testing.T) {
 
 	form := new(bytes.Buffer)
 	writer := multipart.NewWriter(form)
 	fw, err := writer.CreateFormFile("data", filepath.Base(fileToUpload))
-	assert.Nil(t, err)
+	assert.NoError(t, err)
 
 	fd, err := os.Open(fileToUpload)
-	assert.Nil(t, err)
+	assert.NoError(t, err)
 
 	defer fd.Close()
 	_, err = io.Copy(fw, fd)
-	assert.Nil(t, err)
+	assert.NoError(t, err)
 
 	writer.Close()
 
 	client := &http.Client{}
-	req, err := http.NewRequest("POST", offlineTestingServer, form)
-	assert.Nil(t, err)
+	req, err := http.NewRequest(http.MethodPost, offlineTestingServer, form)
+	assert.NoError(t, err)
 
 	req.Header.Set("Content-Type", writer.FormDataContentType())
 	resp, err := client.Do(req)
-	assert.Nil(t, err)
+	assert.NoError(t, err)
 
 	defer resp.Body.Close()
 
-	assert.Equal(t, 200, resp.StatusCode)
+	assert.Equal(t, http.StatusOK, resp.StatusCode)
 
 }
