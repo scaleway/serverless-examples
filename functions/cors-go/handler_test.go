@@ -13,7 +13,7 @@ const offlineTestingServer = "http://localhost:8080"
 func TestHandleWithCors(t *testing.T) {
 
 	resp, err := http.Get(offlineTestingServer)
-	assert.Nil(t, err)
+	assert.NoError(t, err)
 
 	defer resp.Body.Close()
 
@@ -24,7 +24,7 @@ func TestHandleWithCors(t *testing.T) {
 	assert.Equal(t, "text/plain", resp.Header.Get("Content-Type"))
 
 	bodyBytes, err := io.ReadAll(resp.Body)
-	assert.Nil(t, err)
+	assert.NoError(t, err)
 	assert.Equal(t, "This function is allowing most CORS requests", string(bodyBytes))
 
 }
