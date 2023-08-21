@@ -16,11 +16,11 @@ terraform plan -out plan.tfplan && terraform apply plan.tfplan
 terraform output -json
 ```
 
-The terraform output contains the values required to send messages to the SQS queue.
+The Terraform output contains the values required to send messages to the SQS queue.
 
 ## Trigger the function
 
-In order to trigger the function, send messages to the queue using the values from the Terraform output.
+To trigger the function, send messages to the queue using the values from the Terraform output.
 
 ```shell
 for i in `seq 1 5`; do

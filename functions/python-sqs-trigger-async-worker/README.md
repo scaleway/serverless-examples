@@ -1,11 +1,11 @@
-# Connect a front API function with an async worker function using SQS queues and triggers
+# Connect a function with an async worker via an SQS queue
 
 This example uses a SQS trigger to create a simple front-worker async arch. The front function
 receives HTTP requests from the user and sends a message to the queue and returns. Then the SQS trigger
 forwards the event to the async worker function at the rate it is able to consume them.
 
-See the documentation to know [how to configure a trigger](https://www.scaleway.com/en/docs/serverless/functions/how-to/add-trigger-to-a-function/)
-and the [consideration when configuring the queue message retention](https://www.scaleway.com/en/docs/serverless/functions/reference-content/configure-trigger-inputs/).
+See the documentation on [how to configure a trigger](https://www.scaleway.com/en/docs/serverless/functions/how-to/add-trigger-to-a-function/)
+and [how to configure the message retention](https://www.scaleway.com/en/docs/serverless/functions/reference-content/configure-trigger-inputs/) for the queue.
 
 ## Deploy
 
