@@ -1,0 +1,96 @@
+---
+name: triggers-offline-testing
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+env:
+  TRIGGERS_GETTING_STARTED_FOLDER: functions/triggers-getting-started
+  OFFLINE_SERVER_URL: http://localhost:8080
+
+jobs:
+  trigger-node:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Install node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+
+      - name: Install node dev requirements
+        run: |
+          cd ${{ env.TRIGGERS_GETTING_STARTED_FOLDER }}/node
+          npm install
+
+      - name: Install python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+
+      - name: Install testing requirements
+        run: pip install -r ${{ env.TRIGGERS_GETTING_STARTED_FOLDER }}/tests/requirements.txt
+
+      - name: Run node offline testing
+        uses: BerniWittmann/background-server-action@v1
+        with:
+          # The wait-on directive doesn't work with 405 on / with GETs
+          command: python ${{ env.TRIGGERS_GETTING_STARTED_FOLDER }}/tests/test_handler.py
+          start: npm start --prefix ${{ env.TRIGGERS_GETTING_STARTED_FOLDER }}/node
+
+  trigger-go:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Install go
+        uses: actions/setup-go@v4
+        with:
+          go-version: "1.20"
+
+      - name: Install python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+
+      - name: Install testing requirements
+        run: pip install -r ${{ env.TRIGGERS_GETTING_STARTED_FOLDER }}/tests/requirements.txt
+
+      - name: Run go offline testing
+        uses: BerniWittmann/background-server-action@v1
+        with:
+          # The wait-on directive doesn't work with 405 on / with GETs
+          command: python ${{ env.TRIGGERS_GETTING_STARTED_FOLDER }}/tests/test_handler.py
+          start: >
+            cd ${{ env.TRIGGERS_GETTING_STARTED_FOLDER }}/go &&
+            go run ./cmd
+
+  trigger-python:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Install python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+
+      - name: Install python dev requirements
+        run: pip install -r ${{ env.TRIGGERS_GETTING_STARTED_FOLDER }}/python/requirements-dev.txt
+
+      - name: Install testing requirements
+        run: pip install -r ${{ env.TRIGGERS_GETTING_STARTED_FOLDER }}/tests/requirements.txt
+
+      - name: Run python offline testing
+        uses: BerniWittmann/background-server-action@v1
+        with:
+          # The wait-on directive doesn't work with 405 on / with GETs
+          command: python ${{ env.TRIGGERS_GETTING_STARTED_FOLDER }}/tests/test_handler.py
+          start: python ${{ env.TRIGGERS_GETTING_STARTED_FOLDER }}/python/handler.py
