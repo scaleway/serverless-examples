@@ -14,7 +14,6 @@ func factorial(n int) *big.Int {
 	return &f
 }
 
-// This handle function comes frome our examples and is not modified at all.
 func Handle(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodPost {
 		// SQS triggers are sent as POST requests.
