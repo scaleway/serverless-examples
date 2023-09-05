@@ -29,7 +29,7 @@ locals {
 }
 
 resource "scaleway_function_namespace" "main" {
-  name = "trigger-examples"
+  name = "triggers-getting-started"
 }
 
 data "archive_file" "function" {

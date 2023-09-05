@@ -43,22 +43,23 @@ Table of Contents:
 | **[Python ChatBot](functions/python-dependencies/README.md)** <br/> A chatbot example with ChatterBot.                                                                                | python310 | [Serverless Framework] |
 | **[Python Dependencies](functions/python-chatbot/README.md)** <br/> Example showing how to use Python requirements with Serverless Framework.                                         | python310 | [Serverless Framework] |
 | **[Python MultiPart Upload to S3](functions/python-upload-file-s3-multipart/README.md)** <br/> A function to upload file from form-data to S3.                                        | python311 | [Python API Framework] |
-| **[Python SQS Trigger Hello World](functions/python-sqs-trigger-hello-world/README.md)** <br/> Trigger a function by sending a message to a SQS queue.                                | python311 | [Terraform] |
-| **[Python SQS Trigger Async Worker](functions/python-sqs-trigger-async-worker/README.md)** <br/> Use SQS queues and function triggers to scheule an async task from another function. | python311 | [Terraform] |
+| **[Python SQS Trigger Hello World](functions/python-sqs-trigger-hello-world/README.md)** <br/> Trigger a function by sending a message to a SQS queue.                                | python311 | [Terraform]            |
+| **[Python SQS Trigger Async Worker](functions/python-sqs-trigger-async-worker/README.md)** <br/> Use SQS queues and function triggers to scheule an async task from another function. | python311 | [Terraform]            |
 | **[Redis TLS](functions/redis-tls/README.md)** <br/> How to connect a function to a Scaleway Redis cluster with TLS enabled.                                                          | python310 | [Terraform]            |
 | **[Rust MNIST](functions/rust-mnist/README.md)** <br/> A Rust function to recognize hand-written digits with a simple neural network.                                                 | rust165   | [Serverless Framework] |
 | **[PostgreSQL Python](functions/postgre-sql-python/README.md)** <br/> A Python function to perform a query on a PostgreSQL managed database.                                          | python310 | [Serverless Framework] |
 | **[Terraform Python](functions/terraform-python-example/README.md)** <br/> A Python function deployed with Terraform.                                                                 | python310 | [Terraform]            |
+| **[Triggers Getting Started](functions/triggers-getting-started/README.md)** <br/> Simple SQS trigger example for all runtimes.                                                       | all       | [Terraform]            |
 | **[Typescript with Node runtime](functions/typescript-with-node/README.md)** <br/> A Typescript function using Node runtime.                                                          | node18    | [Serverless Framework] |
-| **[Serverless Gateway Python Example](functions/serverless-gateway-python/README.md)** <br/> A Python serverless API using Serverless Gateway.                                        | python310    | [Python API Framework] |
+| **[Serverless Gateway Python Example](functions/serverless-gateway-python/README.md)** <br/> A Python serverless API using Serverless Gateway.                                        | python310 | [Python API Framework] |
 
 ### 📦 Containers
 
 | Example                                                                                                                                      | Language     | Deployment             |
 |----------------------------------------------------------------------------------------------------------------------------------------------|--------------|------------------------|
 | **[Container Bash Script](containers/bash-scheduled-job/README.md)** <br/> A Bash script runnning on a schedule using serverless containers. | Bash         | [Serverless Framework] |
-| **[Function Handler Java](containers/function-handler-java/README.md)** <br/> A Java function handler deployed on CaaS.                         | Java         | [Serverless Framework] |
-| **[Nginx CORS Private](containers/nginx-cors-private-python/README.md)** <br/> A Nginx proxy to allow CORS requests to a private container.         | Python Flask | [Terraform]            |
+| **[Function Handler Java](containers/function-handler-java/README.md)** <br/> A Java function handler deployed on CaaS.                      | Java         | [Serverless Framework] |
+| **[Nginx CORS Private](containers/nginx-cors-private-python/README.md)** <br/> A Nginx proxy to allow CORS requests to a private container.  | Python Flask | [Terraform]            |
 
 ### 💜 Projects
 

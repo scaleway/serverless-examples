@@ -1,11 +1,11 @@
 
 resource "scaleway_mnq_namespace" "main" {
-  name     = "serverless-examples"
+  name     = "triggers-getting-started"
   protocol = "sqs_sns"
 }
 
 resource "scaleway_mnq_credential" "main" {
-  name         = "serverless-examples"
+  name         = "triggers-getting-started"
   namespace_id = scaleway_mnq_namespace.main.id
   sqs_sns_credentials {
     permissions {
