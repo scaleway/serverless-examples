@@ -34,7 +34,22 @@ python tests/send_messages.py
 In Cockpit, you should see the functions being triggered and the result of the factorial being printed in the logs.
 
 ```console
+...
+DEBUG - php: factorial of 17 is 355687428096000 source=user stream=stdout  
+2023-09-11 10:36:19.994 DEBUG - Function Triggered: / source=core
+2023-09-11 10:36:19.993 DEBUG - php: factorial of 13 is 6227020800 source=user stream=stdout
+2023-09-11 10:36:19.991 DEBUG - Function Triggered: / source=core
+2023-09-11 10:36:19.977 DEBUG - php: factorial of 12 is 479001600 source=user stream=stdout
+2023-09-11 10:36:19.976 DEBUG - php: factorial of 11 is 39916800 source=user stream=stdout
+2023-09-11 10:36:19.975 DEBUG - php: factorial of 10 is 3628800 source=user stream=stdout
+2023-09-11 10:36:19.964 DEBUG - Function Triggered: / source=core
+2023-09-11 10:36:19.954 DEBUG - php: factorial of 3 is 6 source=user stream=stdout
+2023-09-11 10:36:19.954 DEBUG - php: factorial of 4 is 24 source=user stream=stdout
+2023-09-11 10:36:19.948 DEBUG - php: factorial of 0 is 1 source=user stream=stdout
+... (truncated)
 ```
+
+Configuring and managing triggers is free, you only pay for the execution of your functions. For more information, please consult the [Scaleway Serverless pricing](https://www.scaleway.com/en/pricing/?tags=serverless). You will also be billed for the SQS queue usage when sending messages to it.
 
 ## Cleanup
 

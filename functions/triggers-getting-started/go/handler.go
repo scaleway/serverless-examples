@@ -30,18 +30,24 @@ func Handle(w http.ResponseWriter, r *http.Request) {
 
 	n, err := strconv.Atoi(string(body))
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusBadRequest)
+		// Setting the status code to 200 will mark the message as processed.
+		http.Error(w, err.Error(), http.StatusOK)
 		return
 	}
 
 	result := factorial(n)
 	fmt.Printf("go: factorial of %d is %s\n", n, result.String())
 
+	// Because triggers are asynchronous, the response body is ignored.
+	// It's kept here when testing locally.
 	_, err = io.WriteString(w, result.String())
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
 
+	// If the status code is not in the 2XX range, the message is considered
+	// failed and is retried. In total, there are 3 retries.
+	w.WriteHeader(http.StatusOK)
 	w.Header().Set("Content-Type", "text/plain")
 }

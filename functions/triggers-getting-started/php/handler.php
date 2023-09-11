@@ -27,8 +27,12 @@ function handle($event, $context)
     echo "php: factorial of $n is $result\n";
 
     return [
+        // If the status code is not in the 2XX range, the message is considered
+        // failed and is retried. In total, there are 3 retries.
         "statusCode" => 200,
         "headers" => ["Content-Type" => "text/plain"],
+        // Because triggers are asynchronous, the response body is ignored.
+	    // It's kept here when testing locally.
         "body" => $result,
     ];
 }

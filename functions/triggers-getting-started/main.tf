@@ -55,10 +55,9 @@ resource "scaleway_function" "main" {
   zip_hash = data.archive_file.function[each.key].output_sha256
   deploy   = true
 
-  memory_limit = 2048 // 1120 mVCPUs
+  memory_limit = 512 # MB / 280 mVCPU
 
   min_scale = 0
-  max_scale = 1
 }
 
 resource "scaleway_mnq_queue" "main" {

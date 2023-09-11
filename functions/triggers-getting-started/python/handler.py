@@ -7,7 +7,7 @@ if TYPE_CHECKING:
     from scaleway_functions_python.framework.v1.hints import Context, Event, Response
 
 
-def factorial(n: int) -> int: # pylint: disable=invalid-name
+def factorial(n: int) -> int:  # pylint: disable=invalid-name
     """Return the factorial of n >= 0."""
     return functools.reduce(operator.mul, range(1, n + 1), 1)
 
@@ -25,13 +25,15 @@ def handler(event: "Event", _context: "Context") -> "Response":
         }
 
     # The content of the SQS message is passed in the body.
-    n = int(event["body"]) # pylint: disable=invalid-name
+    n = int(event["body"])  # pylint: disable=invalid-name
     result = factorial(n)
 
     print(f"python: factorial of {n} is {result}")
 
     return {
         "headers": {"Content-Type": "text/plain"},
+        # If the status code is not in the 2XX range, the message is considered
+        # failed and is retried. In total, there are 3 retries.
         "statusCode": http.HTTPStatus.OK.value,
         # Because triggers are asynchronous, the response body is ignored.
         # It's kept here when testing locally.

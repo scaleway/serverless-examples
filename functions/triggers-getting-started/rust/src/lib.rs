@@ -20,7 +20,8 @@ pub async fn handler(req: Request<Body>) -> Response<Body> {
         Ok(n) => n,
         Err(e) => {
             return Response::builder()
-                .status(StatusCode::BAD_REQUEST)
+                // Setting the status code to 200 will mark the message as processed.
+                .status(StatusCode::OK)
                 .header("Content-Type", "text/plain")
                 .body(Body::from(format!("Invalid number: {}", e)))
                 .unwrap();
@@ -31,8 +32,12 @@ pub async fn handler(req: Request<Body>) -> Response<Body> {
     println!("rust: factorial of {} is {}", n, result);
 
     Response::builder()
+        // If the status code is not in the 2XX range, the message is considered
+        // failed and is retried. In total, there are 3 retries.
         .status(StatusCode::OK)
         .header("Content-Type", "text/plain")
+        // Because triggers are asynchronous, the response body is ignored.
+        // It's kept here when testing locally.
         .body(Body::from(format!("{}", result)))
         .unwrap()
 }

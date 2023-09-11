@@ -34,7 +34,11 @@ export function handle(event, context, callback) {
     console.log(`node: factorial of ${n} is ${result}`);
 
     return {
+        // If the status code is not in the 2XX range, the message is considered
+        // failed and is retried. In total, there are 3 retries.
         statusCode: 200,
+        // Because triggers are asynchronous, the response body is ignored.
+        // It's kept here when testing locally.
         body: result.toString(),
         headers: {
             "Content-Type": "text/plain",
