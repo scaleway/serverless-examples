@@ -16,7 +16,7 @@ Everything is managed with Terraform. The terraform config files will also creat
 
 ```sh
 terraform init
-terraform deploy
+terraform apply
 ```
 
 You should be able to see your function in the Scaleway console.
