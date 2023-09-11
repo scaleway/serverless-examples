@@ -1,4 +1,3 @@
-
 resource "scaleway_mnq_namespace" "main" {
   name     = "triggers-getting-started"
   protocol = "sqs_sns"
