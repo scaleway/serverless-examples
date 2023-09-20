@@ -11,10 +11,12 @@ This example uses the Scaleway Serverless Framework Plugin. Please set up your e
 
 ## Deployment
 
-Once your environment is set up, you can test your function locally with:
+Once your environment is set up, you can deploy your container with:
 
 ```sh
 npm install
 
 serverless deploy
 ```
+
+When the deployment is complete, you should be able to `curl` the container's endpoint or hit it from a browser and see the NGINX default page.
