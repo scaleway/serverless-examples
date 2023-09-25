@@ -20,3 +20,11 @@ serverless deploy
 ```
 
 When the deployment is complete, you should be able to `curl` the container's endpoint or hit it from a browser and see the NGINX default page.
+
+## Customising your deployment
+
+To serve custom resource from your NGINX container, you will need to:
+
+- Build a custom image containing these files
+- Push this image to a publicly accessible repo, or a private Scaleway container repo
+- Update the `registryImage` field in the `serverless.yml` file to point to your image, and redeploy
