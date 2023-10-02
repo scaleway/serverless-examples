@@ -43,9 +43,4 @@ jobs:
           SQS_SECRET_KEY: ${{ secrets.SQS_SECRET_KEY }}
 
           # for go-upload-file-s3-multipart example
-          S3_ENABLED: true
-          S3_ENDPOINT: ${{ secrets.S3_ENDPOINT }}
-          S3_ACCESSKEY: ${{ secrets.SCW_ACCESS_KEY }}
-          S3_SECRET: ${{ secrets.SCW_SECRET_KEY }}
-          S3_BUCKET_NAME: ${{secrets.S3_BUCKET_NAME}}
-          S3_REGION: ${{ secrets.SCW_DEFAULT_REGION }}
+          S3_ENABLED: false
