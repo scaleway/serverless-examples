@@ -55,12 +55,13 @@ Table of Contents:
 
 ### 📦 Containers
 
-| Example                                                                                                                                      | Language     | Deployment             |
-|----------------------------------------------------------------------------------------------------------------------------------------------|--------------|------------------------|
-| **[Container Bash Script](containers/bash-scheduled-job/README.md)** <br/> A Bash script runnning on a schedule using serverless containers. | Bash         | [Serverless Framework] |
-| **[Function Handler Java](containers/function-handler-java/README.md)** <br/> A Java function handler deployed on CaaS.                      | Java         | [Serverless Framework] |
-| **[NGINX CORS Private](containers/nginx-cors-private-python/README.md)** <br/> An NGINX proxy to allow CORS requests to a private container.  | Python Flask | [Terraform]            |
-| **[NGINX hello world](containers/nginx-hello-world/README.md)** <br/> A minimal example running the base NGINX image in a serverless container. | N/A         | [Serverless Framework] |
+| Example                                                                                                                                                                                     | Language     | Deployment             |
+|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------|------------------------|
+| **[Container Bash Script](containers/bash-scheduled-job/README.md)** <br/> A Bash script runnning on a schedule using serverless containers.                                                | Bash         | [Serverless Framework] |
+| **[Function Handler Java](containers/function-handler-java/README.md)** <br/> A Java function handler deployed on CaaS.                                                                     | Java         | [Serverless Framework] |
+| **[NGINX CORS Private](containers/nginx-cors-private-python/README.md)** <br/> An NGINX proxy to allow CORS requests to a private container.                                                | Python Flask | [Terraform]            |
+| **[NGINX hello world](containers/nginx-hello-world/README.md)** <br/> A minimal example running the base NGINX image in a serverless container.                                             | N/A          | [Serverless Framework] |
+| **[Terraform NGINX hello world](containers/terraform-nginx-hello-world/README.md)** <br/> A minimal example running the base NGINX image in a serverless container deployed with Terraform. | N/A          | [Terraform]            |
 
 ### 💜 Projects
 
