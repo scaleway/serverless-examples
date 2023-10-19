@@ -24,8 +24,6 @@ The deployment will do the following:
 To run the deploy:
 
 ```
-scw registry login region=fr-par
-
 terraform init
 
 terraform plan

@@ -25,23 +25,21 @@ provider "scaleway" {
 
 provider "docker" {
   registry_auth {
-    address     = var.scw_registry
-    config_file = pathexpand("~/.docker/config.json")
+    address  = var.scw_registry
+    username = var.access_key
+    password = var.secret_key
   }
 }
 
 # ----- DOCKER BUILD ------
 
-resource "scaleway_registry_namespace" "main" {
-  name        = "container-triggers"
-  description = "Containers and triggers examples"
-  is_public   = true
-}
-
 resource "docker_image" "main" {
-  name          = "${var.scw_registry}/container-triggers/server:0.0.1"
+  name          = "${scaleway_container_namespace.main.registry_endpoint}/server:0.0.1"
   build {
     context = "docker"
+  }
+  triggers = {
+    dir_sha1 = sha1(join("", [for f in fileset(path.module, "docker/*") : filesha1(f)]))
   }
 }
 
@@ -95,12 +93,19 @@ resource "scaleway_container_namespace" "main" {
   description = "Serverless examples"
 }
 
+# This is just to make sure the image is available before creating the containers
+resource "time_sleep" "wait_10_seconds_after_pushing_image" {
+  depends_on = [docker_registry_image.main]
+
+  create_duration = "10s"
+}
+
 resource "scaleway_container" "public" {
   name = "example-public-container"
   description = "Public example container"
   namespace_id = scaleway_container_namespace.main.id
   registry_image = docker_image.main.name
-  port = 80
+  port = 8080
   cpu_limit = 500
   memory_limit = 1024
   min_scale = 0
@@ -108,6 +113,7 @@ resource "scaleway_container" "public" {
   privacy = "public"
   protocol = "http1"
   deploy = true
+  depends_on = [time_sleep.wait_10_seconds_after_pushing_image]
 }
 
 resource "scaleway_container" "private" {
@@ -115,7 +121,7 @@ resource "scaleway_container" "private" {
   description = "Private example container"
   namespace_id = scaleway_container_namespace.main.id
   registry_image = docker_image.main.name
-  port = 80
+  port = 8080
   cpu_limit = 500
   memory_limit = 1024
   min_scale = 0
@@ -123,6 +129,7 @@ resource "scaleway_container" "private" {
   privacy = "private"
   protocol = "http1"
   deploy = true
+  depends_on = [time_sleep.wait_10_seconds_after_pushing_image]
 }
 
 # ----- TRIGGERS -----
