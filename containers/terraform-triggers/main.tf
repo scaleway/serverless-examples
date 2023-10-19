@@ -46,7 +46,7 @@ resource "docker_image" "main" {
 }
 
 resource "docker_registry_image" "main" {
-  name          = "${var.scw_registry}/container-triggers/server:0.0.1"
+  name          = docker_image.main.name
   keep_remotely = true
 }
 
@@ -99,7 +99,7 @@ resource "scaleway_container" "public" {
   name = "example-public-container"
   description = "Public example container"
   namespace_id = scaleway_container_namespace.main.id
-  registry_image = "${var.scw_registry}/container-triggers/server:0.0.1"
+  registry_image = docker_image.main.name
   port = 80
   cpu_limit = 500
   memory_limit = 1024
@@ -114,7 +114,7 @@ resource "scaleway_container" "private" {
   name = "example-private-container"
   description = "Private example container"
   namespace_id = scaleway_container_namespace.main.id
-  registry_image = "${var.scw_registry}/container-triggers/server:0.0.1"
+  registry_image = docker_image.main.name
   port = 80
   cpu_limit = 500
   memory_limit = 1024
@@ -151,6 +151,16 @@ output "public-endpoint" {
   value = scaleway_container.public.domain_name
 }
 
+output "public-queue" {
+  value = scaleway_mnq_queue.public.sqs
+  sensitive = true
+}
+
 output "private-endpoint" {
   value = scaleway_container.private.domain_name
+}
+
+output "private-queue" {
+  value = scaleway_mnq_queue.private.sqs
+  sensitive = true
 }
