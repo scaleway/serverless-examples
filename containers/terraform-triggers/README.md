@@ -29,7 +29,7 @@ The values for `container_language` can be either `python` or `go` (see inside [
 The deployment will do the following:
 
 1. Create a Scaleway registry namespace
-2. Build and deploy a container image with a Python HTTP server
+2. Build and deploy a container image with a Python/Go HTTP server
 3. Deploy a public and private Serverless Container using the built image
 4. Create Scaleway MnQ SQS queues
 5. Configure triggers from these queues to each container
