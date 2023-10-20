@@ -18,7 +18,7 @@ client = boto3.client("sqs", **params)
 sqs = boto3.resource("sqs", **params)
 
 def main():
-    for queue_url in [PUBLIC_QUEUE_URL, PRIVATE_QUEUE_URL]:
+    for queue_url in (PUBLIC_QUEUE_URL, PRIVATE_QUEUE_URL):
         queue = sqs.Queue(queue_url)
         queue_name = queue.attributes["QueueArn"].split(":")[-1]
         print(f"Sending greetings message to {queue_name}...")
