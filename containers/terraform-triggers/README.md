@@ -59,7 +59,7 @@ python3 -m pip install -r requirements.txt
 python3 tests/send_messages.py
 ```
 
-You can then check logs of your containers in your cockpit:
+You can then check logs of your containers in your cockpit (assuming you have activated it in your project):
 
 ```shell
 echo "Go to $(terraform output --raw cockpit_logs_public_container) to see public container logs in cockpit"
