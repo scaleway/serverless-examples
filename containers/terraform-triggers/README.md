@@ -47,3 +47,7 @@ python3 send_messages.py
 You can then check logs of your containers in your cockpit (in project defined in `secrets.auto.tfvars`). You should see the "Hello World!" messages there!
 
 From there, you can modify `docker/server.py` as you want and run `terraform apply` to deploy the modified container.
+
+## Cleanup
+
+Run `terraform destroy` to remove all resources created by this example.
