@@ -55,7 +55,7 @@ export PRIVATE_QUEUE_URL=$(terraform output -raw private_queue)
 
 python3 -m venv tests/env
 source tests/env/bin/activate
-python3 -m pip install -r requirements.txt
+python3 -m pip install -r tests/requirements.txt
 python3 tests/send_messages.py
 ```
 
