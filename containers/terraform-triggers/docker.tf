@@ -1,11 +1,11 @@
 locals {
-  docker_image_tag = sha256(join("", [for f in fileset(path.module, "docker/*") : filesha256(f)]))
+  docker_image_tag = sha256(join("", [for f in fileset(path.module, "docker/${var.container_language}/*") : filesha256(f)]))
 }
 
 resource "docker_image" "main" {
-  name = "${scaleway_container_namespace.main.registry_endpoint}/server:${local.docker_image_tag}"
+  name = "${scaleway_container_namespace.main.registry_endpoint}/server-${var.container_language}:${local.docker_image_tag}"
   build {
-    context  = "docker"
+    context  = "docker/${var.container_language}"
     platform = "amd64"
   }
   triggers = {

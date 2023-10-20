@@ -14,3 +14,8 @@ variable "scw_registry" {
   type    = string
   default = "rg.fr-par.scw.cloud"
 }
+
+variable "container_language" {
+  type    = string
+  default = "python"
+}

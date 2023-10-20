@@ -10,6 +10,20 @@ access_key = "your-access-key"
 secret_key = "your-secret-key"
 ```
 
+The API key you use only needs the following permission sets:
+
+- `ContainerRegistryFullAccess`
+- `ContainersFullAccess`
+- `MessagingAndQueuingFullAccess`
+
+**Optional**: you can also define in this file the language used for the container. By default, when not specified, it will use the `python` container.
+
+```
+container_language = "go"
+```
+
+The values for `container_language` can be either `python` or `go` (see inside [`docker/`](docker/) folder).
+
 ## Deploy
 
 The deployment will do the following:
@@ -34,19 +48,25 @@ terraform apply
 ```shell
 export AWS_ACCESS_KEY_ID=$(terraform output -raw sqs_admin_access_key)
 export AWS_SECRET_ACCESS_KEY=$(terraform output -raw sqs_admin_secret_key)
-export PUBLIC_QUEUE_URL=$(terraform output -raw public-queue)
-export PRIVATE_QUEUE_URL=$(terraform output -raw private-queue)
+export PUBLIC_QUEUE_URL=$(terraform output -raw public_queue)
+export PRIVATE_QUEUE_URL=$(terraform output -raw private_queue)
 
-cd tests/
 python3 -m venv env
 source env/bin/activate
 python3 -m pip install -r requirements.txt
-python3 send_messages.py
+python3 tests/send_messages.py
 ```
 
-You can then check logs of your containers in your cockpit (in project defined in `secrets.auto.tfvars`). You should see the "Hello World!" messages there!
+You can then check logs of your containers in your cockpit:
 
-From there, you can modify `docker/server.py` as you want and run `terraform apply` to deploy the modified container.
+```shell
+echo "Go to $(terraform output --raw cockpit_logs_public_container) to see public container logs in cockpit"
+echo "Go to $(terraform output --raw cockpit_logs_private_container) to see private container logs in cockpit"
+```
+
+And you should be able to see the "Hello World!" messages there.
+
+You can then modify `docker/python/server.py` (or `docker/go/server.go`) as you want and run `terraform apply` to deploy the modified container.
 
 ## Cleanup
 

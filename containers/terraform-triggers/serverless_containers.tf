@@ -24,6 +24,7 @@ resource "scaleway_container" "public" {
   privacy        = "public"
   protocol       = "http1"
   deploy         = true
+
   depends_on     = [time_sleep.wait_10_seconds_after_pushing_image]
 }
 
@@ -40,5 +41,6 @@ resource "scaleway_container" "private" {
   privacy        = "private"
   protocol       = "http1"
   deploy         = true
+
   depends_on     = [time_sleep.wait_10_seconds_after_pushing_image]
 }
