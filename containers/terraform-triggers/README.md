@@ -35,7 +35,7 @@ The deployment will do the following:
 5. Configure triggers from these queues to each container
 6. Print the endpoints of each queue and each container
 
-To run the deploy:
+To run the deployment:
 
 ```
 terraform init
