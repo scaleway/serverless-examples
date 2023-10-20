@@ -45,14 +45,16 @@ terraform apply
 
 ## Tests
 
+You can send some messages by using the provided python script in [`tests/`](tests/) folder.
+
 ```shell
 export AWS_ACCESS_KEY_ID=$(terraform output -raw sqs_admin_access_key)
 export AWS_SECRET_ACCESS_KEY=$(terraform output -raw sqs_admin_secret_key)
 export PUBLIC_QUEUE_URL=$(terraform output -raw public_queue)
 export PRIVATE_QUEUE_URL=$(terraform output -raw private_queue)
 
-python3 -m venv env
-source env/bin/activate
+python3 -m venv tests/env
+source tests/env/bin/activate
 python3 -m pip install -r requirements.txt
 python3 tests/send_messages.py
 ```
@@ -64,9 +66,9 @@ echo "Go to $(terraform output --raw cockpit_logs_public_container) to see publi
 echo "Go to $(terraform output --raw cockpit_logs_private_container) to see private container logs in cockpit"
 ```
 
-And you should be able to see the "Hello World!" messages there.
+You should be able to see the "Hello World!" messages there.
 
-You can then modify `docker/python/server.py` (or `docker/go/server.go`) as you want and run `terraform apply` to deploy the modified container.
+Finally, you can modify `docker/python/server.py` (or `docker/go/server.go`) as you wish and run `terraform apply` to redeploy the new version of the container.
 
 ## Cleanup
 
