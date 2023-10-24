@@ -14,6 +14,8 @@ The Terraform configuration will deploy a function for each language, showing ho
 
 It will also create a SQS queue per function to trigger it.
 
+After exporting `SCW_ACCESS_KEY`, `SCW_SECRET_KEY` and `SCW_DEFAULT_PROJECT_ID` variables (for authentication), you can:
+
 ```console
 terraform init
 terraform apply
