@@ -50,6 +50,7 @@ Table of Contents:
 | **[PostgreSQL Python](functions/postgre-sql-python/README.md)** <br/> A Python function to perform a query on a PostgreSQL managed database.                                          | python310 | [Serverless Framework] |
 | **[Terraform Python](functions/terraform-python-example/README.md)** <br/> A Python function deployed with Terraform.                                                                 | python310 | [Terraform]            |
 | **[Triggers Getting Started](functions/triggers-getting-started/README.md)** <br/> Simple SQS trigger example for all runtimes.                                                       | all       | [Terraform]            |
+| **[Triggers NATS](functions/triggers-nats/README.md)** <br/> Simple NATS trigger example using Terraform.                                                                             | all       | [Terraform]            |
 | **[Typescript with Node runtime](functions/typescript-with-node/README.md)** <br/> A Typescript function using Node runtime.                                                          | node18    | [Serverless Framework] |
 | **[Serverless Gateway Python Example](functions/serverless-gateway-python/README.md)** <br/> A Python serverless API using Serverless Gateway.                                        | python310 | [Python API Framework] |
 
