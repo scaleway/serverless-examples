@@ -43,30 +43,52 @@ terraform init
 terraform apply
 ```
 
-## Tests
+## Running
 
-You can send some messages by using the provided python script in [`tests/`](tests/) folder.
+You can test your triggers by sending messages to the SQS queues configured with Terraform.
+
+Below there is an example showing how to do this using a Python script in the [`tests/`](tests/) folder of this repo.
+
+### Setup
+
+First you need to export your queue credentials and URLs:
 
 ```shell
 export AWS_ACCESS_KEY_ID=$(terraform output -raw sqs_admin_access_key)
 export AWS_SECRET_ACCESS_KEY=$(terraform output -raw sqs_admin_secret_key)
 export PUBLIC_QUEUE_URL=$(terraform output -raw public_queue)
 export PRIVATE_QUEUE_URL=$(terraform output -raw private_queue)
-
-python3 -m venv tests/env
-source tests/env/bin/activate
-python3 -m pip install -r tests/requirements.txt
-python3 tests/send_messages.py
 ```
 
-You can then check logs of your containers in your cockpit (assuming you have activated it in your project):
+You can then set up a Python environment in the `tests` directory:
+
+```
+cd tests
+python3 -m venv venv
+source venv/bin/activate
+pip3 install -r requirements.txt
+```
+
+### Sending messages
+
+You can now run the script to send messages to both queues with:
+
+```
+python3 send_messages.py
+```
+
+### Viewing function logs
+
+In your [Cockpit](https://console.scaleway.com/cockpit), you can access the logs from your queues and functions.
+
+Navigate from your Cockpit to Grafana, and find the `Serverless Containers Logs` dashboard. There you should see the "Hello World!" messages for the functions created by this example.
+
+To get direct deep links to the function logs in Cockpit, you can also run the following from the root of the project:
 
 ```shell
 echo "Go to $(terraform output --raw cockpit_logs_public_container) to see public container logs in cockpit"
 echo "Go to $(terraform output --raw cockpit_logs_private_container) to see private container logs in cockpit"
 ```
-
-You should be able to see the "Hello World!" messages there.
 
 Finally, you can modify `docker/python/server.py` (or `docker/go/server.go`) as you wish and run `terraform apply` to redeploy the new version of the container.
 
