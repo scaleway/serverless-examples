@@ -1,8 +1,9 @@
 output "sqs_access_key" {
-  value = scaleway_mnq_credential.main.sqs_sns_credentials.0.access_key
+  value = scaleway_mnq_sqs_credentials.main.access_key
+  sensitive = true
 }
 
 output "sqs_secret_key" {
-  value     = scaleway_mnq_credential.main.sqs_sns_credentials.0.secret_key
+  value     = scaleway_mnq_sqs_credentials.main.secret_key
   sensitive = true
 }

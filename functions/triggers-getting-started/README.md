@@ -8,34 +8,65 @@ In each example, a function is triggered by a SQS queue with a message containin
 
 This example requires [Terraform](https://www.scaleway.com/en/docs/tutorials/terraform-quickstart/).
 
+Also, SQS **must** be [activated](https://www.scaleway.com/en/docs/serverless/messaging/how-to/get-started/#how-to-activate-sqs-or-sns) on your project.
+
 ## Setup
 
 The Terraform configuration will deploy a function for each language, showing how to use triggers with each language.
 
 It will also create a SQS queue per function to trigger it.
 
+After exporting `SCW_ACCESS_KEY`, `SCW_SECRET_KEY` and `SCW_DEFAULT_PROJECT_ID` variables (for authentication), you can:
+
 ```console
 terraform init
 terraform apply
 ```
 
-You should be able to see your functions in the Scaleway console.
+You should be able to see your resources in the Scaleway console:
+
+- Queues can be found in the [MnQ section](https://console.scaleway.com/messaging/protocols/fr-par/sqs/queues)
+- Functions can be found in the `triggers-getting-started` namespace in the [Serverless functions section](https://console.scaleway.com/functions/namespaces)
 
 ## Running
 
-You can use the `tests/send_messages.py` script to send a message to the SQS queue of each function.
+You can trigger your functions by sending messages to any of the associated SQS queues. Below is a description of how to do this with our dummy `tests/send_messages.py` script.
+
+### Setup
+
+First you need to expose your SQS access and secret keys:
 
 ```console
 export AWS_ACCESS_KEY_ID=$(terraform output -raw sqs_access_key)
 export AWS_SECRET_ACCESS_KEY=$(terraform output -raw sqs_secret_key)
-python tests/send_messages.py
 ```
 
-In Cockpit, you should see the functions being triggered and the result of the factorial being printed in the logs.
+Then you can set up a Python environment in the `tests` directory, e.g.
+
+```console
+cd tests
+python3 -m venv venv
+source venv/bin/activate
+pip3 install -r requirements.txt
+```
+
+### Sending messages
+
+Now you can run the `send_messages.py` script to send a message to the SQS queue of each function:
+
+```console
+python3 send_messages.py
+```
+
+### Viewing function logs
+
+In your [Cockpit](https://console.scaleway.com/cockpit), you can access the logs from your queues and functions.
+
+Navigate from your Cockpit to Grafana, and find the `Serverless Functions Logs` dashboard. There you should see something like the following, showing that your functions were triggered by messages on the queues:
 
 ```console
 ...
-DEBUG - php: factorial of 17 is 355687428096000 source=user stream=stdout  
+DEBUG - php: factorial of 17 is 355687428096000 source=user stream=stdout
 2023-09-11 10:36:19.994 DEBUG - Function Triggered: / source=core
 2023-09-11 10:36:19.993 DEBUG - php: factorial of 13 is 6227020800 source=user stream=stdout
 2023-09-11 10:36:19.991 DEBUG - Function Triggered: / source=core
@@ -49,9 +80,15 @@ DEBUG - php: factorial of 17 is 355687428096000 source=user stream=stdout
 ... (truncated)
 ```
 
+If you don't see these logs, make sure you have selected one of the "triggers getting started" functions in the `Function name` dropdown.
+
+### Costs
+
 Configuring and managing triggers is free, you only pay for the execution of your functions. For more information, please consult the [Scaleway Serverless pricing](https://www.scaleway.com/en/pricing/?tags=serverless). You will also be billed for the SQS queue usage when sending messages to it.
 
 ## Cleanup
+
+To delete all the resources used in this example, you can run the following from the root of the project:
 
 ```console
 terraform destroy
