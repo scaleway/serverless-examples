@@ -4,7 +4,7 @@ Simple example showing how to use NATS triggers with Scaleway Functions.
 
 For complete examples of triggers in all function languages, see [triggers-getting-started](../triggers-getting-started).
 
-The example function is triggered by a NATS queue, and will log the message body.
+The example function is triggered by a message to a NATS topic, and will log the message body.
 
 ## Requirements
 
@@ -14,7 +14,7 @@ Also, NATS **must** be [activated](https://www.scaleway.com/en/docs/serverless/m
 
 ## Setup
 
-The Terraform configuration will create an example function, a NATS account, and a trigger. It will also write the NATS credentials to a file named `nats-creds`.
+The Terraform configuration will create an example function, a NATS account, and a trigger. It will also write the NATS credentials to a file (`files/nats-creds`).
 
 To authenticate with Scaleway, you can either set up the [Scaleway CLI](https://www.scaleway.com/en/cli/), from which Terraform can extract credentials, or you can export `SCW_ACCESS_KEY`, `SCW_SECRET_KEY` and `SCW_DEFAULT_PROJECT_ID`.
 
@@ -27,16 +27,16 @@ terraform apply
 
 You should be able to see your resources in the Scaleway console:
 
-- NATS accounts can be found in the [MnQ section](https://console.scaleway.com/messaging/protocols/fr-par/sqs/queues)
+- NATS accounts can be found in the [MnQ section](https://console.scaleway.com/messaging/protocols/fr-par/nats/accounts)
 - Functions can be found in the `triggers-nats` namespace in the [Serverless functions section](https://console.scaleway.com/functions/namespaces)
 
 ## Running
 
-You can trigger your functions by sending messages to the associated NATS account. Below is a description of how to do this with our dummy `tests/send_messages.py` script.
+You can trigger your functions by sending messages to the NATS topic associated to the trigger (`triggers-nats-topic`). Below is a description of how to do this with our dummy `tests/send_messages.py` script.
 
 ### Setup
 
-First you need to expose your NATS endpoint:
+First you need to extract your NATS endpoint from Terraform:
 
 ```console
 export NATS_ENDPOINT=$(terraform output -raw nats_endpoint)
@@ -61,7 +61,7 @@ python3 send_messages.py
 
 ### Viewing function logs
 
-In your [Cockpit](https://console.scaleway.com/cockpit), you can access the logs from your queues and functions.
+In your [Cockpit](https://console.scaleway.com/cockpit), you can access the logs from your NATS topics and functions.
 
 Navigate from your Cockpit to Grafana, and find the `Serverless Functions Logs` dashboard. There you should see logs from your function, printing the body of the NATS message.
 
