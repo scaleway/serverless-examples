@@ -8,6 +8,8 @@ In each example, a function is triggered by a SQS queue with a message containin
 
 This example requires [Terraform](https://www.scaleway.com/en/docs/tutorials/terraform-quickstart/).
 
+Also, SQS **must** be [activated](https://www.scaleway.com/en/docs/serverless/messaging/how-to/get-started/#how-to-activate-sqs-or-sns) on your project.
+
 ## Setup
 
 The Terraform configuration will deploy a function for each language, showing how to use triggers with each language.
