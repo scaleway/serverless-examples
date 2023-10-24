@@ -4,7 +4,7 @@ import os
 import nats
 
 NATS_ENDPOINT = os.environ.get("NATS_ENDPOINT")
-NATS_CREDS_PATH = "../nats-creds"
+NATS_CREDS_PATH = "../files/nats-creds"
 
 NATS_TOPIC = "triggers-nats-topic"
 
@@ -16,7 +16,7 @@ async def main():
     nc = await nats.connect(servers=[NATS_ENDPOINT], user_credentials=NATS_CREDS_PATH)
 
     # Publish a message
-    await nc.publish(NATS_TOPIC, b"Hello NATS triggers!")
+    await nc.publish(NATS_TOPIC, b"Hello from the NATS trigger!")
 
     # Close NATS connection
     await nc.close()

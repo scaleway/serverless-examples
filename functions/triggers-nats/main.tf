@@ -26,3 +26,11 @@ resource "scaleway_function" "main" {
   min_scale = 0
 }
 
+resource "scaleway_function_trigger" "main" {
+  function_id = scaleway_function.main.id
+  name = "nats-trigger"
+  nats {
+    account_id = scaleway_mnq_nats_account.main.id
+    subject = "triggers-nats-topic"
+  }
+}
