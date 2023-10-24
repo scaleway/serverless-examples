@@ -2,8 +2,7 @@ resource "scaleway_container_trigger" "public" {
   container_id = scaleway_container.public.id
   name         = "public-trigger"
   sqs {
-    namespace_id = scaleway_mnq_namespace.main.id
-    queue        = scaleway_mnq_queue.public.name
+    queue = scaleway_mnq_sqs_queue.public.name
   }
 }
 
@@ -19,8 +18,7 @@ resource "scaleway_container_trigger" "private" {
   container_id = scaleway_container.private.id
   name         = "private-trigger"
   sqs {
-    namespace_id = scaleway_mnq_namespace.main.id
-    queue        = scaleway_mnq_queue.private.name
+    queue = scaleway_mnq_sqs_queue.private.name
   }
 
   depends_on = [time_sleep.wait_10_seconds_after_public_trigger_creation]
