@@ -3,7 +3,7 @@ output "public_endpoint" {
 }
 
 output "public_queue" {
-  value = scaleway_mnq_queue.public.sqs[0].url
+  value = scaleway_mnq_sqs_queue.public.url
 }
 
 output "private_endpoint" {
@@ -11,15 +11,16 @@ output "private_endpoint" {
 }
 
 output "private_queue" {
-  value = scaleway_mnq_queue.private.sqs[0].url
+  value = scaleway_mnq_sqs_queue.private.url
 }
 
 output "sqs_admin_access_key" {
-  value = scaleway_mnq_credential.main.sqs_sns_credentials[0].access_key
+  value = scaleway_mnq_sqs_credentials.main.access_key
+  sensitive = true
 }
 
 output "sqs_admin_secret_key" {
-  value     = scaleway_mnq_credential.main.sqs_sns_credentials[0].secret_key
+  value     = scaleway_mnq_sqs_credentials.main.secret_key
   sensitive = true
 }
 

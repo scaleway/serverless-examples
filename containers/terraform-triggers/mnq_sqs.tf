@@ -1,41 +1,27 @@
-resource "scaleway_mnq_namespace" "main" {
-  protocol = "sqs_sns"
-}
-
-# admin credentials used to create the queues, and to send messages (see tests/send_messages.py)
-resource "scaleway_mnq_credential" "main" {
-  namespace_id = scaleway_mnq_namespace.main.id
-
-  sqs_sns_credentials {
-    permissions {
-      can_publish = true
-      can_receive = true
-      can_manage  = true
-    }
+# Admin credentials used to create the queues, and to send messages (see tests/send_messages.py)
+resource "scaleway_mnq_sqs_credentials" "main" {
+  permissions {
+    can_publish = true
+    can_receive = true
+    can_manage  = true
   }
 }
 
 locals {
-  sqs_admin_credentials_access_key = scaleway_mnq_credential.main.sqs_sns_credentials.0.access_key
-  sqs_admin_credentials_secret_key = scaleway_mnq_credential.main.sqs_sns_credentials.0.secret_key
+  sqs_admin_credentials_access_key = scaleway_mnq_sqs_credentials.main.access_key
+  sqs_admin_credentials_secret_key = scaleway_mnq_sqs_credentials.main.secret_key
 }
 
-resource "scaleway_mnq_queue" "public" {
-  namespace_id = scaleway_mnq_namespace.main.id
-  name         = "sqs-queue-public"
+resource "scaleway_mnq_sqs_queue" "public" {
+  name = "sqs-queue-public"
 
-  sqs {
-    access_key = local.sqs_admin_credentials_access_key
-    secret_key = local.sqs_admin_credentials_secret_key
-  }
+  access_key = local.sqs_admin_credentials_access_key
+  secret_key = local.sqs_admin_credentials_secret_key
 }
 
-resource "scaleway_mnq_queue" "private" {
-  namespace_id = scaleway_mnq_namespace.main.id
-  name         = "sqs-queue-private"
+resource "scaleway_mnq_sqs_queue" "private" {
+  name = "sqs-queue-private"
 
-  sqs {
-    access_key = local.sqs_admin_credentials_access_key
-    secret_key = local.sqs_admin_credentials_secret_key
-  }
+  access_key = local.sqs_admin_credentials_access_key
+  secret_key = local.sqs_admin_credentials_secret_key
 }

@@ -37,7 +37,7 @@ The deployment will do the following:
 
 To run the deployment:
 
-```
+```shell
 terraform init
 
 terraform apply
