@@ -48,7 +48,6 @@ resource "scaleway_function" "main" {
   runtime      = each.value.runtime
   handler      = each.value.handler
 
-  // As of 2023/09/04, only public functions can be triggered by a message queue
   privacy = "public"
 
   zip_file = data.archive_file.function[each.key].output_path
@@ -60,16 +59,13 @@ resource "scaleway_function" "main" {
   min_scale = 0
 }
 
-resource "scaleway_mnq_queue" "main" {
+resource "scaleway_mnq_sqs_queue" "main" {
   for_each = local.functions
 
-  namespace_id = scaleway_mnq_namespace.main.id
   name         = "factorial-requests-${each.key}"
 
-  sqs {
-    access_key = scaleway_mnq_credential.main.sqs_sns_credentials.0.access_key
-    secret_key = scaleway_mnq_credential.main.sqs_sns_credentials.0.secret_key
-  }
+  access_key = scaleway_mnq_sqs_credentials.main.access_key
+  secret_key = scaleway_mnq_sqs_credentials.main.secret_key
 }
 
 resource "scaleway_function_trigger" "main" {
@@ -78,7 +74,6 @@ resource "scaleway_function_trigger" "main" {
   function_id = scaleway_function.main[each.key].id
   name        = "on-factorial-request"
   sqs {
-    namespace_id = scaleway_mnq_namespace.main.id
-    queue        = scaleway_mnq_queue.main[each.key].name
+    queue        = scaleway_mnq_sqs_queue.main[each.key].name
   }
 }
