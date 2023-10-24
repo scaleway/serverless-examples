@@ -1,0 +1,5 @@
+asyncio~=3.4.3
+boto3~=1.28.40
+nats-py~=2.5.0
+nkeys~=0.1.0
+requests~=2.31.0
