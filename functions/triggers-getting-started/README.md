@@ -26,9 +26,7 @@ You should be able to see your resources in the Scaleway console:
 
 ## Running
 
-You can trigger your functions by sending messages to any of the assocaited SQS queues.
-
-Below is a description of how to do this with our dummy `tests/send_messages.py` script.
+You can trigger your functions by sending messages to any of the associated SQS queues. Below is a description of how to do this with our dummy `tests/send_messages.py` script.
 
 ### Setup
 
