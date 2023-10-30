@@ -62,6 +62,7 @@ Table of Contents:
 | **[Function Handler Java](containers/function-handler-java/README.md)** <br/> A Java function handler deployed on CaaS.                                                                     | Java         | [Serverless Framework] |
 | **[NGINX CORS Private](containers/nginx-cors-private-python/README.md)** <br/> An NGINX proxy to allow CORS requests to a private container.                                                | Python Flask | [Terraform]            |
 | **[NGINX hello world](containers/nginx-hello-world/README.md)** <br/> A minimal example running the base NGINX image in a serverless container.                                             | N/A          | [Serverless Framework] |
+| **[Python hello world](containers/python-hello-world/README.md)** <br/> A minimal example running a Flask HTTP server in a serverless container.                                            | N/A          | [Serverless Framework] |
 | **[Terraform NGINX hello world](containers/terraform-nginx-hello-world/README.md)** <br/> A minimal example running the base NGINX image in a serverless container deployed with Terraform. | N/A          | [Terraform]            |
 | **[Triggers with Terraform](containers/terraform-triggers/README.md)** <br/> Configuring two SQS triggers, used to trigger two containers, one public, one private.                         | N/A          | [Terraform]            |
 
