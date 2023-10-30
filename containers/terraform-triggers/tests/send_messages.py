@@ -35,7 +35,9 @@ def main():
         print("Greetings sent!")
 
     for subject in (PUBLIC_SUBJECT, PRIVATE_SUBJECT):
+        print(f"Sending greetings message to NATS {subject}...")
         nc.publish(subject, b"Hello World NATS!")
+        print("Greetings sent!")
 
 
 if __name__ == "__main__":
