@@ -1,0 +1,18 @@
+service: cors-go
+configValidationMode: off
+provider:
+  name: scaleway
+  runtime: go119
+
+plugins:
+  - serverless-scaleway-functions
+
+package:
+  patterns:
+    - "!node_modules/**"
+    - "!.gitignore"
+    - "!.git/**"
+
+functions:
+  cors-permissive:
+    handler: "HandleWithCors"
