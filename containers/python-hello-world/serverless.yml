@@ -1,0 +1,21 @@
+service: python-hello
+configValidationMode: off
+provider:
+  name: scaleway
+
+plugins:
+  - serverless-scaleway-functions
+
+package:
+  patterns:
+    - "!node_modules/**"
+    - "!.gitignore"
+    - "!.git/**"
+
+custom:
+  containers:
+    hello-py:
+      directory: container
+      port: 8080
+      memoryLimit: 256
+      cpuLimit: 140

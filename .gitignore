@@ -6,3 +6,5 @@
 
 .terraform.lock.hcl
 
+# Serverless framework
+node_modules/

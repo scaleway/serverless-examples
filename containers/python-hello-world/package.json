@@ -1,0 +1,12 @@
+{
+  "name": "hello-python-container",
+  "version": "1.0.0",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {},
+  "devDependencies": {
+    "serverless-scaleway-functions": ">=0.4.8"
+  },
+  "description": ""
+}
