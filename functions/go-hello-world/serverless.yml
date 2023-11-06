@@ -14,5 +14,5 @@ package:
     - "!.git/**"
 
 functions:
-  cors-permissive:
+  hello-go:
     handler: "Handle"
