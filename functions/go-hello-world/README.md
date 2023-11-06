@@ -1,5 +1,7 @@
 # Golang hello world
 
+This is a simple example of how to create a Golang function to run on Scaleway Serverless Functions.
+
 ## Requirements
 
 This example assumes you are familiar with how serverless functions work. If needed, you can check [Scaleway's official documentation](https://www.scaleway.com/en/docs/serverless/functions/quickstart/)
@@ -8,29 +10,36 @@ This example uses the Scaleway Serverless Framework Plugin. Please set up your e
 
 Additionnaly it uses the [serverless-functions-go](https://github.com/scaleway/serverless-functions-go) library for local testing.
 
-## Context
-
-This example shows a simple "hello world" function written in Go.
-
 ## Setup
 
-Once your environment is set up, you can test your function locally with:
+First set up Serverless Framework with:
 
 ```sh
-npm install
+npm i
+```
 
+You can run your function locally with:
+
+```sh
 go run test/main.go
 ```
 
-This will launch a local server, allowing you to test the function. For that, you can run in another terminal:
+Then in another terminal, you can make a request:
 
 ```sh
-curl -i -X GET http://localhost:8080
+curl http://localhost:8080
 ```
 
-If the test succeeded, you can deploy your function with:
+... and run the tests:
 
-```console
+```sh
+go test ./...
+```
+
+If the tests succeed, you can deploy your function with:
+
+```sh
 serverless deploy
 ```
 
+Once deployed, you can again submit a request using `curl` to the URL printed in the deployment output.

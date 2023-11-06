@@ -14,6 +14,7 @@ jobs:
       matrix:
         tests: [
           { directory: 'cors-go', go-version: '1.19' },
+          { directory: 'go-hello-world', go-version: '1.20' }
           { directory: 'go-mnq-sqs-publish', go-version: '1.18' },
           { directory: 'go-upload-file-s3-multipart', go-version: '1.20' }
         ]
