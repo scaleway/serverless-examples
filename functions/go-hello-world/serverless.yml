@@ -1,8 +1,8 @@
-service: cors-go
+service: go-hello-world
 configValidationMode: off
 provider:
   name: scaleway
-  runtime: go119
+  runtime: go121
 
 plugins:
   - serverless-scaleway-functions
@@ -15,4 +15,4 @@ package:
 
 functions:
   cors-permissive:
-    handler: "HandleWithCors"
+    handler: "Handle"
