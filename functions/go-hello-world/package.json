@@ -1,5 +1,5 @@
 {
-  "name": "cors-go",
+  "name": "hello-go",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {

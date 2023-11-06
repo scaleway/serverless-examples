@@ -1,4 +1,4 @@
-package cors
+package hello
 
 import (
 	"io"

@@ -1,7 +1,7 @@
 package main
 
 import (
-	handler "cors-go"
+	handler "hello-go"
 
 	"github.com/scaleway/serverless-functions-go/local"
 )

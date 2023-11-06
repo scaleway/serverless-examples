@@ -1,6 +1,6 @@
-module cors-go
+module hello-go
 
-go 1.19
+go 1.21
 
 require (
 	github.com/scaleway/serverless-functions-go v0.1.2
