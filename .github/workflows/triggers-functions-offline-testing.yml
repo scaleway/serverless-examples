@@ -13,7 +13,7 @@ env:
 
 jobs:
   trigger-node:
-    runs-on: ubuntu-22.04
+    runs-on: self-hosted
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -44,7 +44,7 @@ jobs:
           start: npm start --prefix ${{ env.TRIGGERS_GETTING_STARTED_FOLDER }}/node
 
   trigger-go:
-    runs-on: ubuntu-22.04
+    runs-on: self-hosted
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -72,7 +72,7 @@ jobs:
             go run ./cmd
 
   trigger-python:
-    runs-on: ubuntu-22.04
+    runs-on: self-hosted
     steps:
       - name: Checkout
         uses: actions/checkout@v3

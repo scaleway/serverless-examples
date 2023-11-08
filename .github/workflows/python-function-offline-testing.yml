@@ -9,7 +9,7 @@ on:
 
 jobs:
   cors-python:
-    runs-on: ubuntu-22.04
+    runs-on: self-hosted
     steps:
       - name: Checkout
         uses: actions/checkout@v3
