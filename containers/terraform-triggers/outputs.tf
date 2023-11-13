@@ -33,7 +33,7 @@ output "private_subject" {
 }
 
 output "nats_creds_file" {
-  value = local_sensitive_file.nats.filename
+  value = abspath(local_sensitive_file.nats.filename)
 }
 
 output "cockpit_logs_public_container" {
