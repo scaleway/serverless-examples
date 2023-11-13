@@ -33,6 +33,7 @@ Table of Contents:
 | **[CORS Node](functions/cors-node/README.md)** <br/> A Node function which allows CORS requests.                                                                                      | node18    | [Serverless Framework] |
 | **[CORS Python](functions/cors-python/README.md)** <br/> A Python function which allows CORS requests.                                                                                | python310 | [Serverless Framework] |
 | **[CORS Rust](functions/cors-rust/README.md)** <br/> A Rust function which allows CORS requests.                                                                                      | rust165   | [Serverless Framework] |
+| **[Go Hello World](functions/go-hello-world/README.md)** <br/> A simple "hello world" example for Go                                                                                  | go118     | [Serverless Framework] |
 | **[Go SQS Publish](functions/go-mnq-sqs-publish/README.md)** <br/> A Go function to publish messages to SQS.                                                                          | go118     | [Serverless Framework] |
 | **[Go MultiPart Upload to S3](functions/go-upload-file-s3-multipart)** <br/> A function to upload file from form-data to S3.                                                          | go120     | [Serverless Framework] |
 | **[Image Transform](functions/image-transform-node/README.md)** <br/> A function that resizes images from an S3 bucket.                                                               | node16    | [Serverless Framework] |
@@ -62,6 +63,7 @@ Table of Contents:
 | **[Function Handler Java](containers/function-handler-java/README.md)** <br/> A Java function handler deployed on CaaS.                                                                     | Java         | [Serverless Framework] |
 | **[NGINX CORS Private](containers/nginx-cors-private-python/README.md)** <br/> An NGINX proxy to allow CORS requests to a private container.                                                | Python Flask | [Terraform]            |
 | **[NGINX hello world](containers/nginx-hello-world/README.md)** <br/> A minimal example running the base NGINX image in a serverless container.                                             | N/A          | [Serverless Framework] |
+| **[Python hello world](containers/python-hello-world/README.md)** <br/> A minimal example running a Flask HTTP server in a serverless container.                                            | N/A          | [Serverless Framework] |
 | **[Terraform NGINX hello world](containers/terraform-nginx-hello-world/README.md)** <br/> A minimal example running the base NGINX image in a serverless container deployed with Terraform. | N/A          | [Terraform]            |
 | **[Triggers with Terraform](containers/terraform-triggers/README.md)** <br/> Configuring two SQS triggers, used to trigger two containers, one public, one private.                         | N/A          | [Terraform]            |
 
