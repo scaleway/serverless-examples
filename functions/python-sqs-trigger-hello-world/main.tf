@@ -67,7 +67,8 @@ resource "scaleway_function_trigger" "main" {
 # Outputs to send messages to the queue
 
 output "sqs_access_key" {
-  value = scaleway_mnq_sqs_credentials.main.access_key
+  value     = scaleway_mnq_sqs_credentials.main.access_key
+  sensitive = true
 }
 
 output "sqs_secret_key" {
