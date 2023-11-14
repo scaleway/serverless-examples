@@ -2,7 +2,7 @@ terraform {
   required_providers {
     scaleway = {
       source  = "scaleway/scaleway"
-      version = ">= 2.12"
+      version = ">= 2.31"
     }
     archive = {
       source  = "hashicorp/archive"
@@ -61,11 +61,11 @@ resource "scaleway_function" "front" {
   max_scale = 1
 
   secret_environment_variables = {
-    SQS_ACCESS_KEY = scaleway_mnq_credential.main.sqs_sns_credentials.0.access_key
-    SQS_SECRET_KEY = scaleway_mnq_credential.main.sqs_sns_credentials.0.secret_key
-    SQS_ENDPOINT   = replace(scaleway_mnq_queue.main.sqs.0.endpoint, "{region}", scaleway_mnq_namespace.main.region)
-    SQS_QUEUE_URL  = scaleway_mnq_queue.main.sqs.0.url
-    SQS_REGION     = scaleway_mnq_namespace.main.region
+    SQS_ACCESS_KEY = scaleway_mnq_sqs_credentials.main.access_key
+    SQS_SECRET_KEY = scaleway_mnq_sqs_credentials.main.secret_key
+    SQS_ENDPOINT   = replace(scaleway_mnq_sqs_queue.main.endpoint, "{region}", scaleway_mnq_sqs_queue.main.region)
+    SQS_QUEUE_URL  = scaleway_mnq_sqs_queue.main.url
+    SQS_REGION     = scaleway_mnq_sqs_queue.main.region
   }
 }
 
@@ -85,40 +85,28 @@ resource "scaleway_function" "worker" {
 }
 
 # SQS trigger resources
+resource "scaleway_mnq_sqs_credentials" "main" {
+  name = "serverless-examples-python-sqs-trigger"
 
-resource "scaleway_mnq_namespace" "main" {
-  name     = "serverless-examples"
-  protocol = "sqs_sns"
-}
-
-resource "scaleway_mnq_credential" "main" {
-  name         = "serverless-examples-python-sqs-trigger"
-  namespace_id = scaleway_mnq_namespace.main.id
-  sqs_sns_credentials {
-    permissions {
-      can_publish = true
-      can_receive = true
-      can_manage  = true
-    }
+  permissions {
+    can_publish = true
+    can_receive = true
+    can_manage  = true
   }
 }
 
-resource "scaleway_mnq_queue" "main" {
-  namespace_id = scaleway_mnq_namespace.main.id
-  name         = "python-sqs-trigger-hello-world"
+resource "scaleway_mnq_sqs_queue" "main" {
+  name = "python-sqs-async-worker"
 
-  sqs {
-    access_key = scaleway_mnq_credential.main.sqs_sns_credentials.0.access_key
-    secret_key = scaleway_mnq_credential.main.sqs_sns_credentials.0.secret_key
-  }
+  access_key = scaleway_mnq_sqs_credentials.main.access_key
+  secret_key = scaleway_mnq_sqs_credentials.main.secret_key
 }
 
 resource "scaleway_function_trigger" "main" {
   function_id = scaleway_function.worker.id
   name        = "my-trigger"
   sqs {
-    namespace_id = scaleway_mnq_namespace.main.id
-    queue        = scaleway_mnq_queue.main.name
+    queue = scaleway_mnq_sqs_queue.main.name
   }
 }
 
