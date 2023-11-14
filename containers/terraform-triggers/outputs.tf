@@ -24,6 +24,18 @@ output "sqs_admin_secret_key" {
   sensitive = true
 }
 
+output "public_subject" {
+  value = local.public_nats_subject
+}
+
+output "private_subject" {
+  value = local.private_nats_subject
+}
+
+output "nats_creds_file" {
+  value = abspath(local_sensitive_file.nats.filename)
+}
+
 output "cockpit_logs_public_container" {
   value = "https://${var.project_id}.dashboard.obs.fr-par.scw.cloud/d/scw-serverless-containers-logs/serverless-containers-logs?orgId=1&var-container_name=${split(".", scaleway_container.public.domain_name)[0]}&var-logs=Scaleway%20Logs"
 }

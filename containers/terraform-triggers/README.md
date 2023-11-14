@@ -31,9 +31,9 @@ The deployment will do the following:
 1. Create a Scaleway registry namespace
 2. Build and deploy a container image with a Python/Go HTTP server
 3. Deploy a public and private Serverless Container using the built image
-4. Create Scaleway MnQ SQS queues
-5. Configure triggers from these queues to each container
-6. Print the endpoints of each queue and each container
+4. Create Scaleway MnQ SQS queues and NATS subjects
+5. Configure triggers from these SQS queues and NATS subjects to each container
+6. Print the endpoints of each SQS queue, NATS subject and container
 
 To run the deployment:
 
@@ -45,7 +45,7 @@ terraform apply
 
 ## Running
 
-You can test your triggers by sending messages to the SQS queues configured with Terraform.
+You can test your triggers by sending messages to the SQS queues and NATS subjects configured with Terraform.
 
 Below there is an example showing how to do this using a Python script in the [`tests/`](tests/) folder of this repo.
 
@@ -58,6 +58,9 @@ export AWS_ACCESS_KEY_ID=$(terraform output -raw sqs_admin_access_key)
 export AWS_SECRET_ACCESS_KEY=$(terraform output -raw sqs_admin_secret_key)
 export PUBLIC_QUEUE_URL=$(terraform output -raw public_queue)
 export PRIVATE_QUEUE_URL=$(terraform output -raw private_queue)
+export PUBLIC_SUBJECT=$(terraform output -raw public_subject)
+export PRIVATE_SUBJECT=$(terraform output -raw private_subject)
+export NATS_CREDS_FILE=$(terraform output -raw nats_creds_file)
 ```
 
 You can then set up a Python environment in the `tests` directory:
