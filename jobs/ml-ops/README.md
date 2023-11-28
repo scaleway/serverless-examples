@@ -32,6 +32,6 @@ cf. this [readme](./registry/README.md)
 
 cf. this [readme](./job/README.md)
 
-### Step D: Deploy and inference API as a serverless container
+### Step D: Deploy an inference API as a serverless container
 
 cf. this [readme](./container/README.md)

@@ -1,6 +1,6 @@
-# S3 buckets for MLOps
+# Object Storage buckets 
 
-## Step 1: Create S3 resources with Terraform
+## Step 1: Create object storage resources with Terraform
 
 Create `.tfvars` file in `/terraform` directory and put variable values in it. Then perform:
 
