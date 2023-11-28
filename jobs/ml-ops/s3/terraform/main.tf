@@ -1,5 +1,5 @@
 resource "scaleway_object_bucket" "data_store_bucket" {
-  name = "data-store"
+  name = "data-store-1"
 }
 
 resource "scaleway_object_bucket" "model_registry_bucket" {
