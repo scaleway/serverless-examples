@@ -1,4 +1,4 @@
-# Deploy an inference API as a container
+# Deploy an inference API on Scaleway Serverless Containers
 
 ## Step 1: Build and push API image to Scaleway's Registry
 

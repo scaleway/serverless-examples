@@ -38,7 +38,7 @@ def clean_data(data: pd.DataFrame) -> pd.DataFrame:
 def transform_data(data: pd.DataFrame) -> pd.DataFrame:
     """
     This function handles the transformation of categorical variables of the dataset into 0/1 indicators.
-    It also adds mmissing categorical variables that are by default false (0).
+    It also adds missing categorical variables that are by default false (0).
     """
 
     # # use the same category for basic education sub-categories

@@ -1,6 +1,6 @@
 FROM python:3.10.12
 
-WORKDIR /tmp/ml-serving/
+WORKDIR /app
 
 COPY . .
 
