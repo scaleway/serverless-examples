@@ -14,14 +14,14 @@ def load_classifier():
 
     s3 = boto3.resource(
         "s3",
-        region_name=os.getenv("SCW_REGION"),
+        region_name=os.getenv("MAIN_REGION"),
         use_ssl=True,
-        endpoint_url=f'https://s3.{os.environ["SCW_REGION"]}.scw.cloud',
+        endpoint_url=f'https://s3.{os.environ["MAIN_REGION"]}.scw.cloud',
         aws_access_key_id=os.getenv("SCW_ACCESS_KEY"),
         aws_secret_access_key=os.getenv("SCW_SECRET_KEY"),
     )
 
-    bucket = s3.Bucket(name=os.getenv("SCW_MODEL_REGISTRY"))  # type: ignore
+    bucket = s3.Bucket(name=os.getenv("MODEL_REGISTRY"))  # type: ignore
     bucket.download_file(os.getenv("MODEL_FILE"), os.getenv("MODEL_FILE"))
 
     global classifier

@@ -46,9 +46,18 @@ resource "scaleway_container" "inference_api_container" {
   memory_limit   = 2048
   min_scale      = 1
   max_scale      = 5
-  privacy        = "private"
-  protocol       = "http1"
-  deploy         = true
+  environment_variables = {
+    "MODEL_REGISTRY" = scaleway_object_bucket.model_registry.name
+    "MAIN_REGION"    = var.region
+    "MODEL_FILE"     = "classifier.pkl"
+  }
+  secret_environment_variables = {
+    "SCW_ACCESS_KEY" = var.access_key,
+    "SCW_SECRET_KEY" = var.secret_key
+  }
+  privacy  = "private"
+  protocol = "http1"
+  deploy   = true
 }
 
 resource "scaleway_container_token" "inference_api_token" {
