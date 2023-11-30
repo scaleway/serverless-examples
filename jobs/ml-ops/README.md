@@ -22,6 +22,13 @@ We use the dataset labelled in the source as `bank-additional-full.csv`. You can
  
 ### Step A: Create cloud resources for the ML pipeline
 
+Create `.env` file in `s3/data-store` and `job` directories and fill them as it follows:
+
+```text
+SCW_ACCESS_KEY=<access-key>
+SCW_SECRET_KEY=<secret-key>
+```
+
 Create `.tfvars` file in `/terraform` directory and put variable values in it:
 
 ```
