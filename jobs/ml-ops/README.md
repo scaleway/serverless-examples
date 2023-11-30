@@ -18,11 +18,11 @@ The dataset has many versions and is open-sourced and published [here](http://ar
 
 We use the dataset labelled in the source as `bank-additional-full.csv`. You can download, extract this file, rename it to `bank_telemarketing.csv` then put it under this [directory](./s3/data-store/data/).
 
-## How to deploy your MLOps workflow in the cloud?
+## How to deploy your MLOps pipeline on Scaleway Cloud?
  
 ### Step A: Create cloud resources for the ML pipeline
 
-Create `.env` file in `s3/data-store` and `job` directories and fill them as it follows:
+Create `.env` file in `jobs/data-loader-job` and `jobs/ml-job` directories and fill them as it follows:
 
 ```text
 SCW_ACCESS_KEY=<access-key>
@@ -50,18 +50,18 @@ terraform plan -var-file=testing.tfvars
 terraform apply -var-file=testing.tfvars
 ```
 
-### Step B: Define and run a job to upload data from public source to s3
+### Step B: Define and run a job to ship data from public source to s3
 
-Use the console to define and the data loader job using image pushed to Scaleway registry.
+Use the console to define and run the data loader job using image pushed to Scaleway registry.
 
-cf. this [readme](./s3/README.md)
+cf. this [readme](./jobs/data-loader-job/README.md)
 
-### Step C: Run a machine learning job
+### Step C: Define and run the ML job to train classifier
 
 Use the console to define and the ML job using image pushed to Scaleway registry.
 
-cf. this [readme](./job/README.md)
+cf. this [readme](./jobs/ml-job/README.md)
 
-### Step D: Call your serverless container to (re)load model and for inference 
+### Step D: Call your serverless container to (re)load model and to get inference results 
 
-cf. this [readme](./container/README.md)
+cf. this [readme](./containers/inference-api/README.md)

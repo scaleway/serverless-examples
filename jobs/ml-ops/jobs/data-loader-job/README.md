@@ -1,4 +1,4 @@
-# Object Storage buckets 
+# Data Loader Job
 
 ## Before pushing docker image to private registry
 
@@ -9,7 +9,7 @@ SCW_ACCESS_KEY=my_access_key
 SCW_SECRET_KEY=my_secret_key
 ```
 
-## When defining the job on the console
+## Define and run data loader job on the console
 
 Use these environment variables for your job:
 

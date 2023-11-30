@@ -1,4 +1,4 @@
-# Machine Learning job for binary classification use case
+# ML job for binary classification
 
 ## Before pushing docker image to private registry
 

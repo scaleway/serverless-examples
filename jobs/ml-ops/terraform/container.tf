@@ -52,7 +52,7 @@ resource "scaleway_container" "inference_api_container" {
     "MODEL_FILE"     = "classifier.pkl"
   }
   secret_environment_variables = {
-    "SCW_ACCESS_KEY" = var.access_key,
+    "SCW_ACCESS_KEY" = var.access_key
     "SCW_SECRET_KEY" = var.secret_key
   }
   privacy  = "private"
