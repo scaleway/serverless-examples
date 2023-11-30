@@ -20,18 +20,41 @@ We use the dataset labelled in the source as `bank-additional-full.csv`. You can
 
 ## How to deploy your MLOps workflow in the cloud?
  
-### Step A: Create object storage resources and upload your data file to data store
+### Step A: Create cloud resources for the ML pipeline
+
+Create `.tfvars` file in `/terraform` directory and put variable values in it:
+
+```
+region = "fr-par"
+access_key = "<access-key>"
+secret_key = "<secret_key>"
+project_id = "<project_id>"
+data_file     = "bank_telemarketing.csv"
+model_object  = "classifier.pkl"
+image_version = "v1"
+```
+
+Then perform:
+
+```bash
+cd terraform
+terraform init
+terraform plan -var-file=testing.tfvars
+terraform apply -var-file=testing.tfvars
+```
+
+### Step B: Define and run a job to upload data from public source to s3
+
+Use the console to define and the data loader job using image pushed to Scaleway registry.
 
 cf. this [readme](./s3/README.md)
 
-### Step B: Create registry namespaces for your docker images
-
-cf. this [readme](./registry/README.md)
-
 ### Step C: Run a machine learning job
+
+Use the console to define and the ML job using image pushed to Scaleway registry.
 
 cf. this [readme](./job/README.md)
 
-### Step D: Deploy an inference API as a serverless container
+### Step D: Call your serverless container to (re)load model and for inference 
 
 cf. this [readme](./container/README.md)

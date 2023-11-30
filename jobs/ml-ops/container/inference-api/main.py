@@ -1,25 +1,33 @@
 from fastapi import FastAPI
-from dotenv import load_dotenv
+from sklearn.ensemble import RandomForestClassifier
 import data_processing as process
 import pickle, boto3, pandas, os
 
+classifier = RandomForestClassifier()
+
 app = FastAPI()
 
-load_dotenv(dotenv_path="./.env")
 
-s3 = boto3.resource(
-    "s3",
-    region_name=os.getenv("SCW_REGION"),
-    use_ssl=True,
-    endpoint_url=f'https://s3.{os.environ["SCW_REGION"]}.scw.cloud',
-    aws_access_key_id=os.getenv("SCW_ACCESS_KEY"),
-    aws_secret_access_key=os.getenv("SCW_SECRET_KEY"),
-)
+@app.get("/load_classifier")
+def load_classifier():
+    """(Re)loads classifier from model registry bucket"""
 
-bucket = s3.Bucket(name=os.getenv("SCW_MODEL_REGISTRY"))  # type: ignore
-bucket.download_file(os.getenv("MODEL_FILE_NAME"), os.getenv("MODEL_FILE_NAME"))
+    s3 = boto3.resource(
+        "s3",
+        region_name=os.getenv("SCW_REGION"),
+        use_ssl=True,
+        endpoint_url=f'https://s3.{os.environ["SCW_REGION"]}.scw.cloud',
+        aws_access_key_id=os.getenv("SCW_ACCESS_KEY"),
+        aws_secret_access_key=os.getenv("SCW_SECRET_KEY"),
+    )
 
-classifier = pickle.load(open(os.getenv("MODEL_FILE_NAME", ""), "rb"))
+    bucket = s3.Bucket(name=os.getenv("SCW_MODEL_REGISTRY"))  # type: ignore
+    bucket.download_file(os.getenv("MODEL_FILE"), os.getenv("MODEL_FILE"))
+
+    global classifier
+    classifier = pickle.load(open(os.getenv("MODEL_FILE", ""), "rb"))
+
+    return {"message": "model loaded successfully"}
 
 
 @app.post("/inference")
@@ -29,6 +37,7 @@ def classify(data: process.ClientProfile):
     data_point_json = data.model_dump()
     data_point_pd = pandas.DataFrame(index=[0], data=data_point_json)
     data_point_processed = process.transform_data(process.clean_data(data_point_pd))
+    global classifier
     prediction = classifier.predict(data_point_processed)
 
     return {"predicted_class": int(prediction)}

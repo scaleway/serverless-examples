@@ -4,7 +4,7 @@ from pydantic import BaseModel
 
 
 class ClientProfile(BaseModel):
-    """Represent features of client profile upon which the inference in applied"""
+    """Represent features of client profile upon which the inference is applied"""
 
     age: int
     job: str
