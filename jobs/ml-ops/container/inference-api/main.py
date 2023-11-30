@@ -14,18 +14,18 @@ def load_classifier():
 
     s3 = boto3.resource(
         "s3",
-        region_name=os.getenv("MAIN_REGION"),
+        region_name=os.environ["MAIN_REGION"],
         use_ssl=True,
         endpoint_url=f'https://s3.{os.environ["MAIN_REGION"]}.scw.cloud',
-        aws_access_key_id=os.getenv("SCW_ACCESS_KEY"),
-        aws_secret_access_key=os.getenv("SCW_SECRET_KEY"),
+        aws_access_key_id=os.environ["SCW_ACCESS_KEY"],
+        aws_secret_access_key=os.environ["SCW_SECRET_KEY"],
     )
 
-    bucket = s3.Bucket(name=os.getenv("MODEL_REGISTRY"))  # type: ignore
-    bucket.download_file(os.getenv("MODEL_FILE"), os.getenv("MODEL_FILE"))
+    bucket = s3.Bucket(name=os.environ["MODEL_REGISTRY"])  # type: ignore
+    bucket.download_file(os.environ["MODEL_FILE"], os.environ["MODEL_FILE"])
 
     global classifier
-    classifier = pickle.load(open(os.getenv("MODEL_FILE", ""), "rb"))
+    classifier = pickle.load(open(os.environ["MODEL_FILE"], "rb"))
 
     return {"message": "model loaded successfully"}
 
