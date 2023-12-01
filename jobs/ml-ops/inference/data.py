@@ -28,17 +28,21 @@ class ClientProfile(BaseModel):
     nr_employed: float
 
 
-def clean_data(data: pd.DataFrame) -> pd.DataFrame:
+def clean_profile(profile: ClientProfile) -> pd.DataFrame:
     """Removes rows with missing value(s)"""
 
-    data = data.dropna()
-    return data
+    profile_json = profile.model_dump()
+
+    cleaned = pd.DataFrame(index=[0], data=profile_json)
+    cleaned = cleaned.dropna()
+
+    return cleaned
 
 
 def transform_data(data: pd.DataFrame) -> pd.DataFrame:
     """
-    This method handles the transformation of categorical variables of the dataset into 0/1 indicators.
-    It also adds missing categorical variables that are by default false (0).
+    Transforms categorical variables of the dataset into 0/1 indicators.
+    Adds missing categorical variables that are by default false (0).
     """
 
     # # use the same category for basic education sub-categories

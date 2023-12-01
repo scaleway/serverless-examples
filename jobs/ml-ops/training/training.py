@@ -3,28 +3,14 @@ import numpy as np
 from imblearn.over_sampling import SMOTE
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score, precision_score, recall_score, log_loss
-from sklearn.metrics import RocCurveDisplay
-from sklearn.metrics import ConfusionMatrixDisplay
 from sklearn.model_selection import RandomizedSearchCV
 from sklearn.ensemble import RandomForestClassifier
-
-
-def load_data(path: str) -> pd.DataFrame:
-    data = pd.read_csv(path, sep=";")
-    return data
-
-
-def clean_data(data: pd.DataFrame) -> pd.DataFrame:
-    """Removes rows with missing value(s)"""
-
-    data = data.dropna()
-    return data
 
 
 def transform_data(data: pd.DataFrame) -> pd.DataFrame:
     """Handles the transformation of categorical variables of the dataset into 0/1 indicators"""
 
-    # use the same category for basic education sub-categories
+    # Use the same category for basic education sub-categories
     data["education"] = np.where(
         data["education"] == "basic.9y", "Basic", data["education"]
     )
@@ -35,7 +21,7 @@ def transform_data(data: pd.DataFrame) -> pd.DataFrame:
         data["education"] == "basic.4y", "Basic", data["education"]
     )
 
-    # transform all categorical variables into 0/1 indicators and remove columns with string categories
+    # Transform categorical variables into 0/1 indicators and remove columns with string categories
     cat_vars = [
         "job",
         "marital",
@@ -57,11 +43,11 @@ def transform_data(data: pd.DataFrame) -> pd.DataFrame:
     to_keep = [i for i in data_vars if i not in cat_vars]
     data = data[to_keep]
 
-    # normalize column naming
+    # Normalize column naming
     data.columns = data.columns.str.replace(".", "_")
     data.columns = data.columns.str.replace(" ", "_")
 
-    # replace yes/no by 1/0 for target variable y
+    # Replace yes/no by 1/0 for target variable y
     data["y"] = data["y"].replace(to_replace=["yes", "no"], value=[1, 0])
 
     return data
@@ -72,46 +58,28 @@ def split_to_train_test_data(
 ) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame]:
     """Extracts target (predicted) variable and splits data into training/test data"""
 
-    # extract target (predicted) variable
-    X = data.loc[:, data.columns != "y"]  # type: ignore
-    y = data.loc[:, data.columns == "y"]  # type: ignore
+    # Extract target (predicted) variable
+    x = data.loc[:, data.columns != "y"]
+    y = data.loc[:, data.columns == "y"]
 
-    X_train, X_test, y_train, y_test = train_test_split(
-        X, y, test_size=0.2, stratify=y, random_state=50
+    x_train, x_test, y_train, y_test = train_test_split(
+        x, y, test_size=0.2, stratify=y, random_state=50
     )
 
-    return X_train, X_test, y_train, y_test
+    return x_train, x_test, y_train, y_test
 
 
 def over_sample_target_class(
-    X_train: pd.DataFrame, y_train: pd.DataFrame
+    x_train: pd.DataFrame, y_train: pd.DataFrame
 ) -> tuple[pd.DataFrame, pd.DataFrame]:
     """Resamples training data"""
 
     over_sampler = SMOTE(random_state=0)
-    sampled_data_X, sampled_data_y = over_sampler.fit_resample(X_train, y_train)  # type: ignore
+    sampled_data_x, sampled_data_y = over_sampler.fit_resample(x_train, y_train)
 
-    return pd.DataFrame(data=sampled_data_X, columns=X_train.columns), pd.DataFrame(
+    return pd.DataFrame(data=sampled_data_x, columns=x_train.columns), pd.DataFrame(
         data=sampled_data_y, columns=["y"]
     )
-
-
-def predict_on_test_data(
-    classifier: RandomForestClassifier, X_test: pd.DataFrame
-) -> np.ndarray:
-    """Predicts class of each row on the test data input"""
-
-    y_pred = classifier.predict(X_test)
-    return y_pred
-
-
-def predict_prob_on_test_data(
-    classifier: RandomForestClassifier, X_test: pd.DataFrame
-) -> np.ndarray:
-    """Predicts likelihood probability of each predicted category"""
-
-    y_pred = classifier.predict_proba(X_test)
-    return y_pred
 
 
 def compute_performance_metrics(
@@ -126,32 +94,14 @@ def compute_performance_metrics(
 
     return {
         "accuracy": round(acc, 2),
-        "precision": round(prec, 2),  # type: ignore
-        "recall": round(recall, 2),  # type: ignore
+        "precision": round(prec, 2),
+        "recall": round(recall, 2),
         "entropy": round(entropy, 2),
     }
 
 
-def save_roc_plot(
-    clf: RandomForestClassifier, X_test: pd.DataFrame, y_test: pd.DataFrame
-) -> None:
-    """Saves ROC curve locally"""
-
-    display = RocCurveDisplay.from_estimator(clf, X_test, y_test)
-    display.figure_.savefig("roc_auc_curve.png")
-
-
-def save_confusion_matrix_plot(
-    clf: RandomForestClassifier, X_test: pd.DataFrame, y_test: pd.DataFrame
-) -> None:
-    """Saves the confusion matrix locally"""
-
-    display = ConfusionMatrixDisplay.from_estimator(clf, X_test, y_test)
-    display.figure_.savefig("confusion_matrix.png")
-
-
 def tune_classifier(
-    X_train: pd.DataFrame, y_train: pd.DataFrame
+    x_train: pd.DataFrame, y_train: pd.DataFrame
 ) -> tuple[RandomForestClassifier, dict]:
     """Looks for optimal classifier hyperparameters then use them to fit a classifier"""
 
@@ -174,7 +124,7 @@ def tune_classifier(
         random_state=40,
         n_jobs=-1,
     )
-    random_search.fit(X_train, y_train)
+    random_search.fit(x_train, y_train)
 
     optimal_params = random_search.best_params_
     n_estimators = optimal_params["n_estimators"]
@@ -192,6 +142,6 @@ def tune_classifier(
         max_depth=max_depth,
         bootstrap=bootstrap,
     )
-    opt_classifier.fit(X_train, y_train)
+    opt_classifier.fit(x_train, y_train)
 
     return opt_classifier, optimal_params
