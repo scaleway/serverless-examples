@@ -28,9 +28,12 @@ def main():
     # Remove original zip
     os.remove(ZIP_DOWNLOAD_PATH)
 
-    # Extract zips within the zip
-    with zipfile.ZipFile(NESTED_ZIP_PATH) as fh:
+    # Extract zip within the zip
+    with zipfile.ZipFile(NESTED_ZIP_PATH, "r") as fh:
         fh.extractall(DATA_DIR)
+
+    # Remove nested zip
+    os.remove(NESTED_ZIP_PATH)
 
     access_key = os.environ["ACCESS_KEY"]
     secret_key = os.environ["SECRET_KEY"]

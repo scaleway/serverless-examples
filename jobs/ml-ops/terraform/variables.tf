@@ -10,6 +10,11 @@ variable "project_id" {
   type = string
 }
 
+variable "image_version" {
+  type = string
+  default = "0.0.3"
+}
+
 variable "region" {
   type = string
   default = "fr-par"
@@ -30,10 +35,5 @@ variable "model_object" {
   type        = string
   description = "name of model object stored in model registry"
   default = "classifier.pkl"
-}
-
-variable "image_version" {
-  type = string
-  default = "0.0.1"
 }
 

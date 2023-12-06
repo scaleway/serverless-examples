@@ -25,6 +25,10 @@ The dataset has many versions and is open-sourced and published [here](http://ar
 
 ## Running the example
 
+### Step 0. Set up a Scaleway API key
+
+For this example you will need to configure (or reuse) a Scaleway API key with permissions to create and update Serverless Containers and Jobs, as well as write to Object Storage buckets.
+
 ### Step 1. Provision resources with Terraform
 
 Set your Scaleway access key, secret key and project ID in environment variables:
@@ -45,22 +49,26 @@ terraform apply
 To run the jobs for the data and training, we can use the Scaleway CLI:
 
 ```
-scw jobs run $(terraform output data_job_id)
+cd terraform
+scw jobs run $(terraform output -raw data_job_id)
 scw jobs runs ls
 
-scw jobs run $(terraform output training_job_id)
+scw jobs run $(terraform output -raw training_job_id)
 scw jobs runs ls
 ```
+
+You can also trigger the jobs from the [Jobs section](https://console.scaleway.com/serverless-jobs/jobs) of the Scaleway Console.
 
 ### Step 3. Use the inference API
 
 ```
-export INFERENCE_URL=$(terraform output endpoint)
+cd terraform
+export INFERENCE_URL=$(terraform output raw endpoint)
 
 curl -X POST \
   -H "Content-Type: application/json" \
-  -d @inference/example.json
-  $INFERENCE_URL/inference
+  -d @../inference/example.json
+  ${INFERENCE_URL}/inference
 ```
 
 ## Local testing

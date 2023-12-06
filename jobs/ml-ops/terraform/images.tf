@@ -5,7 +5,7 @@ resource "scaleway_registry_namespace" "main" {
 }
 
 resource "docker_image" "inference" {
-  name = "${scaleway_registry_namespace.main.endpoint}/inference:0.0.1"
+  name = "${scaleway_registry_namespace.main.endpoint}/inference:${var.image_version}"
   build {
     context = "${path.cwd}/../inference"
   }
