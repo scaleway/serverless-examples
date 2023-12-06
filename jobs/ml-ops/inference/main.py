@@ -21,9 +21,9 @@ class ClassifierLoader(object):
     @classmethod
     def load(cls, force=False):
         if force or cls._classifier is None:
-            access_key = os.environ["SCW_ACCESS_KEY"]
-            secret_key = os.environ["SCW_SECRET_KEY"]
-            region_name = os.environ["SCW_REGION"]
+            access_key = os.environ["ACCESS_KEY"]
+            secret_key = os.environ["SECRET_KEY"]
+            region_name = os.environ["REGION"]
 
             bucket_name = os.environ["S3_BUCKET_NAME"]
             s3_url = os.environ["S3_URL"]

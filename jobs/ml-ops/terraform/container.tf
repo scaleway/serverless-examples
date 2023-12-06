@@ -16,15 +16,11 @@ resource "scaleway_container" "inference" {
   environment_variables = {
     "S3_BUCKET_NAME" = scaleway_object_bucket.main.name
     "S3_URL"         = var.s3_url
-    "SCW_REGION"     = var.region
+    "REGION"         = var.region
   }
   secret_environment_variables = {
-    "SCW_ACCESS_KEY" = var.access_key
-    "SCW_SECRET_KEY" = var.secret_key
+    "ACCESS_KEY" = var.access_key
+    "SECRET_KEY" = var.secret_key
   }
   deploy   = true
-}
-
-output "endpoint" {
-  value = scaleway_container.inference.domain_name
 }

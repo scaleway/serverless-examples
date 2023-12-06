@@ -1,12 +1,12 @@
 # Serverless MLOps
 
-In this example, we train and deploy a binary classification inference model using Scaleway Serverless. To do this, we use the following resources:
+In this example, we train and deploy a binary classification inference model using Scaleway Serverless Jobs and Container. To do this, we use the following resources:
 
-1. Serverless Job for training
-2. Serverless Job to populate data in S3
+1. Serverless Job to populate data in S3
+2. Serverless Job for training
 3. Serverless Container for inference
 
-We use object storage to share data between the two.
+We use object storage to share data between the steps.
 
 ## Context
 
@@ -42,22 +42,17 @@ terraform apply
 
 ### Step 2. Run the data and training Jobs
 
-*At the time of writing, the Scaleway CLI does not support Jobs, so we use a Python script*
+To run the jobs for the data and training, we can use the Scaleway CLI:
 
 ```
-cd scripts
+scw jobs run $(terraform output data_job_id)
+scw jobs runs ls
 
-python3 -m venv venv
-source venv/bin/activate
-pip install -r requirements.txt
-
-python3 run upload
-python3 run training
+scw jobs run $(terraform output training_job_id)
+scw jobs runs ls
 ```
 
-You can then check your Job runs in the [Jobs Console](https://console.scaleway.com/serverless-jobs/jobs).
-
-### Step 4. Use the inference API
+### Step 3. Use the inference API
 
 ```
 export INFERENCE_URL=$(terraform output endpoint)

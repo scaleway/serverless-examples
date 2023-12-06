@@ -7,9 +7,9 @@ services:
     depends_on:
       - minio
     environment:
-      - SCW_ACCESS_KEY=example
-      - SCW_SECRET_KEY=example-password
-      - SCW_REGION=foo
+      - ACCESS_KEY=example
+      - SECRET_KEY=example-password
+      - REGION=foo
       - S3_BUCKET_NAME=mlops
       - S3_URL=http://minio:9000
 
@@ -19,9 +19,9 @@ services:
     depends_on:
       - minio
     environment:
-      - SCW_ACCESS_KEY=example
-      - SCW_SECRET_KEY=example-password
-      - SCW_REGION=foo
+      - ACCESS_KEY=example
+      - SECRET_KEY=example-password
+      - REGION=foo
       - S3_BUCKET_NAME=mlops
       - S3_URL=http://minio:9000
 
@@ -33,9 +33,9 @@ services:
     depends_on:
       - minio
     environment:
-      - SCW_ACCESS_KEY=example
-      - SCW_SECRET_KEY=example-password
-      - SCW_REGION=foo
+      - ACCESS_KEY=example
+      - SECRET_KEY=example-password
+      - REGION=foo
       - S3_BUCKET_NAME=mlops
       - S3_URL=http://minio:9000
 
