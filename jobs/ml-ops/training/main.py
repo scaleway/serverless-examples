@@ -49,7 +49,7 @@ def main() -> int:
     x_train, y_train = ml.over_sample_target_class(x_train, y_train)
 
     # Train and upload classifier to s3
-    classifier, _ = ml.tune_classifier(x_train, y_train)
+    classifier, _ = ml.tune_classifier(x_train, y_train.values.flatten())
 
     with open(MODEL_FILE, "wb") as fh:
         pickle.dump(classifier, fh)
@@ -81,6 +81,8 @@ def main() -> int:
     display = ConfusionMatrixDisplay.from_estimator(classifier, x_test, y_test)
     display.figure_.savefig(CONFUSION_MATRIX_FILE)
     s3.upload_file(CONFUSION_MATRIX_FILE, bucket_name, CONFUSION_MATRIX_FILE)
+
+    return 0
 
 
 if __name__ == "__main__":

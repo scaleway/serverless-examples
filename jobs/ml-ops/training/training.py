@@ -101,13 +101,13 @@ def compute_performance_metrics(
 
 
 def tune_classifier(
-    x_train: pd.DataFrame, y_train: pd.DataFrame
+    x_train: pd.DataFrame, y_train: np.ndarray
 ) -> tuple[RandomForestClassifier, dict]:
     """Looks for optimal classifier hyperparameters then use them to fit a classifier"""
 
     random_grid = {
         "n_estimators": [5, 21, 51, 101],
-        "max_features": ["auto", "sqrt"],
+        "max_features": ["sqrt"],
         "max_depth": [int(x) for x in np.linspace(10, 120, num=12)],
         "min_samples_split": [2, 6, 10],
         "min_samples_leaf": [1, 3, 4],
