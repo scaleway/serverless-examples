@@ -8,5 +8,5 @@ output "training_job_id" {
 }
 
 output "data_job_id" {
-  value = scaleway_job_definition.data.id
+  value = scaleway_job_definition.fetch_data.id
 }

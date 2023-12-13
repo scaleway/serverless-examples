@@ -15,7 +15,7 @@ app = FastAPI()
 MODEL_FILE = "classifier.pkl"
 
 
-class ClassifierLoader(object):
+class ClassifierLoader:
     _classifier = None
 
     @classmethod
@@ -44,7 +44,7 @@ class ClassifierLoader(object):
         return cls._classifier
 
 
-@app.get("/load")
+@app.post("/load")
 def load():
     """Reloads classifier from model registry bucket"""
 
