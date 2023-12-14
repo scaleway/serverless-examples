@@ -71,7 +71,7 @@ Table of Contents:
 
 | Example                                                                                                                                                                                     | Language     | Deployment             |
 |---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------|------------------------|
-| **[Serverless MLOps](jobs/ml-ops/README.md)** <br/> An example to run a Serverless Machine Leaning workflow                                                                                 | Python       | [Terraform]+[Console]  |
+| **[Serverless MLOps](jobs/ml-ops/README.md)** <br/> An example to run a Serverless Machine Leaning workflow                                                                                 | Python       |[Terraform]-[Console]-[CLI]|
 
 ### 💜 Projects
 
@@ -84,6 +84,7 @@ Table of Contents:
 [Serverless Framework]: https://github.com/scaleway/serverless-scaleway-functions
 [Terraform]: https://registry.terraform.io/providers/scaleway/scaleway/latest/docs
 [Console]: https://console.scaleway.com
+[CLI]: https://github.com/scaleway/scaleway-cli
 [Python API Framework]: https://github.com/scaleway/serverless-api-project
 
 ## Contributing
