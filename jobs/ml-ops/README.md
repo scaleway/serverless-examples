@@ -64,6 +64,8 @@ You can also trigger the jobs from the [Jobs section](https://console.scaleway.c
 cd terraform
 export INFERENCE_URL=$(terraform output raw endpoint)
 
+curl -X POST ${INFERENCE_URL}/load
+
 curl -X POST \
   -H "Content-Type: application/json" \
   -d @../inference/example.json
