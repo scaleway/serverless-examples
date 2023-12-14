@@ -36,7 +36,7 @@ Set your Scaleway access key, secret key and project ID in environment variables
 ```console
 export TF_VAR_access_key=<your-access-key>
 export TF_VAR_secret_key=<your-secret-key>
-export TF_VAR_project_id=<your-project-id>
+export TF_VAR_project_id=<your-project-id> # you can create a separate project for this example
 
 cd terraform
 terraform init
@@ -50,11 +50,10 @@ To run the jobs for the data and training, we can use the Scaleway CLI:
 
 ```
 cd terraform
-scw jobs run $(terraform output -raw data_job_id)
-scw jobs runs ls
-
-scw jobs run $(terraform output -raw training_job_id)
-scw jobs runs ls
+scw jobs run list project-id=<my_project_id>
+scw jobs definition start $(terraform output -raw fetch_data_job_id | awk '{print substr($0, 8)}') project-id=<my_project_id>
+scw jobs definition start $(terraform output -raw training_job_id | awk '{print substr($0, 8)}') project-id=<my_project_id>
+scw jobs run list project-id=<my_project_id>
 ```
 
 You can also trigger the jobs from the [Jobs section](https://console.scaleway.com/serverless-jobs/jobs) of the Scaleway Console.
