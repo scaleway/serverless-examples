@@ -1,0 +1,6 @@
+pandas==2.1.3
+numpy==1.26.2
+scikit-learn==1.3.2
+imblearn==0.0
+matplotlib==3.8.2
+boto3==1.33.2

@@ -67,6 +67,12 @@ Table of Contents:
 | **[Terraform NGINX hello world](containers/terraform-nginx-hello-world/README.md)** <br/> A minimal example running the base NGINX image in a serverless container deployed with Terraform. | N/A          | [Terraform]            |
 | **[Triggers with Terraform](containers/terraform-triggers/README.md)** <br/> Configuring two SQS triggers, used to trigger two containers, one public, one private.                         | N/A          | [Terraform]            |
 
+### Jobs
+
+| Example                                                                                                                                                                                     | Language     | Deployment             |
+|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------|------------------------|
+| **[Serverless MLOps](jobs/ml-ops/README.md)** <br/> An example to run a Serverless Machine Leaning workflow                                                                                 | Python       |[Terraform]-[Console]-[CLI]|
+
 ### 💜 Projects
 
 | Example                                                                                                                                   | Services    | Language | Deployment             |
@@ -77,6 +83,8 @@ Table of Contents:
 
 [Serverless Framework]: https://github.com/scaleway/serverless-scaleway-functions
 [Terraform]: https://registry.terraform.io/providers/scaleway/scaleway/latest/docs
+[Console]: https://console.scaleway.com
+[CLI]: https://github.com/scaleway/scaleway-cli
 [Python API Framework]: https://github.com/scaleway/serverless-api-project
 
 ## Contributing

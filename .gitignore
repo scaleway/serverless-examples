@@ -3,9 +3,16 @@
 
 *.tfstate
 *.tfstate.*
+*.tfvars
 
 .terraform.lock.hcl
 
 # Serverless framework
 node_modules/
 .serverless/
+
+# Env files
+*.env
+
+# Python
+venv/
