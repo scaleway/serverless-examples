@@ -53,6 +53,7 @@ Table of Contents:
 | **[Triggers Getting Started](functions/triggers-getting-started/README.md)** <br/> Simple SQS trigger example for all runtimes.                                                       | all       | [Terraform]            |
 | **[Triggers NATS](functions/triggers-nats/README.md)** <br/> Simple NATS trigger example using Terraform.                                                                             | all       | [Terraform]            |
 | **[Typescript with Node runtime](functions/typescript-with-node/README.md)** <br/> A Typescript function using Node runtime.                                                          | node18    | [Serverless Framework] |
+| **[Scraping with SQS](https://www.scaleway.com/en/docs/tutorials/create-serverless-scraping)** <br/> An example of how to use Scaleway's Messaging and Queuing SQS, Serverless Functions and Managed Database together to scrap a website. | python311 | [Serverless Framework] |
 | **[Serverless Gateway Python Example](functions/serverless-gateway-python/README.md)** <br/> A Python serverless API using Serverless Gateway.                                        | python310 | [Python API Framework] |
 
 ### 📦 Containers
