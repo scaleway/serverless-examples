@@ -26,6 +26,7 @@ locals {
       handler = "handler"
     }
   }
+  subject_name = "triggers-nats-factorial"
 }
 
 resource "scaleway_function_namespace" "main" {
@@ -59,21 +60,23 @@ resource "scaleway_function" "main" {
   min_scale = 0
 }
 
-resource "scaleway_mnq_sqs_queue" "main" {
-  for_each = local.functions
-
-  name         = "factorial-requests-${each.key}"
-
-  access_key = scaleway_mnq_sqs_credentials.main.access_key
-  secret_key = scaleway_mnq_sqs_credentials.main.secret_key
-}
-
-resource "scaleway_function_trigger" "main" {
+resource "scaleway_function_trigger" "main_sqs" {
   for_each = local.functions
 
   function_id = scaleway_function.main[each.key].id
-  name        = "on-factorial-request"
+  name        = "sqs-on-factorial-request"
   sqs {
-    queue        = scaleway_mnq_sqs_queue.main[each.key].name
+    queue = scaleway_mnq_sqs_queue.main[each.key].name
+  }
+}
+
+resource "scaleway_function_trigger" "main_nats" {
+  for_each = local.functions
+
+  function_id = scaleway_function.main[each.key].id
+  name        = "nats-on-factorial-request"
+  nats {
+    account_id = scaleway_mnq_nats_account.main.id
+    subject    = local.subject_name
   }
 }
