@@ -11,3 +11,7 @@ output "sqs_secret_key" {
 output "subject_name" {
   value = local.subject_name
 }
+
+output "creds_file" {
+  value = local_sensitive_file.nats.filename
+}
