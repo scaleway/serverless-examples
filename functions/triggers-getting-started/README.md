@@ -1,20 +1,22 @@
 # Triggers Getting Started
 
-Simple starter examples that showcase using SQS triggers in all Scaleway Functions supported languages.
+Simple starter examples that showcase using SQS triggers or NATS triggers in all Scaleway Functions supported languages.
 
-In each example, a function is triggered by a SQS queue with a message containing a number. The function will then print the factorial of this number to the logs.
+In each example, a function is triggered by a SQS queue or a NATS subject with a message containing a number.
+The function will then print the factorial of this number to the logs.
 
 ## Requirements
 
 This example requires [Terraform](https://www.scaleway.com/en/docs/tutorials/terraform-quickstart/).
 
-Also, SQS **must** be [activated](https://www.scaleway.com/en/docs/serverless/messaging/how-to/get-started/#how-to-activate-sqs-or-sns) on your project.
+Also,[SQS](https://www.scaleway.com/en/docs/serverless/messaging/how-to/get-started/#how-to-activate-sqs-or-sns) **must** be activated on your project,
+and you **must** have a [NATS account](https://www.scaleway.com/en/docs/serverless/messaging/how-to/get-started/#how-to-create-a-nats-account).
 
 ## Setup
 
 The Terraform configuration will deploy a function for each language, showing how to use triggers with each language.
 
-It will also create a SQS queue per function to trigger it.
+It will also create a SQS queue per function and a NATS account to trigger it.
 
 After exporting `SCW_ACCESS_KEY`, `SCW_SECRET_KEY` and `SCW_DEFAULT_PROJECT_ID` variables (for authentication), you can:
 
@@ -25,20 +27,29 @@ terraform apply
 
 You should be able to see your resources in the Scaleway console:
 
-- Queues can be found in the [MnQ section](https://console.scaleway.com/messaging/protocols/fr-par/sqs/queues)
+- Queues can be found in the Messaging section under [SQS](https://console.scaleway.com/messaging/protocols/fr-par/sqs/queues)
+- NATS account can be found in the Messaging section under [NATS](https://console.scaleway.com/messaging/protocols/fr-par/nats/accounts)
 - Functions can be found in the `triggers-getting-started` namespace in the [Serverless functions section](https://console.scaleway.com/functions/namespaces)
 
 ## Running
 
-You can trigger your functions by sending messages to any of the associated SQS queues. Below is a description of how to do this with our dummy `tests/send_messages.py` script.
+You can trigger your functions by sending messages to any of the associated SQS queues or NATS subject.
+Below is a description of how to do this with our dummy `tests/send_[sqs|nats]_messages.py` script.
 
 ### Setup
 
-First you need to expose your SQS access and secret keys:
+First, you need to expose your SQS access and secret keys:
 
 ```console
 export AWS_ACCESS_KEY_ID=$(terraform output -raw sqs_access_key)
 export AWS_SECRET_ACCESS_KEY=$(terraform output -raw sqs_secret_key)
+```
+
+Or configure NATS credentials:
+
+```console
+export NATS_CREDS_FILE=$(terraform output -raw creds_file)
+export SUBJECT_NAME=$(terraform output -raw subject_name)
 ```
 
 Then you can set up a Python environment in the `tests` directory, e.g.
@@ -52,17 +63,24 @@ pip3 install -r requirements.txt
 
 ### Sending messages
 
-Now you can run the `send_messages.py` script to send a message to the SQS queue of each function:
+Now you can run the `send_sqs_messages.py` script to send a message to the SQS queue of each function:
 
 ```console
-python3 send_messages.py
+python3 send_sqs_messages.py
+```
+
+Or you can run the `send_nats_messages.py` script to send a message to the NATS subject:
+
+```console
+python3 send_nats_messages.py
 ```
 
 ### Viewing function logs
 
-In your [Cockpit](https://console.scaleway.com/cockpit), you can access the logs from your queues and functions.
+In your [Cockpit](https://console.scaleway.com/cockpit), you can access the logs from your queues, NATS account and functions.
 
-Navigate from your Cockpit to Grafana, and find the `Serverless Functions Logs` dashboard. There you should see something like the following, showing that your functions were triggered by messages on the queues:
+Navigate from your Cockpit to Grafana, and find the `Serverless Functions Logs` dashboard. 
+There you should see something like the following, showing that your functions were triggered by messages on the queues/NATS subject:
 
 ```console
 ...
@@ -84,7 +102,9 @@ If you don't see these logs, make sure you have selected one of the "triggers ge
 
 ### Costs
 
-Configuring and managing triggers is free, you only pay for the execution of your functions. For more information, please consult the [Scaleway Serverless pricing](https://www.scaleway.com/en/pricing/?tags=serverless). You will also be billed for the SQS queue usage when sending messages to it.
+Configuring and managing triggers is free, you only pay for the execution of your functions. 
+For more information, please consult the [Scaleway Serverless pricing](https://www.scaleway.com/en/pricing/?tags=serverless). 
+You will also be billed for the SQS queue usage and NATS account when sending messages to it.
 
 ## Cleanup
 
