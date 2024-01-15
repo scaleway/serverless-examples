@@ -35,11 +35,6 @@ jobs:
           go test ./...
         env:
           # for go-mnq-sqs-publish example
-          SCW_ACCESS_KEY: ${{ secrets.SCW_ACCESS_KEY }}
-          SCW_SECRET_KEY: ${{ secrets.SCW_SECRET_KEY }}
-          SCW_DEFAULT_PROJECT_ID: ${{ secrets.SCW_DEFAULT_PROJECT_ID }}
-          SCW_DEFAULT_REGION: ${{ secrets.SCW_DEFAULT_REGION }}
-          SCW_DEFAULT_ZONE: ${{ secrets.SCW_DEFAULT_ZONE }}
           SQS_ACCESS_KEY: ${{ secrets.SQS_ACCESS_KEY }}
           SQS_SECRET_KEY: ${{ secrets.SQS_SECRET_KEY }}
 
