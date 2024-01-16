@@ -18,6 +18,7 @@ Table of Contents:
   - [Examples](#examples)
     - [🚀 Functions](#-functions)
     - [📦 Containers](#-containers)
+    - [Jobs](#jobs)
     - [💜 Projects](#-projects)
   - [Contributing](#contributing)
 
@@ -54,6 +55,7 @@ Table of Contents:
 | **[Triggers NATS](functions/triggers-nats/README.md)** <br/> Simple NATS trigger example using Terraform.                                                                             | all       | [Terraform]            |
 | **[Typescript with Node runtime](functions/typescript-with-node/README.md)** <br/> A Typescript function using Node runtime.                                                          | node18    | [Serverless Framework] |
 | **[Serverless Gateway Python Example](functions/serverless-gateway-python/README.md)** <br/> A Python serverless API using Serverless Gateway.                                        | python310 | [Python API Framework] |
+| **[Go and Transactional Email](functions/go-mail/README.md)** <br/> A Go function that send emails using Scaleway SDK.                                                                | go121     | [Serverless Framework] |
 
 ### 📦 Containers
 
