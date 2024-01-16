@@ -18,7 +18,7 @@ Table of Contents:
   - [Examples](#examples)
     - [🚀 Functions](#-functions)
     - [📦 Containers](#-containers)
-    - [Jobs](#jobs)
+    - [⚙️ Jobs](#️-jobs)
     - [💜 Projects](#-projects)
   - [Contributing](#contributing)
 
@@ -69,7 +69,7 @@ Table of Contents:
 | **[Terraform NGINX hello world](containers/terraform-nginx-hello-world/README.md)** <br/> A minimal example running the base NGINX image in a serverless container deployed with Terraform. | N/A          | [Terraform]            |
 | **[Triggers with Terraform](containers/terraform-triggers/README.md)** <br/> Configuring two SQS triggers, used to trigger two containers, one public, one private.                         | N/A          | [Terraform]            |
 
-### Jobs
+### ⚙️ Jobs
 
 | Example                                                                                                                                                                                     | Language     | Deployment             |
 |---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------|------------------------|
