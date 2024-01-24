@@ -22,12 +22,15 @@ def convert_img_to_pdf(img_path, pdf_path):
 
 
 def handle(event, context):
-    input_file = event['body']
+    input_file = event["body"]
     output_file = os.path.splitext(input_file)[0] + ".pdf"
-    s3 = boto3.client('s3', endpoint_url=endpoint_url,
-                      region_name=bucket_region,
-                      aws_access_key_id=access_key_id,
-                      aws_secret_access_key=secret_access_key)
+    s3 = boto3.client(
+        "s3",
+        endpoint_url=endpoint_url,
+        region_name=bucket_region,
+        aws_access_key_id=access_key_id,
+        aws_secret_access_key=secret_access_key,
+    )
 
     try:
         s3.download_file(bucket_name, input_file, input_file)
@@ -38,15 +41,8 @@ def handle(event, context):
     except ClientError as e:
         print(e)
         return {
-            "body": {
-                "message": e.response['Error']['Message']
-            },
-            "statusCode": e.response['Error']['Code']
+            "body": {"message": e.response["Error"]["Message"]},
+            "statusCode": e.response["Error"]["Code"],
         }
 
-    return {
-        "body": {
-            "message": "Converted in PDF sucessfully"
-        },
-        "statusCode": 200
-    }
+    return {"body": {"message": "Converted in PDF sucessfully"}, "statusCode": 200}
