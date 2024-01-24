@@ -1,9 +1,9 @@
 #!/bin/bash
-
+set -e
 SCW_BUCKET="BUCKET_NAME_FROM_TERRAFORM"
 SCW_NATS_URL="NATS_URL_FORM_TERRAFORM"
 
-#Nats context creation and selection
+# Nats context creation and selection
 nats context save large-messages --server=$SCW_NATS_URL --creds=./large-messages.creds
 nats context select large-messages
 
