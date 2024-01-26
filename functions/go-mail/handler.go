@@ -20,11 +20,11 @@ import (
 //		"message": "very very long msg"
 //	}
 
-// region used to call the API.
+// Region used to call the API.
 const region = scw.RegionFrPar
 
-// Data is a struct to handle the body of the HTTP call. Fields in Data must be completed
-// to send and email.
+// Data holds the body of the HTTP call. Fields in Data must be completed
+// to send an email
 type Data struct {
 	Subject string `json:"subject" 	validate:"required"`
 	Message string `json:"message" 	validate:"required"`
@@ -48,7 +48,7 @@ func Handler(respWriter http.ResponseWriter, req *http.Request) {
 		return
 	}
 
-	// Validate the Data structure, return a 400 error if not valid.
+	// Validate the email data, return a 400 error if not valid
 
 	if err := validator.New().Struct(body); err != nil {
 		respWriter.WriteHeader(http.StatusBadRequest)
@@ -62,8 +62,8 @@ func Handler(respWriter http.ResponseWriter, req *http.Request) {
 	}
 }
 
-// sendMail function is used to send a mail to "mailTo" using "from" email.
-// If checkMailStatus is at true, the function will take more tame in order to run some calls
+// sendMail sends a mail to "mailTo" using "from" email.
+// If checkMailStatus is at true, the function will take more time to run some calls
 // to the API in order to get mail status over time.
 func sendMail(subject, content, mailTo, from string, checkMailStatus bool) error {
 	// Create a Scaleway client
@@ -97,7 +97,7 @@ func sendMail(subject, content, mailTo, from string, checkMailStatus bool) error
 	}
 
 	if checkMailStatus {
-		// now we get the email ID in order to get it's status
+		// Now we get the email ID in order to get it's status
 		emailID := mailResp.Emails[0].ID
 
 		mail, err := temAPI.GetEmail(&tem.GetEmailRequest{EmailID: emailID})
