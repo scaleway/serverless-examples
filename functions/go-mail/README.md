@@ -25,6 +25,9 @@ Once your environment is set up, you can test your function locally with:
 npm install
 ```
 
+The code uses 3 environment variables: `SCW_DEFAULT_ORGANIZATION_ID`, `SCW_ACCESS_KEY`, `SCW_SECRET_KEY`.
+You should define them in `serverless.yml` or using and a `.env` file [doc here](https://github.com/scaleway/serverless-scaleway-functions/blob/master/docs/secrets.md)
+
 ## Deploy and run
 
 You can deploy your function with:

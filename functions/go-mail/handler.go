@@ -26,9 +26,9 @@ const region = scw.RegionFrPar
 // Data holds the body of the HTTP call. Fields in Data must be completed
 // to send an email
 type Data struct {
-	Subject string `json:"subject" 	validate:"required"`
-	Message string `json:"message" 	validate:"required"`
-	To      string `json:"to" 		validate:"required,email"`
+	Subject string `json:"subject" validate:"required"`
+	Message string `json:"message" validate:"required"`
+	To      string `json:"to"      validate:"required,email"`
 }
 
 // Handler is the entrypoint of the function.
@@ -58,7 +58,10 @@ func Handler(respWriter http.ResponseWriter, req *http.Request) {
 	}
 
 	if err := sendMail(body.Subject, body.Message, body.To, "CHANGE_ME", false); err != nil {
-		panic(err)
+		respWriter.WriteHeader(http.StatusInternalServerError)
+		_, _ = respWriter.Write([]byte(err.Error()))
+
+		return
 	}
 }
 
