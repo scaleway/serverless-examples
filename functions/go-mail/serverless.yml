@@ -1,0 +1,25 @@
+service: gomail
+configValidationMode: off
+provider:
+  name: scaleway
+  runtime: go121
+
+plugins:
+  - serverless-scaleway-functions
+
+package:
+  patterns:
+    - '!node_modules/**'
+    - '!.gitignore'
+    - '!.git/**'
+
+functions:
+  gomail:
+    handler: Handler
+    privacy: private
+
+    # For more details please check https://github.com/scaleway/serverless-scaleway-functions/blob/master/docs/secrets.md
+    secret:
+      SCW_DEFAULT_ORGANIZATION_ID: ${env:SCW_DEFAULT_ORGANIZATION_ID}
+      SCW_ACCESS_KEY: ${env:SCW_ACCESS_KEY}
+      SCW_SECRET_KEY: ${env:SCW_SECRET_KEY}
