@@ -1,0 +1,16 @@
+venv/
+.env
+*.zip
+package/
+
+# terraform
+**/.terraform/*
+
+*.tfstate
+*.tfstate.*
+
+crash.log
+crash.*.log
+
+*.tfvars
+*.tfvars.json
