@@ -1,22 +1,18 @@
-from typing import TYPE_CHECKING
 import logging
 import os
 
 from scw_serverless import Serverless
-if TYPE_CHECKING:
-    from scaleway_functions_python.framework.v1.hints import Context, Event, Response
 
 import boto3
 from streaming_form_data import StreamingFormDataParser
 from streaming_form_data.targets import ValueTarget
 
+REGION = "fr-par"
+S3_URL = "https://s3.fr-par.scw.cloud"
+
 SCW_ACCESS_KEY = os.environ["SCW_ACCESS_KEY"]
 SCW_SECRET_KEY = os.environ["SCW_SECRET_KEY"]
 BUCKET_NAME = os.environ["BUCKET_NAME"]
-
-# Files will be uploaded to cold storage
-# See: https://www.scaleway.com/en/glacier-cold-storage/
-STORAGE_CLASS = "GLACIER"
 
 app = Serverless(
     "s3-utilities",
@@ -30,23 +26,21 @@ app = Serverless(
     },
 )
 
-s3 = boto3.resource(
-    "s3",
-    region_name="fr-par",
-    use_ssl=True,
-    endpoint_url="https://s3.fr-par.scw.cloud",
-    aws_access_key_id=SCW_ACCESS_KEY,
-    aws_secret_access_key=SCW_SECRET_KEY,
-)
-
-bucket = s3.Bucket(BUCKET_NAME)
-
 logging.basicConfig(level=logging.INFO)
 
 
 @app.func()
-def upload(event: "Event", _context: "Context") -> "Response":
-    """Upload form data to S3 Glacier."""
+def upload(event, _context):
+    """Upload form data to S3"""
+
+    s3 = boto3.client(
+        "s3",
+        region_name=REGION,
+        use_ssl=True,
+        endpoint_url=S3_URL,
+        aws_access_key_id=SCW_ACCESS_KEY,
+        aws_secret_access_key=SCW_SECRET_KEY,
+    )
 
     headers = event["headers"]
     parser = StreamingFormDataParser(headers=headers)
@@ -63,8 +57,8 @@ def upload(event: "Event", _context: "Context") -> "Response":
 
     name = target.multipart_filename
 
-    logging.info("Uploading file %s to Glacier on %s", name, bucket.name)
-    bucket.put_object(Key=name, Body=target.value, StorageClass=STORAGE_CLASS)
+    logging.info(f"Uploading to {BUCKET_NAME}/{name}")
+    s3.put_object(Bucket=BUCKET_NAME, Key=name, Body=target.value)
 
     return {"statusCode": 200, "body": f"Successfully uploaded {name} to bucket!"}
 

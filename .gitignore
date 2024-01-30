@@ -16,3 +16,8 @@ node_modules/
 
 # Python
 venv/
+__pycache__/
+
+# Python API framework
+package/
+.scw
