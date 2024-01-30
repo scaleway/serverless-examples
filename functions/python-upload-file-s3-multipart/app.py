@@ -29,7 +29,7 @@ app = Serverless(
 logging.basicConfig(level=logging.INFO)
 
 
-@app.func()
+@app.func(memory_limit=512)
 def upload(event, _context):
     """Upload form data to S3"""
 

@@ -13,6 +13,7 @@ First you need to:
 
 - Create an API key in the [console](https://console.scaleway.com/iam/api-keys), with at least the `ObjectStorageFullAccess` and `FunctionsFullAccess` permissions, and access to the relevant project for Object Storage access
 - Get the access key and secret key for this API key
+- Get your project ID
 - Create an S3 bucket
 
 You then need to set the following environment variables:
@@ -20,6 +21,7 @@ You then need to set the following environment variables:
 ```bash
 export SCW_ACCESS_KEY=<your access key>
 export SCW_SECRET_KEY=<your secret key>
+export SCW_DEFAULT_PROJECT_ID=<your project id>
 export BUCKET_NAME=<bucket name>
 ```
 
@@ -33,7 +35,16 @@ pip install --user -r requirements.txt
 scw-serverless deploy app.py
 ```
 
-_Warning_ do not create a virtualenv directory directly in this project root, as this will be included in the deployment zip and make it too large.
+This will then print out your function's URL. You can use this to test your function with:
+
+```bash
+# Upload the requirements file
+curl -F file=@requirements.txt <your function URL>
+```
+
+You should then see the `requirements.txt` file uploaded to your bucket.
+
+_Warning_ when deploying the function, do not create a virtualenv directory in this project root, as this will be included in the deployment zip and make it too large.
 
 ## Running it locally
 
@@ -48,7 +59,7 @@ python app.py
 This starts the function locally, allowing you to upload files to S3 via the `file` form-data key:
 
 ```bash
-echo -e 'Hello world!\n My contents will be stored in a bunker!' > /tmp/s3-data.dat
-curl -F file=@/tmp/s3-data.dat localhost:8080
+# Upload the requirements file
+curl -F file=@requirements.txt localhost:8080
 ```
 
