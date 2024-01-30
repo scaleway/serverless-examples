@@ -7,7 +7,7 @@ resource scaleway_container main {
   description = "S3 file uploader"
   namespace_id = scaleway_container_namespace.main.id
   registry_image = docker_image.main.name
-  port = 80
+  port = 8080
   cpu_limit = 1000
   memory_limit = 1024
   min_scale = 0

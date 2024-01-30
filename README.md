@@ -66,7 +66,7 @@ Table of Contents:
 | **[NGINX CORS Private](containers/nginx-cors-private-python/README.md)** <br/> An NGINX proxy to allow CORS requests to a private container.                                                | Python Flask | [Terraform]            |
 | **[NGINX hello world](containers/nginx-hello-world/README.md)** <br/> A minimal example running the base NGINX image in a serverless container.                                             | N/A          | [Serverless Framework] |
 | **[Python hello world](containers/python-hello-world/README.md)** <br/> A minimal example running a Flask HTTP server in a serverless container.                                            | N/A          | [Serverless Framework] |
-| **[Python S3 upload](containers/python-s3-upload/README.md)** <br/> A Python + Flask HTTP server that receives file uploads and writes them to S3.                                            | N/A        | [Terraform] |
+| **[Python S3 upload](containers/python-s3-upload/README.md)** <br/> A Python + Flask HTTP server that receives file uploads and writes them to S3.                                          | N/A          | [Terraform]            |
 | **[Terraform NGINX hello world](containers/terraform-nginx-hello-world/README.md)** <br/> A minimal example running the base NGINX image in a serverless container deployed with Terraform. | N/A          | [Terraform]            |
 | **[Triggers with Terraform](containers/terraform-triggers/README.md)** <br/> Configuring two SQS triggers, used to trigger two containers, one public, one private.                         | N/A          | [Terraform]            |
 

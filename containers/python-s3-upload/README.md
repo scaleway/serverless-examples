@@ -36,7 +36,7 @@ You can then query your function by running:
 
 ```bash
 # Upload the requirements file
-curl -F file=@requirements.txt $(terraform output -raw function_url)
+curl -F file=@container.tf $(terraform output -raw endpoint)
 ```
 
 You can get the bucket name with:

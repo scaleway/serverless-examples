@@ -12,7 +12,7 @@ variable "project_id" {
 
 variable "image_version" {
   type = string
-  default = "0.0.1"
+  default = "0.0.2"
 }
 
 resource "random_string" "suffix" {

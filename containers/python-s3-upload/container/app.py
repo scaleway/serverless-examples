@@ -16,8 +16,16 @@ logging.basicConfig(level=logging.INFO)
 app = Flask(__name__)
 
 
-@app.route("/", methods=["POST", "GET"])
-def main():
+@app.route("/", methods=["GET"])
+def hello():
+    return {
+        "statusCode": 200,
+        "body": "Hello from the container!",
+    }
+
+
+@app.route("/", methods=["POST"])
+def upload():
     s3 = boto3.client(
         "s3",
         region_name=REGION,
@@ -32,9 +40,7 @@ def main():
 
     logging.info(f"Uploading to {BUCKET_NAME}/{uploaded_file.filename}")
 
-    s3.put_object(
-        Key=uploaded_file.filename, Bucket=BUCKET_NAME, Body=file_body
-    )
+    s3.put_object(Key=uploaded_file.filename, Bucket=BUCKET_NAME, Body=file_body)
 
     return {
         "statusCode": 200,
