@@ -35,7 +35,7 @@ terraform apply
 You can then query your function by running:
 
 ```bash
-# Upload the requirements file
+# Upload a random Terraform file to the bucket
 curl -F file=@container.tf $(terraform output -raw endpoint)
 ```
 
