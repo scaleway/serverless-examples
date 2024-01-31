@@ -61,11 +61,6 @@ resource "random_password" "dev_mnq_pg_exporter_password" {
   override_special = "_-"
 }
 
-output db_password {
-  value = random_password.dev_mnq_pg_exporter_password.result
-  sensitive = true
-}
-
 resource "scaleway_rdb_instance" "main" {
   name = "test-rdb"
   project_id   = scaleway_account_project.mnq_tutorial.id
@@ -77,7 +72,22 @@ resource "scaleway_rdb_instance" "main" {
   password = random_password.dev_mnq_pg_exporter_password.result
 }
 
-resource "scaleway_rdb_database" "hn-database" {
+output db_password {
+  value = random_password.dev_mnq_pg_exporter_password.result
+  sensitive = true
+}
+
+output db_ip {
+  value = scaleway_rdb_instance.main.endpoint_ip
+  sensitive = false
+}
+
+output db_port {
+  value = scaleway_rdb_instance.main.endpoint_port
+  sensitive = false
+}
+
+resource "scaleway_rdb_database" "main" {
   instance_id = scaleway_rdb_instance.main.id 
   name = "hn-database"
 }
@@ -92,16 +102,42 @@ resource "scaleway_rdb_user" "worker" {
 resource "scaleway_rdb_privilege" "mnq_user_role" {
   instance_id = scaleway_rdb_instance.main.id 
   user_name = scaleway_rdb_user.worker.name
-  database_name = scaleway_rdb_database.hn-database.name
+  database_name = scaleway_rdb_database.main.name
   permission = "all"
 }
 
 # ============= Functions ===============
 
+locals {
+  scraper_folder_path = "../scraper"
+  consumer_folder_path = "../consumer"
+  archives_folder_path = "../archives"
+}
+
 resource "scaleway_function_namespace" "mnq_tutorial_namespace" {
   project_id = scaleway_account_project.mnq_tutorial.id
   name        = "mnq-tutorial-namespace"
   description = "Main function namespace"
+}
+
+resource "null_resource" "pip_install_scraper" {
+  triggers = {
+    requirements = filesha256("${local.scraper_folder_path}/requirements.txt")
+  }
+
+  provisioner "local-exec" {
+    command = "pip3 install -r ${local.scraper_folder_path}/requirements.txt --upgrade --target ${local.scraper_folder_path}/package"
+  }
+}
+
+data "archive_file" "scraper_archive" {
+  depends_on = [ null_resource.pip_install_scraper ]
+
+
+  type = "zip"
+  output_path = "${local.archives_folder_path}/scraper.zip"
+
+  source_dir = local.scraper_folder_path
 }
 
 resource "scaleway_function" "scraper" {
@@ -112,8 +148,8 @@ resource "scaleway_function" "scraper" {
   handler      = "handlers/scrape_hn.handle"
   privacy      = "private"
   timeout      = 10
-  zip_file     = "../scraper/functions.zip"
-  zip_hash     = filesha256("../scraper/functions.zip")
+  zip_file     = data.archive_file.scraper_archive.output_path
+  zip_hash     = data.archive_file.scraper_archive.output_sha256
   deploy       = true
   environment_variables = {
     QUEUE_URL = scaleway_mnq_sqs_queue.main.url
@@ -124,6 +160,26 @@ resource "scaleway_function" "scraper" {
   }
 }
 
+resource "null_resource" "pip_install_consumer" {
+  triggers = {
+    requirements = filesha256("${local.consumer_folder_path}/requirements.txt")
+  }
+
+  provisioner "local-exec" {
+    command = "pip3 install -r ${local.consumer_folder_path}/requirements.txt --upgrade --target ${local.consumer_folder_path}/package"
+  }
+}
+
+data "archive_file" "consumer_archive" {
+  depends_on = [ null_resource.pip_install_consumer ]
+
+
+  type = "zip"
+  output_path = "${local.archives_folder_path}/consumer.zip"
+
+  source_dir = local.consumer_folder_path
+}
+
 resource "scaleway_function" "consumer" {
   namespace_id = scaleway_function_namespace.mnq_tutorial_namespace.id
   project_id   = scaleway_account_project.mnq_tutorial.id
@@ -132,12 +188,12 @@ resource "scaleway_function" "consumer" {
   handler      = "handlers/consumer.handle"
   privacy      = "private"
   timeout      = 10
-  zip_file     = "../consumer/functions.zip"
-  zip_hash     = filesha256("../consumer/functions.zip")
+  zip_file     = data.archive_file.consumer_archive.output_path
+  zip_hash     = data.archive_file.consumer_archive.output_sha256
   deploy       = true
   max_scale    = 3
   environment_variables = {
-    DB_NAME = scaleway_rdb_database.hn-database.name
+    DB_NAME = scaleway_rdb_database.main.name
     DB_HOST = scaleway_rdb_instance.main.load_balancer[0].ip
     DB_PORT = scaleway_rdb_instance.main.load_balancer[0].port
     DB_USER = scaleway_rdb_user.worker.name

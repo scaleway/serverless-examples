@@ -20,15 +20,8 @@ This example is written using Python and Terraform, and assumes you have [set up
 
 
 ## Setup
-Once you have cloned this repository, you just need to package your functions and deploy them using Terraform. 
+Once you have cloned this repository, you just need to deploy using Terraform. 
 ```bash
-cd scraper
-pip install -r requirements.txt --target ./package
-zip -r functions.zip handlers/ package/
-cd ../consumer
-pip install -r requirements.txt --target ./package
-zip -r functions.zip handlers/ package/
-cd ../terraform 
 terraform init
 terraform apply
 ```
@@ -40,5 +33,5 @@ Everything is already up and running!
 You can check correct execution by using the Scaleway cockpit, and by connecting to your RDB instance to see results.
 
 ```bash
-psql -h <DB_INSTANCE_IP> --port <DB_INSTANCE_PORT> -d hn-database -U worker
+psql -h $(terraform output -raw db_ip) --port $(terraform output -raw db_port) -d hn-database -U worker
 ```
