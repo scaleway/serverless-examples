@@ -1,51 +1,52 @@
 # Using Python Requirements with Serverless Framework
 
-If you need to include a PyPI package with your function, you will need to vendor it when packaging your function. This can be done by using `pip install --target package ...` before deploying.
+If you need to include a PyPI package with your function, you will need to include it in the zip file packaged with your function.
 
-Here's a simple example to achieve that with Serverless Framework.
+This can be done by manually using `pip install --target package ...` to install dependencies in a directory, then zipping this up with your code. You can also use the [`serverless-python-requirements` plugin](https://github.com/serverless/serverless-python-requirements) for Serverless Framework.
 
-## Testing with serverless offline for Python
+## Requirements
 
-In order to test your function locally before deployment in a serverless function, you can install our offline testing library with:
+This example assumes that you are familiar with how Serverless Functions work. If needed, you can check [Scaleway official documentation](https://www.scaleway.com/en/docs/serverless/functions/quickstart/).
 
-```bash
-pip install -r requirements-dev.txt
-```
+This example uses the Scaleway Serverless Framework Plugin. Please set up your environment with the requirements stated in the [Scaleway Serverless Framework Plugin](https://github.com/scaleway/serverless-scaleway-functions) before trying out the example.
 
-Import your environment variables using:
+## Running on Scaleway
 
-```bash
-export database_model="english-corpus.sqlite3"
-```
-
-Launch your function locally:
-
-```bash
-python python-dependencies.py
-```
-
-Test your local function using `curl`:
-
-```bash
-curl -i -X POST localhost:8080 -d '{"message":"Hello"}'
-```
-
-## Setup
-
-First, you need to set up the [Serverless Framework](https://www.serverless.com/framework/docs/getting-started).
-
-Then, you can run:
+Run the following:
 
 ```bash
 # Install node dependencies
 npm install
 
 # Deploy
-./bin/deploy.sh
+serverless deploy
 ```
 
-The deploy command should print the URL of the new function. You can then use `curl` to check that it works, and should see the response:
+The deploy command should print the URL of the new function.
+
+You can then use `curl` to check that it works, and should see the response:
 
 ```raw
 Response status: 200
 ```
+
+## Testing with serverless offline for Python
+
+In order to test your function locally before deployment in a serverless function, you can use our offline testing library with:
+
+```bash
+pip install -r requirements-dev.txt
+```
+
+Launch your function locally:
+
+```bash
+python3 handler.py
+```
+
+Test your local function using `curl` (in another terminal)
+
+```bash
+curl localhost:8080
+```
+

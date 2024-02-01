@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "keywords": [],
   "author": "",
-  "dependencies": {},
-  "devDependencies": {
-    "serverless-scaleway-functions": "^0.4.5"
+  "dependencies": {
+    "serverless-scaleway-functions": "^0.4.9",
+    "serverless-python-requirements": "^6.0.1"
   },
   "description": ""
 }
