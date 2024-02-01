@@ -18,16 +18,10 @@ This example assumes you are familiar with how serverless functions work. If nee
 
 ## Setup
 
-To configure Terraform to use your project, edit `terraform/vars/main.tfvars` to set your project ID:
+First you need to set up your Terraform environment with your Scaleway credentials by exporting some environment variables:
 
 ```
-# Replace with your project ID
-project_id = "12ef4x91-yh12-1234-g22g-83er2q4z51ec"
-```
-
-You then need to export your Scaleway access key and secret key:
-
-```
+export TF_VAR_project_id=<your project id>
 export TF_VAR_access_key=<your access key>
 export TF_VAR_secret_key=<your secret key>
 ```
@@ -36,19 +30,20 @@ You can then set up, plan and apply the Terraform configuration which will creat
 
 ```
 # Initialise Terraform
-make tf-init
+cd terraform
+terraform init
 
 # Check what changes Terraform will make
-make tf-plan
+terraform plan
 
 # Apply the changes
-make tf-apply
+terraform apply
 ```
 
-This will also output a script, `curl.sh` which you can run to call your function:
+Then you can wait for the function to be deployed, and run:
 
 ```
-./curl.sh
+curl https://$(terraform output -raw function_url)
 ```
 
 You can then check [your `php-s3-example` bucket](https://console.scaleway.com/object-storage/buckets/fr-par/php-s3-example/explorer) to see the key that was written by your function.

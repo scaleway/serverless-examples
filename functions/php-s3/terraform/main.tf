@@ -14,6 +14,13 @@ variable "secret_key" {
   sensitive   = true
 }
 
+# Randomness for bucket name uniqueness
+resource "random_string" "suffix" {
+  length = 8
+  special = false
+  upper = false
+}
+
 # Terraform provider
 terraform {
   required_providers {
@@ -22,7 +29,9 @@ terraform {
       version = ">= 2.8.0"
     }
   }
+
   required_version = ">= 0.13"
+
   backend "local" {
     path = "state"
   }
@@ -31,15 +40,21 @@ terraform {
 provider "scaleway" {
   zone   = "fr-par-1"
   region = "fr-par"
+
+  access_key = var.access_key
+  secret_key = var.secret_key
+  project_id = var.project_id
 }
 
 # S3 bucket
-resource "scaleway_object_bucket" "example_bucket" {
-  name = "php-s3-output"
+resource "scaleway_object_bucket" "main" {
+  name = "php-s3-output-${random_string.suffix.result}"
+  project_id  = var.project_id
+  region      = "fr-par"
 }
 
 # Function zip
-data "archive_file" "func_archive" {
+data "archive_file" "main" {
   type             = "zip"
   source_dir       = "${path.module}/../function"
   excludes         = ["composer.lock", "function.zip", "vendor"]
@@ -48,29 +63,30 @@ data "archive_file" "func_archive" {
 }
 
 # Function namespace and function
-resource "scaleway_function_namespace" "function_ns" {
+resource "scaleway_function_namespace" "main" {
   project_id  = var.project_id
   region      = "fr-par"
   name        = "php-example-namespace"
 }
 
-resource "scaleway_function" "php_function" {
+resource "scaleway_function" "main" {
   name           = "php-s3-function"
   description    = "PHP example working with S3"
-  namespace_id   = scaleway_function_namespace.function_ns.id
+  namespace_id   = scaleway_function_namespace.main.id
   runtime        = "php82"
   handler        = "handler.run"
   min_scale      = 0
   max_scale      = 2
-  zip_file       = data.archive_file.func_archive.output_path
-  zip_hash       = data.archive_file.func_archive.output_sha
+  zip_file       = data.archive_file.main.output_path
+  zip_hash       = data.archive_file.main.output_sha
   privacy        = "public"
   deploy         = true
+  memory_limit   = 512
 
   environment_variables = {
     "S3_ENDPOINT" = "https://s3.fr-par.scw.cloud"
     "S3_REGION" = "fr-par"
-    "S3_BUCKET" = scaleway_object_bucket.example_bucket.name
+    "S3_BUCKET" = scaleway_object_bucket.main.name
   }
 
   secret_environment_variables = {
@@ -84,12 +100,6 @@ resource "scaleway_function" "php_function" {
   }
 }
 
-# Template script to curl
-resource local_file curl_script {
-  filename = "../curl.sh"
-  content = templatefile(
-    "curl.tftpl", {
-      func_url = "${scaleway_function.php_function.domain_name}",
-    }
-  )
+output function_url {
+  value = scaleway_function.main.domain_name
 }
