@@ -1,4 +1,4 @@
-service: python-deps-example
+service: python-dependencies-example
 configValidationMode: off
 
 provider:
@@ -14,5 +14,11 @@ package:
     - '!node_modules/**'
 
 functions:
-  requests:
+  dependency-example:
     handler: handler.handle
+
+# Custom config needed to handle native charset dependencies pulled in with requests
+#custom:
+#  pythonRequirements:
+#    dockerizePip: true
+#    dockerImage: rg.fr-par.scw.cloud/scwfunctionsruntimes-public/python-dep:3.10

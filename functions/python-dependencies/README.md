@@ -1,21 +1,21 @@
 # Using Python Requirements with Serverless Framework
 
-If you need to include a PyPI package with your function, you will need to include it in the zip file packaged with your function.
+If you need to install dependencies to run your Python function, you will need to include it in the zip file packaged with your function.
 
-This can be done by manually using `pip install --target package ...` to install dependencies in a directory, then zipping this up with your code. You can also use the [`serverless-python-requirements` plugin](https://github.com/serverless/serverless-python-requirements) for Serverless Framework.
+This can be done easilye with the [`serverless-python-requirements` plugin](https://github.com/serverless/serverless-python-requirements) for Serverless Framework.
 
 ## Requirements
 
 This example assumes that you are familiar with how Serverless Functions work. If needed, you can check [Scaleway official documentation](https://www.scaleway.com/en/docs/serverless/functions/quickstart/).
 
-This example uses the Scaleway Serverless Framework Plugin. Please set up your environment with the requirements stated in the [Scaleway Serverless Framework Plugin](https://github.com/scaleway/serverless-scaleway-functions) before trying out the example.
+This example uses the Scaleway Serverless Framework Plugin. Please set up your environment as described in the [Scaleway Serverless Framework Plugin repo](https://github.com/scaleway/serverless-scaleway-functions) before trying out the example.
 
 > [!NOTE]
 > You must also have the same version of Python used in your function available locally on your system, i.e. if you are using the function runtime `python310`, you must have the command `python3.10` available in your shell.
 
 ## Running on Scaleway
 
-Run the following:
+Run the following to deploy your function:
 
 ```console
 # Install node dependencies
@@ -32,6 +32,8 @@ You can then use `curl` to check that it works, and should see the response:
 ```raw
 Response status: 200
 ```
+
+You can also view your function in the [Scaleway Console]().
 
 ## Testing with serverless offline for Python
 
