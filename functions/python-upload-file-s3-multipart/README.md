@@ -3,42 +3,63 @@
 This function does the following steps:
 
 * Read a file from an HTTP request form
-* Send the file to long-term storage with Glacier for S3
+* Store the file in S3
 
 ## Requirements
 
-This example uses the [Python API Framework](https://github.com/scaleway/serverless-api-project) to deploy the function.
+This example uses the [Python API Framework](https://github.com/scaleway/serverless-api-framework-python) to build and deploy the function.
 
-If needed, create a bucket and provide the following variables in your environment:
+First you need to:
 
-```env
-export SCW_ACCESS_KEY =
-export SCW_SECRET_KEY =
-export BUCKET_NAME =
-```
+- Create an API key in the [console](https://console.scaleway.com/iam/api-keys), with at least the `ObjectStorageFullAccess` and `FunctionsFullAccess` permissions, and access to the relevant project for Object Storage access
+- Get the access key and secret key for this API key
+- Get your project ID
+- Create an S3 bucket
 
-## Running
-
-### Running locally
-
-This examples uses [Serverless Functions Python Framework](https://github.com/scaleway/serverless-functions-python) and can be executed locally:
+You then need to set the following environment variables:
 
 ```bash
-pip install -r requirements-dev.txtbash
-python app.py
+export SCW_ACCESS_KEY=<your access key>
+export SCW_SECRET_KEY=<your secret key>
+export SCW_DEFAULT_PROJECT_ID=<your project id>
+export BUCKET_NAME=<bucket name>
 ```
 
-The upload endpoint allows you to upload files to Glacier via the `file` form-data key:
-
-```bash
-echo -e 'Hello world!\n My contents will be stored in a bunker!' > myfile.dat
-curl -F file=@myfile.dat localhost:8080
-```
-
-### Deploying with the API Framework
+## Deploy on Scaleway
 
 Deployment can be done with `scw_serverless`:
 
 ```bash
-scw_serverless deploy app.py
+pip install --user -r requirements.txt
+
+scw-serverless deploy app.py
 ```
+
+This will then print out your function's URL. You can use this to test your function with:
+
+```bash
+# Upload the requirements file
+curl -F file=@requirements.txt <your function URL>
+```
+
+You should then see the `requirements.txt` file uploaded to your bucket.
+
+_Warning_ when deploying the function, do not create a virtual environment directory in this project root, as this will be included in the deployment zip and make it too large.
+
+## Running it locally
+
+You can test your function locally thanks to the [Serverless Functions Python Framework](https://github.com/scaleway/serverless-functions-python). To do this, you can run:
+
+```bash
+pip install --user -r requirements-dev.txt
+
+python app.py
+```
+
+This starts the function locally, allowing you to upload files to S3 via the `file` form-data key:
+
+```bash
+# Upload the requirements file
+curl -F file=@requirements.txt localhost:8080
+```
+
