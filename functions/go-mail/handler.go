@@ -57,7 +57,7 @@ func Handler(respWriter http.ResponseWriter, req *http.Request) {
 		return
 	}
 
-	if err := sendMail(body.Subject, body.Message, body.To, "CHANGE_ME", false); err != nil {
+	if err := sendMail(body.Subject, body.Message, body.To, os.Getenv("SENDER_MAIL"), false); err != nil {
 		respWriter.WriteHeader(http.StatusInternalServerError)
 		_, _ = respWriter.Write([]byte(err.Error()))
 
