@@ -4,6 +4,9 @@ provider:
   name: scaleway
   runtime: go121
 
+# Enable use of .env file
+useDotenv: true
+
 plugins:
   - serverless-scaleway-functions
 
@@ -23,3 +26,4 @@ functions:
       SCW_DEFAULT_ORGANIZATION_ID: ${env:SCW_DEFAULT_ORGANIZATION_ID}
       SCW_ACCESS_KEY: ${env:SCW_ACCESS_KEY}
       SCW_SECRET_KEY: ${env:SCW_SECRET_KEY}
+      SENDER_MAIL: ${env:SENDER_MAIL}
