@@ -16,8 +16,3 @@ package:
 functions:
   requests:
     handler: handler.handle
-
-custom:
-  pythonRequirements:
-    dockerImage: rg.fr-par.scw.cloud/scwfunctionsruntimes-public/python-dep:3.10
-    dockerizePip: true

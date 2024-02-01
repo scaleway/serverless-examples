@@ -10,11 +10,14 @@ This example assumes that you are familiar with how Serverless Functions work. I
 
 This example uses the Scaleway Serverless Framework Plugin. Please set up your environment with the requirements stated in the [Scaleway Serverless Framework Plugin](https://github.com/scaleway/serverless-scaleway-functions) before trying out the example.
 
+> [!NOTE]
+> You must also have the same version of Python used in your function available locally on your system, i.e. if you are using the function runtime `python310`, you must have the command `python3.10` available in your shell.
+
 ## Running on Scaleway
 
 Run the following:
 
-```bash
+```console
 # Install node dependencies
 npm install
 
@@ -34,19 +37,19 @@ Response status: 200
 
 In order to test your function locally before deployment in a serverless function, you can use our offline testing library with:
 
-```bash
+```console
 pip install -r requirements-dev.txt
 ```
 
 Launch your function locally:
 
-```bash
+```console
 python3 handler.py
 ```
 
 Test your local function using `curl` (in another terminal)
 
-```bash
+```console
 curl localhost:8080
 ```
 
