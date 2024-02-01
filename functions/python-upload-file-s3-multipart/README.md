@@ -44,7 +44,7 @@ curl -F file=@requirements.txt <your function URL>
 
 You should then see the `requirements.txt` file uploaded to your bucket.
 
-_Warning_ when deploying the function, do not create a virtualenv directory in this project root, as this will be included in the deployment zip and make it too large.
+_Warning_ when deploying the function, do not create a virtual environment directory in this project root, as this will be included in the deployment zip and make it too large.
 
 ## Running it locally
 
