@@ -18,7 +18,7 @@ functions:
     handler: handler.handle
 
 # Custom config needed to handle native charset dependencies pulled in with requests
-#custom:
-#  pythonRequirements:
-#    dockerizePip: true
-#    dockerImage: rg.fr-par.scw.cloud/scwfunctionsruntimes-public/python-dep:3.10
+custom:
+  pythonRequirements:
+    dockerizePip: true
+    dockerImage: rg.fr-par.scw.cloud/scwfunctionsruntimes-public/python-dep:3.10
