@@ -4,6 +4,9 @@ provider:
   name: scaleway
   runtime: go121
 
+# Enable use of .env file
+useDotenv: true
+
 plugins:
   - serverless-scaleway-functions
 
