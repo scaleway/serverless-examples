@@ -65,8 +65,8 @@ Table of Contents:
 | **[Function Handler Java](containers/function-handler-java/README.md)** <br/> A Java function handler deployed on CaaS.                                                                     | Java         | [Serverless Framework] |
 | **[NGINX CORS Private](containers/nginx-cors-private-python/README.md)** <br/> An NGINX proxy to allow CORS requests to a private container.                                                | Python Flask | [Terraform]            |
 | **[NGINX hello world](containers/nginx-hello-world/README.md)** <br/> A minimal example running the base NGINX image in a serverless container.                                             | N/A          | [Serverless Framework] |
-| **[Python hello world](containers/python-hello-world/README.md)** <br/> A minimal example running a Flask HTTP server in a serverless container.                                            | N/A          | [Serverless Framework] |
-| **[Python S3 upload](containers/python-s3-upload/README.md)** <br/> A Python + Flask HTTP server that receives file uploads and writes them to S3.                                          | N/A          | [Terraform]            |
+| **[Python hello world](containers/python-hello-world/README.md)** <br/> A minimal example running a Flask HTTP server in a serverless container.                                            | Python       | [Serverless Framework] |
+| **[Python S3 upload](containers/python-s3-upload/README.md)** <br/> A Python + Flask HTTP server that receives file uploads and writes them to S3.                                          | Python       | [Terraform]            |
 | **[Terraform NGINX hello world](containers/terraform-nginx-hello-world/README.md)** <br/> A minimal example running the base NGINX image in a serverless container deployed with Terraform. | N/A          | [Terraform]            |
 | **[Triggers with Terraform](containers/terraform-triggers/README.md)** <br/> Configuring two SQS triggers, used to trigger two containers, one public, one private.                         | N/A          | [Terraform]            |
 
@@ -74,7 +74,8 @@ Table of Contents:
 
 | Example                                                                                                                                                                                     | Language     | Deployment             |
 |---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------|------------------------|
-| **[Serverless MLOps](jobs/ml-ops/README.md)** <br/> An example to run a Serverless Machine Leaning workflow                                                                                 | Python       |[Terraform]-[Console]-[CLI]|
+| **[Serverless Jobs Hello World](jobs/terraform-hello-world/README.md)** <br/> An example of building a container image and running it as a Serverless Job using Terraform.                  | N/A          |[Terraform]-[Console]|
+| **[Serverless MLOps](jobs/ml-ops/README.md)** <br/> An example of running a Serverless Machine Leaning workflow.                                                                            | Python       |[Terraform]-[Console]-[CLI]|
 
 ### 💜 Projects
 
