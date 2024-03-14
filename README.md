@@ -19,6 +19,7 @@ Table of Contents:
     - [🚀 Functions](#-functions)
     - [📦 Containers](#-containers)
     - [⚙️ Jobs](#️-jobs)
+    - [💬 Messaging and Queueing](#-mnq)
     - [💜 Projects](#-projects)
   - [Contributing](#contributing)
 
@@ -76,6 +77,12 @@ Table of Contents:
 |---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------|------------------------|
 | **[Serverless MLOps](jobs/ml-ops/README.md)** <br/> An example to run a Serverless Machine Leaning workflow                                                                                 | Python       |[Terraform]-[Console]-[CLI]|
 
+### 💬 Messaging and Queueing
+
+| **[Manage large message](mnq/large-messages/README.md)** <br/> An example of infrastructure to manage large messages.                                  | PaaS & S3        | Python   | [Terraform]            |
+| **[Serverless scraping](mnq/serverless-scraping/README.md)** <br/> An example of infrastructure to scrape the hackernews website.                      | PaaS & RDB       | Python   | [Terraform]            |
+| **[SNS Instances Notification System](mnq/sns-instances-notification-system/README.md)** <br/> An example of infrastructure to use SNS with Instances. | PaaS & Instances | Golang   | [Terraform]            |
+
 ### 💜 Projects
 
 | Example                                                                                                                                   | Services    | Language | Deployment             |
@@ -83,8 +90,6 @@ Table of Contents:
 | **[Kong API Gateway](projects/kong-api-gateway/README.md)** <br/> Deploying a Kong Gateway on containers to provide routing to functions. | CaaS & FaaS | Python   | [Serverless Framework] |
 | **[Serverless Gateway](https://github.com/scaleway/serverless-gateway)** <br/> Our serverless gateway for functions and containers.       | API Gateway | Python   | [Python API Framework] |
 | **[Monitoring Glaciers](projects/blogpost-glacier/README.md)** <br/> A project to monitor glaciers and the impact of global warming.      | S3 & RDB    | Golang   | [Serverless Framework] |
-| **[Manage large message](projects/large-messages/README.md)** <br/> An example of infrastructure to manage large messages.                | PaaS & S3   | Python   | [Terraform]            |
-| **[Serverless scraping](projects/serverless-scraping/README.md)** <br/> An example of infrastructure to scrape the hackernews website.    | PaaS & RDB  | Python   | [Terraform]            |
 
 [Serverless Framework]: https://github.com/scaleway/serverless-scaleway-functions
 [Terraform]: https://registry.terraform.io/providers/scaleway/scaleway/latest/docs

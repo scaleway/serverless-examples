@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subscriber - SNS x Instances Tutorial</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+            font-family: 'Space Grotesk', sans-serif;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        h1, h2 {
+            text-align: center;
+            width: 100%;
+            max-width: 800px;
+            margin: 10px auto;
+        }
+        h1 {
+            color: #333;
+            font-size: 2em;
+            font-weight: 600;
+            margin-bottom: 0.5em;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+        }
+        h2 {
+            color: #555;
+            font-size: 1.5em;
+            font-weight: 400;
+            margin-top: 0;
+        }
+        p {
+            color: #555;
+            font-size: 1.5em;
+            font-weight: 400;
+            margin-top: 0;
+            text-align: center;
+        }
+        a.button {
+            text-decoration: none;
+            display: inline-block;
+            background-color: #792DD4;
+            color: white;
+            padding: 15px 30px;
+            font-size: 16px;
+            margin: 20px 10px;
+            cursor: pointer;
+            border-radius: 25px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            text-align: center; /* Ensure text is centered */
+        }
+        a.button:hover, a.button:focus {
+            background-color: #521094;
+            box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.15);
+            transform: translateY(-3px);
+        }
+        a.button:active {
+            background-color: #3D1862;
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+            transform: translateY(1px);
+        }
+    </style>
+
+<!--    <script>-->
+<!--        // document.addEventListener('DOMContentLoaded', function() {-->
+<!--        //     const fetchNotifications = () => {-->
+<!--        //         fetch('/notifications', {-->
+<!--        //             method: 'GET',-->
+<!--        //             headers: {-->
+<!--        //                 'X-Requested-With': 'XMLHttpRequest'-->
+<!--        //                 'Accept': 'application/json'-->
+<!--        //             }-->
+<!--        //         })-->
+<!--        //             .then(response => {-->
+<!--        //                 console.log('Received response', response); // Log response object-->
+<!--        //                 return response.json(); // Parse JSON from response-->
+<!--        //             })-->
+<!--        //             .then(data => {-->
+<!--        //                 if (data.newNotifications) {-->
+<!--        //                     alert("New notification received!");-->
+<!--        //                     // Update the DOM with new notifications here-->
+<!--        //                     const notificationsList = document.getElementById('notificationsList');-->
+<!--        //                     notificationsList.innerHTML = ''; // Clear existing notifications-->
+<!--        //                     data.notifications.forEach(notification => {-->
+<!--        //                         const listItem = document.createElement('li');-->
+<!--        //                         listItem.textContent = notification;-->
+<!--        //                         notificationsList.appendChild(listItem);-->
+<!--        //                     });-->
+<!--        //                 }-->
+<!--        //             })-->
+<!--        //             .catch(error => console.error('Error fetching notifications:', error));-->
+<!--        //     };-->
+<!--        //-->
+<!--        //     // Fetch notifications every 5 seconds-->
+<!--        //     setInterval(fetchNotifications, 5000);-->
+<!--        // });-->
+<!--    </script>-->
+</head>
+<body>
+
+<h1>Scaleway SNS x Instances Tutorial</h1>
+<h1>Subscriber Server - Notifications</h1>
+<div id="notificationsList">
+</div>
+<script>
+    function jsonNotificationToHtmlNotification(notifications) {
+        ret = "<ul>"
+        for (const i in notifications) {
+            ret += "<li>" + notifications[i] + "</li>";
+        }
+        ret  += "</ul>";
+        return ret;
+    }
+
+    function reload(){
+        console.log("Refreshed"); // Optional: for debugging
+        fetch('/notifications-refresh', { method: 'GET' })
+            .then(response => response.json())
+            .then(res => {
+                console.log(res);
+                document.getElementById("notificationsList").innerHTML = jsonNotificationToHtmlNotification(res.notifications);
+            })
+            .catch(error => console.error('Error:', error));
+    }
+    reload();
+    setInterval(reload, 3000);
+</script>
+
+</body>
+</html>

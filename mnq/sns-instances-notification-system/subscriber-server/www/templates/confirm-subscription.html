@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subscriber - SNS x Instances Tutorial</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+            font-family: 'Space Grotesk', sans-serif;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        h1 {
+            text-align: center;
+            width: 100%;
+            max-width: 800px;
+            margin: 10px auto;
+            color: #333;
+            font-size: 2em;
+            font-weight: 600;
+            margin-bottom: 0.5em;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+        }
+        p {
+            color: #555;
+            font-size: 1.5em;
+            font-weight: 400;
+            margin-top: 0;
+            text-align: center;
+        }
+        a.button {
+            text-decoration: none;
+            display: inline-block;
+            background-color: #792DD4;
+            color: white;
+            padding: 15px 30px;
+            font-size: 16px;
+            margin: 20px 10px;
+            cursor: pointer;
+            border-radius: 25px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            text-align: center; /* Ensure text is centered */
+        }
+        a.button:hover, a.button:focus {
+            background-color: #521094;
+            box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.15);
+            transform: translateY(-3px);
+        }
+        a.button:active {
+            background-color: #3D1862;
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+            transform: translateY(1px);
+        }
+    </style>
+</head>
+<body>
+<h1>Scaleway SNS x Instances Tutorial</h1>
+<h1>Subscription Server</h1>
+<p>Please confirm your subscription by clicking the link below:</p>
+<a href="{{.URL}}" id="confirmSubscriptionLink" class="button">Confirm Subscription</a>
+<script>
+    document.getElementById('confirmSubscriptionLink').addEventListener('click', function(e) {
+        e.preventDefault();
+        const confirmationUrl = '/confirm-subscription';
+        const targetUrl = this.getAttribute('href');
+
+        fetch(confirmationUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ SubscribeURL: targetUrl }),
+        })
+            .then(response => {
+                if (response.ok) {
+                    window.location.href = targetUrl;
+                } else {
+                    alert('There was a problem with confirming your subscription.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Error sending confirmation.');
+            });
+    });
+</script>
+</body>
+</html>
