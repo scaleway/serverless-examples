@@ -2,14 +2,15 @@ package main
 
 import (
 	"fmt"
-	"github.com/gin-gonic/gin"
 	"subscriber-server/internal/handlers"
+
+	"github.com/gin-gonic/gin"
 )
 
 func main() {
 	router := gin.Default()
 
-	router.LoadHTMLGlob("../../www/templates/*")
+	router.LoadHTMLGlob("./www/templates/*")
 
 	router.GET("/", handlers.GetIndexHandler)
 	router.GET("/confirm-subscription", handlers.ConfirmSubscriptionHandler)

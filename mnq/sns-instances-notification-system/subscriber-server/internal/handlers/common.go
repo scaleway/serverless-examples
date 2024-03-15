@@ -1,8 +1,9 @@
 package handlers
 
 import (
-	"github.com/gin-gonic/gin"
 	"net/http"
+
+	"github.com/gin-gonic/gin"
 )
 
 func NoRouteHandler(context *gin.Context) {
@@ -13,5 +14,5 @@ func NoRouteHandler(context *gin.Context) {
 }
 
 func GetIndexHandler(context *gin.Context) {
-	context.File("../../www/index.html")
+	context.File("./www/index.html")
 }

@@ -12,8 +12,8 @@ func main() {
 	sns_client.InitAwsSnsClient()
 
 	router := gin.Default()
-	router.LoadHTMLGlob("../../www/templates/*")
-	router.Static("/", "../../www")
+	router.LoadHTMLGlob("./www/templates/*")
+	router.Static("/", "./www")
 	router.POST("/low-CPU-usage", handlers.LowCPUUsageHandler)
 	router.POST("/high-CPU-usage", handlers.HighCPUUsageHandler)
 

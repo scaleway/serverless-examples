@@ -1,5 +1,5 @@
 terraform {
-  # CONNECTS TO SCALEWAY CLOUD PROVIDER 
+  # Connects to Scaleway cloud provider
   required_providers {
     scaleway = {
       source = "scaleway/scaleway"
@@ -11,31 +11,31 @@ terraform {
 provider "scaleway" {
 }
 
-# CREATE PROJECT SNS-TUTORIAL
+# Creates Project sns_tutorial
 resource "scaleway_account_project" "sns_tutorial" {
   name = "sns-tutorial"
 }
 
-# TAKES YOUR PUBLIC SSH-KEY TO ACCESS INSTANCES
+# Takes your public SSH-key to access Instances
 resource "scaleway_iam_ssh_key" "main" {
-  name        = "sns-tutorial-public-ssh-key"
+  name       = "sns-tutorial-public-ssh-key"
   project_id = scaleway_account_project.sns_tutorial.id
   public_key = var.public_ssh_key
 }
 
 # =====================   SNS   =====================
 
-# ACTIVATE SNS
+# Activates SNS
 resource "scaleway_mnq_sns" "main" {
   project_id = scaleway_account_project.sns_tutorial.id
-  region = "fr-par"
+  region     = "fr-par"
 }
 
-# CREATE CREDENTIALS
+# Creates credentials
 resource "scaleway_mnq_sns_credentials" "main" {
   project_id = scaleway_account_project.sns_tutorial.id
   permissions {
-    can_manage = true // to set up the topic subject, the subscription to the topic
+    can_manage  = true // to set up the topic subject, the subscription to the topic
     can_receive = true // to subscribe a topic
     can_publish = true // to publish messages to the topic
   }
@@ -46,10 +46,10 @@ resource "scaleway_mnq_sns_credentials" "main" {
   ]
 }
 
-# CREATE TOPIC
+# Creates topic
 resource "scaleway_mnq_sns_topic" "topic" {
   project_id = scaleway_account_project.sns_tutorial.id
-  name = "sns-tutorial-topic"
+  name       = "sns-tutorial-topic"
   access_key = scaleway_mnq_sns_credentials.main.access_key
   secret_key = scaleway_mnq_sns_credentials.main.secret_key
 }
@@ -57,20 +57,20 @@ resource "scaleway_mnq_sns_topic" "topic" {
 # ==========   INSTANCES SECURITY GROUP   ===========
 
 resource "scaleway_instance_security_group" "sns_www" {
-  project_id = scaleway_account_project.sns_tutorial.id
+  project_id              = scaleway_account_project.sns_tutorial.id
   inbound_default_policy  = "drop"
   outbound_default_policy = "accept"
 
-  # FOR SSH CONNEXIONS
+  # For SSH connections
   inbound_rule {
     action = "accept"
-    port = "22"
+    port   = "22"
   }
 
-  # FOR HTTP CONNEXIONS
+  # For HTTP connections
   inbound_rule {
     action = "accept"
-    port = "8081"
+    port   = "8081"
   }
 }
 
@@ -78,18 +78,18 @@ resource "scaleway_instance_security_group" "sns_www" {
 
 resource "scaleway_instance_ip" "subscriber_public_ip" {
   project_id = scaleway_account_project.sns_tutorial.id
-  zone = "fr-par-1"
+  zone       = "fr-par-1"
 }
 
 resource "scaleway_instance_server" "subscriber_sns_tuto_instance" {
-  project_id = scaleway_account_project.sns_tutorial.id
-  name = "suscriber-server"
-  type  = "PLAY2-PICO"
-  image = "debian_bookworm"
-  ip_id = scaleway_instance_ip.subscriber_public_ip.id
-  security_group_id= scaleway_instance_security_group.sns_www.id
+  project_id        = scaleway_account_project.sns_tutorial.id
+  name              = "suscriber-server"
+  type              = "PLAY2-PICO"
+  image             = "debian_bookworm"
+  ip_id             = scaleway_instance_ip.subscriber_public_ip.id
+  security_group_id = scaleway_instance_security_group.sns_www.id
 
-  # USER DATA TO RUN THE SERVER AT START-UP
+  # User_data to run the server at start-up
   user_data = {
     cloud-init = <<-EOF
     #cloud-config
@@ -107,7 +107,7 @@ resource "scaleway_instance_server" "subscriber_sns_tuto_instance" {
   }
 }
 
-# TO WAIT FOR THE SUBSCRIBER PORT 8081 TO BE OPENED TO CONTINUE
+# Waits for the subscriber port 8081 to be opened before moving on
 resource "terraform_data" "bootstrap" {
   triggers_replace = [
     scaleway_instance_server.subscriber_sns_tuto_instance.id,
@@ -128,32 +128,32 @@ resource "terraform_data" "bootstrap" {
   }
 }
 
-# CREATE SNS TOPIC SUBSCRIPTION
-resource scaleway_mnq_sns_topic_subscription main {
+# Creates SNS topic subscription
+resource "scaleway_mnq_sns_topic_subscription" "main" {
   project_id = scaleway_account_project.sns_tutorial.id
   access_key = scaleway_mnq_sns_credentials.main.access_key
   secret_key = scaleway_mnq_sns_credentials.main.secret_key
-  topic_id = scaleway_mnq_sns_topic.topic.id
-  protocol = "http"
-  endpoint = "http://${scaleway_instance_ip.subscriber_public_ip.address}:8081/notifications"
+  topic_id   = scaleway_mnq_sns_topic.topic.id
+  protocol   = "http"
+  endpoint   = "http://${scaleway_instance_ip.subscriber_public_ip.address}:8081/notifications"
 }
 
 # =================   PUBLISHER SERVER   =================
 
 resource "scaleway_instance_ip" "publisher_public_ip" {
   project_id = scaleway_account_project.sns_tutorial.id
-  zone = "fr-par-1"
+  zone       = "fr-par-1"
 }
 
 resource "scaleway_instance_server" "publisher_sns_tuto_instance" {
-  project_id = scaleway_account_project.sns_tutorial.id
-  name       = "publisher-server"
-  type       = "PLAY2-PICO"
-  image      = "debian_bookworm"
-  ip_id      = scaleway_instance_ip.publisher_public_ip.id
-  security_group_id= scaleway_instance_security_group.sns_www.id
+  project_id        = scaleway_account_project.sns_tutorial.id
+  name              = "publisher-server"
+  type              = "PLAY2-PICO"
+  image             = "debian_bookworm"
+  ip_id             = scaleway_instance_ip.publisher_public_ip.id
+  security_group_id = scaleway_instance_security_group.sns_www.id
 
-  # USER DATA TO RUN THE SERVER AT START-UP
+  # User_data to run the server at start-up
   user_data = {
     cloud-init = <<-EOF
     #cloud-config

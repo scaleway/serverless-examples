@@ -69,41 +69,6 @@
             transform: translateY(1px);
         }
     </style>
-
-<!--    <script>-->
-<!--        // document.addEventListener('DOMContentLoaded', function() {-->
-<!--        //     const fetchNotifications = () => {-->
-<!--        //         fetch('/notifications', {-->
-<!--        //             method: 'GET',-->
-<!--        //             headers: {-->
-<!--        //                 'X-Requested-With': 'XMLHttpRequest'-->
-<!--        //                 'Accept': 'application/json'-->
-<!--        //             }-->
-<!--        //         })-->
-<!--        //             .then(response => {-->
-<!--        //                 console.log('Received response', response); // Log response object-->
-<!--        //                 return response.json(); // Parse JSON from response-->
-<!--        //             })-->
-<!--        //             .then(data => {-->
-<!--        //                 if (data.newNotifications) {-->
-<!--        //                     alert("New notification received!");-->
-<!--        //                     // Update the DOM with new notifications here-->
-<!--        //                     const notificationsList = document.getElementById('notificationsList');-->
-<!--        //                     notificationsList.innerHTML = ''; // Clear existing notifications-->
-<!--        //                     data.notifications.forEach(notification => {-->
-<!--        //                         const listItem = document.createElement('li');-->
-<!--        //                         listItem.textContent = notification;-->
-<!--        //                         notificationsList.appendChild(listItem);-->
-<!--        //                     });-->
-<!--        //                 }-->
-<!--        //             })-->
-<!--        //             .catch(error => console.error('Error fetching notifications:', error));-->
-<!--        //     };-->
-<!--        //-->
-<!--        //     // Fetch notifications every 5 seconds-->
-<!--        //     setInterval(fetchNotifications, 5000);-->
-<!--        // });-->
-<!--    </script>-->
 </head>
 <body>
 
@@ -122,11 +87,9 @@
     }
 
     function reload(){
-        console.log("Refreshed"); // Optional: for debugging
         fetch('/notifications-refresh', { method: 'GET' })
             .then(response => response.json())
             .then(res => {
-                console.log(res);
                 document.getElementById("notificationsList").innerHTML = jsonNotificationToHtmlNotification(res.notifications);
             })
             .catch(error => console.error('Error:', error));

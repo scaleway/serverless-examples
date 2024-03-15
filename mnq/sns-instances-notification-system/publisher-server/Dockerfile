@@ -1,5 +1,4 @@
 FROM debian:bookworm-20240211
-LABEL authors="jlecomte@scaleway.com"
 
 RUN apt-get update && \
     apt-get install -y golang ca-certificates && \
@@ -13,10 +12,9 @@ COPY ./internal ./internal
 COPY ./www ./www
 
 RUN go mod init publisher-server && \
-    go mod tidy
+    go mod tidy && \
+    go build ./cmd/publisher
 
 EXPOSE 8081
 
-WORKDIR /app/cmd/publisher
-
-CMD ["go", "run", "main.go"]
+CMD ["./publisher"]
