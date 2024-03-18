@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Publisher - SNS x Instances Tutorial</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+            font-family: 'Space Grotesk', sans-serif;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        h1, h2 {
+            text-align: center;
+            width: 100%;
+            max-width: 800px;
+            margin: 10px auto;
+        }
+        h1 {
+            color: #333;
+            font-size: 2em;
+            font-weight: 600;
+            margin-bottom: 0.5em;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+        }
+        h2 {
+            color: #555;
+            font-size: 1.5em;
+            font-weight: 400;
+            margin-top: 0;
+        }
+        .button {
+            background-color: #792DD4;
+            border: none;
+            color: white;
+            padding: 15px 30px;
+            font-size: 16px;
+            margin: 20px 10px;
+            width: 220px;
+            cursor: pointer;
+            border-radius: 25px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        .button:hover, .button:focus {
+            background-color: #521094;
+            box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.15);
+            transform: translateY(-3px);
+        }
+        .button:active {
+            background-color: #3D1862;
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+            transform: translateY(1px);
+        }
+        .button:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(70, 153, 179, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <h1>Scaleway SNS x Instances Tutorial</h1>
+    <h1>Publisher Server</h1>
+    <h2>Click below to simulate a CPU behavior:</h2>
+    <button class="button" id="low-CPU-usage">Low CPU Usage</button>
+    <button class="button" id="high-CPU-usage">High CPU Usage</button>
+
+        <script>
+            document.getElementById('low-CPU-usage').addEventListener('click', function() {
+                fetch('/low-CPU-usage', { method: 'POST' })
+                    .then(response => response.json())
+                    .catch(error => console.error('Error:', error));
+            });
+
+            document.getElementById('high-CPU-usage').addEventListener('click', function() {
+                fetch('/high-CPU-usage', { method: 'POST' })
+                    .then(response => response.json())
+                    .catch(error => console.error('Error:', error));
+            });
+        </script>
+    </body>
+</html>
