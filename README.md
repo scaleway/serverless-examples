@@ -79,9 +79,11 @@ Table of Contents:
 
 ### 💬 Messaging and Queueing
 
-| **[Manage large message](mnq/large-messages/README.md)** <br/> An example of infrastructure to manage large messages.                                  | PaaS & S3        | Python   | [Terraform]            |
-| **[Serverless scraping](mnq/serverless-scraping/README.md)** <br/> An example of infrastructure to scrape the hackernews website.                      | PaaS & RDB       | Python   | [Terraform]            |
-| **[SNS Instances Notification System](mnq/sns-instances-notification-system/README.md)** <br/> An example of infrastructure to use SNS with Instances. | PaaS & Instances | Golang   | [Terraform]            |
+| Example                                                                                                                                                 | Services         | Language | Deployment  |
+|---------------------------------------------------------------------------------------------------------------------------------------------------------|------------------|----------|-------------|
+| **[Manage large message](mnq/large-messages/README.md)** <br/> An example of infrastructure to manage large messages.                                   | PaaS & S3        | Python   | [Terraform] |
+| **[Serverless scraping](mnq/serverless-scraping/README.md)** <br/> An example of infrastructure to scrape the hackernews website.                       | PaaS & RDB       | Python   | [Terraform] |
+| **[SNS Instances Notification System](mnq/sns-instances-notification-system/README.md)** <br/> An example of infrastructure to use SNS with Instances.  | PaaS & Instances | Golang   | [Terraform] |
 
 ### 💜 Projects
 
