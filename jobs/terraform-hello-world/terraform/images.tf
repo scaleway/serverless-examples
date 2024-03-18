@@ -1,5 +1,5 @@
 resource "scaleway_registry_namespace" "main" {
-  name       = "serverless-jobs-example"
+  name       = "jobs-tf-hello"
   region     = var.region
   project_id = var.project_id
 }

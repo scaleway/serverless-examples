@@ -2,6 +2,7 @@ terraform {
   required_providers {
     scaleway = {
       source = "scaleway/scaleway"
+      version = ">= 2.38.2"
     }
     docker = {
       source  = "kreuzwerker/docker"

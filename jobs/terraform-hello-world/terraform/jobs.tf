@@ -11,9 +11,8 @@ resource "scaleway_job_definition" "main" {
     "MESSAGE" : "Hello from your Job!",
   }
 
-  # TODO - enable once CRONs implemented
-  # cron {
-  #   schedule = "/5 * * * *"
-  #   timezone = "Europe/Paris"
-  # }
+  cron {
+    schedule = "*/5 * * * *"
+    timezone = "Europe/Paris"
+  }
 }
