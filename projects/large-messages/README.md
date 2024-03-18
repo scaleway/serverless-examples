@@ -1,6 +1,6 @@
 # Serverless large messages architecture
 
-This repository contains the source code for the this tutorial: [Create a serverless architecture that manage large messages, with Scaleway Messaging and Queuing NATS, Serverless Functions and Object Storage.](https://github.com/scaleway/docs-content/blob/int-add-mnq-tuto/tutorials/large-messages/index.mdx)
+This repository contains the source code for this tutorial: [Create a serverless architecture that manage large messages, with Scaleway Messaging and Queuing NATS, Serverless Functions and Object Storage.](https://www.scaleway.com/en/docs/tutorials/large-messages/)
 
 ## Requirements
 
