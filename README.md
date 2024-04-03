@@ -95,7 +95,7 @@ Table of Contents:
 | **[Monitoring Glaciers](projects/blogpost-glacier/README.md)** <br/> A project to monitor glaciers and the impact of global warming.      | S3 & RDB    | Golang   | [Serverless Framework] |
 | **[Manage large message](projects/large-messages/README.md)** <br/> An example of infrastructure to manage large messages.                | PaaS & S3   | Python   | [Terraform]            |
 | **[Serverless scraping](projects/serverless-scraping/README.md)** <br/> An example of infrastructure to scrape the hackernews website.    | PaaS & RDB  | Python   | [Terraform]            |
-| **[Serverless NextJS app](projects/tutorial-sdb-nextjs-terraform/README.md)** <br/> A serverless Next.js blog with a Serverless Database. | PaaS & RDB  | Python   | [Terraform]            |
+| **[Serverless NextJS app](projects/tutorial-sdb-nextjs-terraform/README.md)** <br/> A serverless Next.js blog with a Serverless Database. | PaaS & RDB  | Python   | [Terraform] - [CLI]    |
 
 [Serverless Framework]: https://github.com/scaleway/serverless-scaleway-functions
 [Terraform]: https://registry.terraform.io/providers/scaleway/scaleway/latest/docs
