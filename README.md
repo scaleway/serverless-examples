@@ -19,6 +19,7 @@ Table of Contents:
     - [🚀 Functions](#-functions)
     - [📦 Containers](#-containers)
     - [⚙️ Jobs](#️-jobs)
+    - [💬 Messaging and Queueing](#-mnq)
     - [💜 Projects](#-projects)
   - [Contributing](#contributing)
 
@@ -65,8 +66,8 @@ Table of Contents:
 | **[Function Handler Java](containers/function-handler-java/README.md)** <br/> A Java function handler deployed on CaaS.                                                                     | Java         | [Serverless Framework] |
 | **[NGINX CORS Private](containers/nginx-cors-private-python/README.md)** <br/> An NGINX proxy to allow CORS requests to a private container.                                                | Python Flask | [Terraform]            |
 | **[NGINX hello world](containers/nginx-hello-world/README.md)** <br/> A minimal example running the base NGINX image in a serverless container.                                             | N/A          | [Serverless Framework] |
-| **[Python hello world](containers/python-hello-world/README.md)** <br/> A minimal example running a Flask HTTP server in a serverless container.                                            | N/A          | [Serverless Framework] |
-| **[Python S3 upload](containers/python-s3-upload/README.md)** <br/> A Python + Flask HTTP server that receives file uploads and writes them to S3.                                          | N/A          | [Terraform]            |
+| **[Python hello world](containers/python-hello-world/README.md)** <br/> A minimal example running a Flask HTTP server in a serverless container.                                            | Python       | [Serverless Framework] |
+| **[Python S3 upload](containers/python-s3-upload/README.md)** <br/> A Python + Flask HTTP server that receives file uploads and writes them to S3.                                          | Python       | [Terraform]            |
 | **[Terraform NGINX hello world](containers/terraform-nginx-hello-world/README.md)** <br/> A minimal example running the base NGINX image in a serverless container deployed with Terraform. | N/A          | [Terraform]            |
 | **[Triggers with Terraform](containers/terraform-triggers/README.md)** <br/> Configuring two SQS triggers, used to trigger two containers, one public, one private.                         | N/A          | [Terraform]            |
 
@@ -74,7 +75,16 @@ Table of Contents:
 
 | Example                                                                                                                                                                                     | Language     | Deployment             |
 |---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------|------------------------|
-| **[Serverless MLOps](jobs/ml-ops/README.md)** <br/> An example to run a Serverless Machine Leaning workflow                                                                                 | Python       |[Terraform]-[Console]-[CLI]|
+| **[Serverless Jobs Hello World](jobs/terraform-hello-world/README.md)** <br/> An example of building a container image and running it as a Serverless Job using Terraform.                  | N/A          |[Terraform]-[Console]|
+| **[Serverless MLOps](jobs/ml-ops/README.md)** <br/> An example of running a Serverless Machine Leaning workflow.                                                                            | Python       |[Terraform]-[Console]-[CLI]|
+
+### 💬 Messaging and Queueing
+
+| Example                                                                                                                                                 | Services         | Language | Deployment  |
+|---------------------------------------------------------------------------------------------------------------------------------------------------------|------------------|----------|-------------|
+| **[Manage large message](mnq/large-messages/README.md)** <br/> An example of infrastructure to manage large messages.                                   | PaaS & S3        | Python   | [Terraform] |
+| **[Serverless scraping](mnq/serverless-scraping/README.md)** <br/> An example of infrastructure to scrape the hackernews website.                       | PaaS & RDB       | Python   | [Terraform] |
+| **[SNS Instances Notification System](mnq/sns-instances-notification-system/README.md)** <br/> An example of infrastructure to use SNS with Instances.  | PaaS & Instances | Golang   | [Terraform] |
 
 ### 💜 Projects
 
@@ -86,7 +96,6 @@ Table of Contents:
 | **[Manage large message](projects/large-messages/README.md)** <br/> An example of infrastructure to manage large messages.                | PaaS & S3   | Python   | [Terraform]            |
 | **[Serverless scraping](projects/serverless-scraping/README.md)** <br/> An example of infrastructure to scrape the hackernews website.    | PaaS & RDB  | Python   | [Terraform]            |
 | **[Serverless NextJS app](projects/tutorial-sdb-nextjs-terraform/README.md)** <br/> A serverless Next.js blog with a Serverless Database. | PaaS & RDB  | Python   | [Terraform]            |
-
 
 [Serverless Framework]: https://github.com/scaleway/serverless-scaleway-functions
 [Terraform]: https://registry.terraform.io/providers/scaleway/scaleway/latest/docs

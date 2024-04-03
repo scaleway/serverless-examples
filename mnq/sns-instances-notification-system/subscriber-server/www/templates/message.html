@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subscriber - SNS x Instances Tutorial</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+            font-family: 'Space Grotesk', sans-serif;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        h1 {
+            text-align: center;
+            width: 100%;
+            max-width: 800px;
+            margin: 10px auto;
+            color: #792DD4;
+            font-size: 2em;
+            font-weight: 600;
+            margin-bottom: 0.5em;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+        }
+        p {
+            color: #555;
+            font-size: 1.5em;
+            font-weight: 400;
+            margin-top: 0;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+<h1>{{.Title}}</h1>
+<p>{{.Message}}</p>
+</body>
+</html>
