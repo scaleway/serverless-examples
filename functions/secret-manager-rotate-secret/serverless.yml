@@ -1,0 +1,32 @@
+service: secret-manager-rotate-secret
+configValidationMode: off
+provider:
+  name: scaleway
+  runtime: go120
+
+plugins:
+  - serverless-scaleway-functions
+
+package:
+  patterns:
+    - "!node_modules/**"
+    - "!.gitignore"
+    - "!.git/**"
+
+functions:
+  rotate-secret:
+    handler: "Handle"
+    env:
+      SCW_DEFAULT_ORGANIZATION_ID : "your scalway organization ID"
+      SCW_DEFAULT_PROJECT_ID : "your scalway project ID"
+      SCW_DEFAULT_REGION : "fr-par"
+    secret:
+      SCW_ACCESS_KEY: "your scaleway access key"
+      SCW_SECRET_KEY: "your scaleway secret key"
+    events:
+      - schedule:
+          rate: "5 4 1 * *"
+          # Data passed as input in the request
+          input:
+            rdb_instance_id: "your RDB instance ID"
+            secret_id: "the secret ID where credentials are stored"

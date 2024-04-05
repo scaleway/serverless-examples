@@ -57,6 +57,7 @@ Table of Contents:
 | **[Typescript with Node runtime](functions/typescript-with-node/README.md)** <br/> A Typescript function using Node runtime.                                                          | node18    | [Serverless Framework] |
 | **[Serverless Gateway Python Example](functions/serverless-gateway-python/README.md)** <br/> A Python serverless API using Serverless Gateway.                                        | python310 | [Python API Framework] |
 | **[Go and Transactional Email](functions/go-mail/README.md)** <br/> A Go function that send emails using Scaleway SDK.                                                                | go121     | [Serverless Framework] |
+| **[Rotate RDB Credentials](functions/secret-manager-rotate-secret/README.md)** <br/> A Go function that rotates RDB credentials stored in Secret Manager.                                                                | go120     | [Serverless Framework] |
 
 ### 📦 Containers
 
