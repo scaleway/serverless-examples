@@ -37,6 +37,7 @@ Set your Scaleway access key, secret key and project ID in environment variables
 export TF_VAR_access_key=<your-access-key>
 export TF_VAR_secret_key=<your-secret-key>
 export TF_VAR_project_id=<your-project-id> # you can create a separate project for this example
+export TF_VAR_data_fetch_cron_schedule="19 14 17 4 *" # should trigger data fetching just after deploying pipeline infrastructure
 
 cd terraform
 terraform init
