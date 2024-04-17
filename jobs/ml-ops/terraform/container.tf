@@ -24,3 +24,9 @@ resource "scaleway_container" "inference" {
   }
   deploy   = true
 }
+
+resource scaleway_container_cron "inference_cron" {
+    container_id = scaleway_container.inference.id
+    schedule = var.inference_cron_schedule
+    args = jsonencode({})
+}

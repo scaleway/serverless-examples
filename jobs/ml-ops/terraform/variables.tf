@@ -25,15 +25,16 @@ variable "s3_url" {
   default = "https://s3.fr-par.scw.cloud"
 }
 
-variable "data_file" {
-  type        = string
-  description = "name data file in data store"
-  default = "bank_telemarketing.csv"
+variable "data_fetch_cron_schedule" {
+  type = string
 }
 
-variable "model_object" {
-  type        = string
-  description = "name of model object stored in model registry"
-  default = "classifier.pkl"
+variable "training_cron_schedule" {
+  type = string
+  default = "*/15 * * * *"
 }
 
+variable "inference_cron_schedule" {
+  type = string
+  default = "*/25 * * * *"
+}
