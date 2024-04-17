@@ -12,7 +12,7 @@ resource "scaleway_container" "inference" {
   cpu_limit      = 2000
   memory_limit   = 2048
   min_scale      = 1
-  max_scale      = 5
+  max_scale      = 1
   environment_variables = {
     "S3_BUCKET_NAME" = scaleway_object_bucket.main.name
     "S3_URL"         = var.s3_url

@@ -31,10 +31,10 @@ variable "data_fetch_cron_schedule" {
 
 variable "training_cron_schedule" {
   type = string
-  default = "*/15 * * * *"
+  default = "*/10 * * * *"
 }
 
 variable "inference_cron_schedule" {
   type = string
-  default = "*/25 * * * *"
+  default = "*/20 * * * *"
 }
