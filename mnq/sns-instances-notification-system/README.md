@@ -4,11 +4,13 @@ This repository contains the source code for the this tutorial: [Creating a noti
 
 ## Requirements
 
-This example assumes that you are familiar with:
+To complete the actions presented below, you must have:
 
-- how System Notification Service work. You can find out more in the [SNS Scaleway official documentation](https://www.scaleway.com/en/docs/serverless/messaging/quickstart/)
-- how Instances work. If needed, you can visit the [Instances Quickstart documentation](https://www.scaleway.com/en/docs/compute/instances/quickstart/).
-- how to create a SSH key. If not done already, you can follow the first 6 steps of [this walkthrough](https://www.scaleway.com/en/docs/identity-and-access-management/organizations-and-projects/how-to/create-ssh-key/#how-to-upload-the-public-ssh-key-to-the-scaleway-interface).
+- A Scaleway account logged into the [console](https://console.scaleway.com)
+- [Set up authentication for the Terraform provider](https://registry.terraform.io/providers/scaleway/scaleway/latest/docs#authentication)
+- An [SSH key](/identity-and-access-management/organizations-and-projects/how-to/create-ssh-key/)
+- [Set up the Scaleway CLI](/developer-tools/scaleway-cli/quickstart/)
+
 
 ## Context
 
@@ -25,6 +27,7 @@ export TF_VAR_public_ssh_key=$(cat ~/.ssh/id_ed25519.pub)
 Then you can run these commands:
 
 ```console
+cd terraform
 terraform init
 terraform plan
 terraform apply

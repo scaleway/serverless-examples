@@ -98,11 +98,11 @@ resource "scaleway_instance_server" "subscriber_sns_tuto_instance" {
         apt-get update && apt-get install -y docker.io
         systemctl start docker
         systemctl enable docker
-        docker pull rg.fr-par.scw.cloud/sns-x-instance-tutorial/subscriber-server:1.0
+        docker pull rg.fr-par.scw.cloud/mnq-tutorials/sns-instances-subscriber-server:1.0
         docker run -d --restart=always \
           --name subscriber-server \
           -p 8081:8081 \
-          rg.fr-par.scw.cloud/sns-x-instance-tutorial/subscriber-server:1.0
+          rg.fr-par.scw.cloud/mnq-tutorials/sns-instances-subscriber-server:1.0
   EOF
   }
 }
@@ -173,7 +173,7 @@ resource "scaleway_instance_server" "publisher_sns_tuto_instance" {
       - chmod +x /etc/profile.d/publisher-server_env.sh
       # Using 'source' command doesn't work in cloud-init runcmd because each command runs in a separate shell.
       # this is why environment variables will be passed directly in the docker run command
-      - docker pull rg.fr-par.scw.cloud/sns-x-instance-tutorial/publisher-server:1.0
+      - docker pull rg.fr-par.scw.cloud/mnq-tutorials/sns-instances-publisher-server:1.0
       - |
         . /etc/profile.d/publisher-server_env.sh
         docker run -d --restart=always \
@@ -182,7 +182,7 @@ resource "scaleway_instance_server" "publisher_sns_tuto_instance" {
           -e TOPIC_ARN=$TOPIC_ARN \
           -e AWS_ACCESS_KEY=$AWS_ACCESS_KEY \
           -e AWS_SECRET_KEY=$AWS_SECRET_KEY \
-          rg.fr-par.scw.cloud/sns-x-instance-tutorial/publisher-server:1.0
+          rg.fr-par.scw.cloud/mnq-tutorials/sns-instances-publisher-server:1.0
   EOF
   }
 }
