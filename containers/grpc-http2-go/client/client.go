@@ -10,7 +10,7 @@ import (
 	"google.golang.org/grpc"
 )
 
-const containerEndpoint = "clitest2pzmo3aox-grpc-test.functions.fnc.fr-par.scw.cloud:80"
+const containerEndpoint = "YOUR_CONTAINER_ENDPOINT:80"
 
 func main() {
 	flag.Parse()
