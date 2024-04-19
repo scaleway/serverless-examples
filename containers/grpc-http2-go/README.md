@@ -79,8 +79,12 @@ Save the DomainName (endpoint) for testing.
 
 ### Testing
 
+Before testing, ensure your container is in status `ready`.
+
 In `client/client.go` file, remplace the constant `containerEndpoint` with the DomainName. Do not forget to keep `:80` port at the end even
 if you container port is set to 8080, these are two different settings.
+
+And then execute `go run client/client.go' to check if your container reponds.
 
 ## Additional content
 
