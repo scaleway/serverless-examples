@@ -3,7 +3,6 @@ module github.com/scaleway/serverless-examples/containers/grpc-http2-go
 go 1.22.1
 
 require (
-	github.com/scaleway/serverless-examples/containers/grpc v0.0.0-00010101000000-000000000000
 	google.golang.org/grpc v1.63.2
 	google.golang.org/protobuf v1.33.0
 )
@@ -15,4 +14,4 @@ require (
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20240415180920-8c6c420018be // indirect
 )
 
-replace github.com/scaleway/serverless-examples/containers/grpc => .
+replace github.com/scaleway/serverless-examples/containers/grpc-http2-go => .

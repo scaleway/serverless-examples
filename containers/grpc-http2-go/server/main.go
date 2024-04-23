@@ -7,7 +7,7 @@ import (
 	"log"
 	"net"
 
-	pb "github.com/scaleway/serverless-examples/containers/grpc"
+	pb "github.com/scaleway/serverless-examples/containers/grpc-http2-go"
 	"google.golang.org/grpc"
 )
 
