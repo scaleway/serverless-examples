@@ -1,13 +1,9 @@
 # gRPC HTTP2 Server in Go using CLI
 
-Example that demonstrates the deployment of a gRPC service on Scaleway Serverless Containers.
+This example demonstrates the deployment of a gRPC service on Scaleway Serverless Containers.
 
-For this example we will use the CLI to deploy the container but you can use [other methods](https://www.scaleway.com/en/docs/serverless/containers/reference-content/deploy-container/).
-You can also use the CLI directly from Scaleway console, it saves you operations of setting up your credentials.
-
-## Container settings
-
-To deploy a Serverless Container that uses the gRPC protocol it's important to enable http2 setting (named `h2c` in the API).
+For this example, we will use the CLI to deploy the container, but you can use [other methods](https://www.scaleway.com/en/docs/serverless/containers/reference-content/deploy-container/).
+You can also use the CLI directly from Scaleway console without having to use your credentials.
 
 ## Workflow
 
@@ -21,70 +17,75 @@ Here are the different steps we are going to proceed:
 
 ### Requirements
 
-- [Scaleway CLI](https://github.com/scaleway/scaleway-cli): be sure to be logged in
-- **Docker** To build the image
-- If you want to test locally, you will need to install the common gRPC stack (doc [here](https://grpc.io/blog/installation/))
-  but this is not required for deployment as everything is built in the Dockerfile
+To complete the actions presented below, you must have:
+- installed and configured the [Scaleway CLI](https://www.scaleway.com/en/docs/developer-tools/scaleway-cli/quickstart/)
+- installed [Docker](https://docs.docker.com/engine/install/) to build the image
+- installed the common [gRPC stack](https://grpc.io/blog/installation/)) to test locally (optional)
 
 ### Building the image
 
-To store the image we need to create a namespace in Container Registery with the following command:
+1. Run the following command in a terminal to create Container Registry namespace to store the image:
 
-```bash
-scw registry namespace create name=hello-grpc
-```
+    ```bash
+    scw registry namespace create name=hello-grpc
+    ```
 
-As output it will give you some informations, keep the endpoint, on this case it's `rg.fr-par.scw.cloud/hello-grpc` (it can change in your case depending the region).
+  The registry namespace information displays.
+  
+1. Copy the namespace endpoint (in this case, `rg.fr-par.scw.cloud/hello-grpc`). 
 
-Now open a terminal to set-up Docker, it will allow you to send the built image in the Container Registry we created at the previous step.
+1. Log into the Container Registry namespace you created using Docker: 
 
-Login command:
+    ```bash
+    docker login rg.fr-par.scw.cloud/hello-grpc -u nologin --password-stdin <<< "$SCW_SECRET_KEY"
+    ```
 
-```bash
-docker login rg.fr-par.scw.cloud/hello-grpc -u nologin --password-stdin <<< "$SCW_SECRET_KEY"
-```
+  At this point, you have correctly set up Docker to be able to push your image online.
 
-At this point you have correctly set up docker to be able to push your image online.
+1. In a terminal, access this directory (containing the Dockerfile), and run the following command to build the image:
 
-**Builb** the image by opening a terminal on your computer in this directory, and run:
+    ```bash
+    docker build -t grpc:latest .
+    ```
 
-```bash
-docker build -t grpc:latest .
-```
+1. Tag and push the image to the registry namespace:
 
-Now we will tag and push the image:
-
-```bash
-docker tag grpc:latest rg.fr-par.scw.cloud/hello-grpc/grpc:latest
-docker push rg.fr-par.scw.cloud/hello-grpc/grpc:latest
-```
+    ```bash
+    docker tag grpc:latest rg.fr-par.scw.cloud/hello-grpc/grpc:latest
+    docker push rg.fr-par.scw.cloud/hello-grpc/grpc:latest
+    ```
 
 ### Deploying the image
 
-Now we need to create a nemespace for the Serverless Container and the create the container:
+In a terminal, run the following command to create a Serverless Containers namespace:
 
-```bash
-scw container namespace create name=grpc-test
-```
+    ```bash
+    scw container namespace create name=grpc-test
+    ```
+    The namespace information displays.
 
-Save the ID of the container.
+1. Copy the namespace ID.
 
-Now create and deploy the container with a single command:
+1. Run the following command to create and deploy the container (make sure to use the `h2c` protocol to connect via HTTP2):
 
-```bash
-scw container container create namespace-id=<PREVIOUS_NAMESPACE_ID> protocol=h2c name=grpc-test registry-image=rg.fr-par.scw.cloud/hello-grpc/grpc:latest
-```
+    ```bash
+    scw container container create namespace-id=<PREVIOUS_NAMESPACE_ID> protocol=h2c name=grpc-test registry-image=rg.fr-par.scw.cloud/hello-grpc/grpc:latest
+    ```
+    The container information displays.
 
-Save the DomainName (endpoint) for testing.
+1. Copy the DomainName (endpoint) to test your container.
 
 ### Testing
 
-Before testing, ensure your container is in status `ready`.
+Make sure your container is in a `ready` status before testing it.
 
-In `client/client.go` file, remplace the constant `containerEndpoint` with the DomainName. Do not forget to keep `:80` port at the end even
-if you container port is set to 8080, these are two different settings.
+1. In the `client/client.go` file, replace the constant `containerEndpoint` with the `DomainName` copied previously. 
 
-And then execute `go run client/client.go' to check if your container reponds.
+1. Make sure to keep the `:80` port at the end even if you container port is set to 8080, as these are two different settings.
+
+1. Run the command below to check if your container responds:
+
+    `go run client/client.go' 
 
 ## Additional content
 
