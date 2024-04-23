@@ -10,7 +10,9 @@ RUN pip install --upgrade pip
 COPY requirements.txt .
 RUN pip install -r requirements.txt
 
-RUN pip install llama-cpp-python==0.2.62 --extra-index-url https://abetlen.github.io/llama-cpp-python/whl/cpu
+RUN pip install llama-cpp-python==0.2.62 \
+    --no-cache-dir \
+    --extra-index-url https://abetlen.github.io/llama-cpp-python/whl/cpu
 
 RUN wget $MODEL_DOWNLOAD_SOURCE
 
