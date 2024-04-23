@@ -2,7 +2,7 @@
     "llama" : [
         {
             "file": "llama-2-7b.Q2_K.gguf",
-            "source" : "https://huggingface.co/TheBloke/phi-2-GGUF/resolve/main/llama-2-7b.Q2_K.gguf",
+            "source" : "https://huggingface.co/TheBloke/Llama-2-7B-GGUF/resolve/main/llama-2-7b.Q2_K.gguf",
             "size_gb": "2.83"
         },
         {
@@ -15,12 +15,12 @@
     "mistral" : [
         {
             "file": "mistral-7b-instruct-v0.2.Q2_K.gguf",
-            "source" : "https://huggingface.co/TheBloke/phi-2-GGUF/resolve/main/mistral-7b-instruct-v0.2.Q2_K.gguf",
+            "source" : "https://huggingface.co/TheBloke/Mistral-7B-Instruct-v0.2-GGUF/resolve/main/mistral-7b-instruct-v0.2.Q2_K.gguf",
             "size_gb": "3.08"
         },
         {
             "file": "mistral-7b-instruct-v0.2.Q3_K_L.gguf",
-            "source" : "https://huggingface.co/TheBloke/phi-2-GGUF/resolve/main/mistral-7b-instruct-v0.2.Q3_K_L.gguf",
+            "source" : "https://huggingface.co/TheBloke/Mistral-7B-Instruct-v0.2-GGUF/resolve/main/mistral-7b-instruct-v0.2.Q3_K_L.gguf",
             "size_gb": "3.82"
         }
     ],
