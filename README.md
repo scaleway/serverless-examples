@@ -19,7 +19,7 @@ Table of Contents:
     - [🚀 Functions](#-functions)
     - [📦 Containers](#-containers)
     - [⚙️ Jobs](#️-jobs)
-    - [💬 Messaging and Queueing](#-mnq)
+    - [💬 Messaging and Queueing](#-messaging-and-queueing)
     - [💜 Projects](#-projects)
   - [Contributing](#contributing)
 
@@ -28,8 +28,9 @@ Table of Contents:
 ### 🚀 Functions
 
 <!-- markdownlint-disable MD033 -->
+
 | Example                                                                                                                                                                               | Runtime   | Deployment             |
-|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------|------------------------|
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------- | ---------------------- |
 | **[Badge PHP](functions/badge-php/README.md)** <br/> A PHP function to generate repository badges.                                                                                    | php82     | [Serverless Framework] |
 | **[CORS Go](functions/cors-go/README.md)** <br/> A Go function which allows CORS requests.                                                                                            | go119     | [Serverless Framework] |
 | **[CORS Node](functions/cors-node/README.md)** <br/> A Node function which allows CORS requests.                                                                                      | node18    | [Serverless Framework] |
@@ -57,12 +58,12 @@ Table of Contents:
 | **[Typescript with Node runtime](functions/typescript-with-node/README.md)** <br/> A Typescript function using Node runtime.                                                          | node18    | [Serverless Framework] |
 | **[Serverless Gateway Python Example](functions/serverless-gateway-python/README.md)** <br/> A Python serverless API using Serverless Gateway.                                        | python310 | [Python API Framework] |
 | **[Go and Transactional Email](functions/go-mail/README.md)** <br/> A Go function that send emails using Scaleway SDK.                                                                | go121     | [Serverless Framework] |
-| **[Rotate RDB Credentials](functions/secret-manager-rotate-secret/README.md)** <br/> A Go function that rotates RDB credentials stored in Secret Manager.                                                                | go120     | [Serverless Framework] |
+| **[Rotate RDB Credentials](functions/secret-manager-rotate-secret/README.md)** <br/> A Go function that rotates RDB credentials stored in Secret Manager.                             | go120     | [Serverless Framework] |
 
 ### 📦 Containers
 
 | Example                                                                                                                                                                                     | Language     | Deployment             |
-|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------|------------------------|
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ | ---------------------- |
 | **[Container Bash Script](containers/bash-scheduled-job/README.md)** <br/> A Bash script runnning on a schedule using serverless containers.                                                | Bash         | [Serverless Framework] |
 | **[Function Handler Java](containers/function-handler-java/README.md)** <br/> A Java function handler deployed on CaaS.                                                                     | Java         | [Serverless Framework] |
 | **[NGINX CORS Private](containers/nginx-cors-private-python/README.md)** <br/> An NGINX proxy to allow CORS requests to a private container.                                                | Python Flask | [Terraform]            |
@@ -71,26 +72,27 @@ Table of Contents:
 | **[Python S3 upload](containers/python-s3-upload/README.md)** <br/> A Python + Flask HTTP server that receives file uploads and writes them to S3.                                          | Python       | [Terraform]            |
 | **[Terraform NGINX hello world](containers/terraform-nginx-hello-world/README.md)** <br/> A minimal example running the base NGINX image in a serverless container deployed with Terraform. | N/A          | [Terraform]            |
 | **[Triggers with Terraform](containers/terraform-triggers/README.md)** <br/> Configuring two SQS triggers, used to trigger two containers, one public, one private.                         | N/A          | [Terraform]            |
+| **[gRPC HTTP2 in Go](containers/grpc-http2-go/README.md)** <br/> A Go gRPC Container using http2                                                                                            | Go/Protobuf  | [CLI]                  |
 
 ### ⚙️ Jobs
 
-| Example                                                                                                                                                                                     | Language     | Deployment             |
-|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------|------------------------|
-| **[Serverless Jobs Hello World](jobs/terraform-hello-world/README.md)** <br/> An example of building a container image and running it as a Serverless Job using Terraform.                  | N/A          |[Terraform]-[Console]|
-| **[Serverless MLOps](jobs/ml-ops/README.md)** <br/> An example of running a Serverless Machine Leaning workflow.                                                                            | Python       |[Terraform]-[Console]-[CLI]|
+| Example                                                                                                                                                                    | Language | Deployment                  |
+| -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- | --------------------------- |
+| **[Serverless Jobs Hello World](jobs/terraform-hello-world/README.md)** <br/> An example of building a container image and running it as a Serverless Job using Terraform. | N/A      | [Terraform]-[Console]       |
+| **[Serverless MLOps](jobs/ml-ops/README.md)** <br/> An example of running a Serverless Machine Leaning workflow.                                                           | Python   | [Terraform]-[Console]-[CLI] |
 
 ### 💬 Messaging and Queueing
 
-| Example                                                                                                                                                 | Services         | Language | Deployment  |
-|---------------------------------------------------------------------------------------------------------------------------------------------------------|------------------|----------|-------------|
-| **[Manage large message](mnq/large-messages/README.md)** <br/> An example of infrastructure to manage large messages.                                   | PaaS & S3        | Python   | [Terraform] |
-| **[Serverless scraping](mnq/serverless-scraping/README.md)** <br/> An example of infrastructure to scrape the hackernews website.                       | PaaS & RDB       | Python   | [Terraform] |
-| **[SNS Instances Notification System](mnq/sns-instances-notification-system/README.md)** <br/> An example of infrastructure to use SNS with Instances.  | PaaS & Instances | Golang   | [Terraform] |
+| Example                                                                                                                                                | Services         | Language | Deployment  |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------------- | -------- | ----------- |
+| **[Manage large message](mnq/large-messages/README.md)** <br/> An example of infrastructure to manage large messages.                                  | PaaS & S3        | Python   | [Terraform] |
+| **[Serverless scraping](mnq/serverless-scraping/README.md)** <br/> An example of infrastructure to scrape the hackernews website.                      | PaaS & RDB       | Python   | [Terraform] |
+| **[SNS Instances Notification System](mnq/sns-instances-notification-system/README.md)** <br/> An example of infrastructure to use SNS with Instances. | PaaS & Instances | Golang   | [Terraform] |
 
 ### 💜 Projects
 
 | Example                                                                                                                                   | Services    | Language | Deployment             |
-|-------------------------------------------------------------------------------------------------------------------------------------------|-------------|----------|------------------------|
+| ----------------------------------------------------------------------------------------------------------------------------------------- | ----------- | -------- | ---------------------- |
 | **[Kong API Gateway](projects/kong-api-gateway/README.md)** <br/> Deploying a Kong Gateway on containers to provide routing to functions. | CaaS & FaaS | Python   | [Serverless Framework] |
 | **[Serverless Gateway](https://github.com/scaleway/serverless-gateway)** <br/> Our serverless gateway for functions and containers.       | API Gateway | Python   | [Python API Framework] |
 | **[Monitoring Glaciers](projects/blogpost-glacier/README.md)** <br/> A project to monitor glaciers and the impact of global warming.      | S3 & RDB    | Golang   | [Serverless Framework] |
