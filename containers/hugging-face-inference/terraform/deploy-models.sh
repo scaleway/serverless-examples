@@ -13,13 +13,17 @@ export TF_VAR_access_key=${SCW_ACCESS_KEY} \
 declare -A hf_models
 eval "$(jq -r '.[]|.[]|"hf_models[\(.file)]=\(.source)"' hf-models.json)"
 
+# Login to docker Scaleway's registry on fr-par
+
+docker login "rg.$REGION.scw.cloud" -u nologin --password-stdin <<< "$SCW_SECRET_KEY"
+
 # Initialize, plan, and deploy each model in a Terraform workspace
 
 terraform init
 
 for model_file_name in "${!hf_models[@]}";
 do
-  terraform workspace new $model_file_name
+  terraform workspace select -or-create $model_file_name
   export TF_VAR_hf_model_file_name=$model_file_name \
          TF_VAR_hf_model_download_source=${hf_models[$model_file_name]} \
   terraform plan
