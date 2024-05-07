@@ -1,11 +1,12 @@
-from fastapi import FastAPI
-from sklearn.ensemble import RandomForestClassifier
-from loader import ClassifierLoader
 import data
+from fastapi import FastAPI
+from loader import ClassifierLoader
+from sklearn.ensemble import RandomForestClassifier
 
 classifier = RandomForestClassifier()
 
 app = FastAPI()
+
 
 @app.get("/")
 def hello():
@@ -14,14 +15,16 @@ def hello():
     model_version = ClassifierLoader.model_version()
 
     if model_version == "":
-            return {
-                 "message": "Hello, this is the inference server! No classifier loaded in memory."
-            }
+        return {
+            "message": "Hello, this is the inference server! No classifier loaded in memory."
+        }
 
     return {
-         "message": "Hello, this is the inference server! Serving classifier with version {model_version}"
-         .format(model_version=model_version)
+        "message": "Hello, this is the inference server! Serving classifier with version {model_version}".format(
+            model_version=model_version
+        )
     }
+
 
 # this endpoint is used by cron trigger to load model from S3
 @app.post("/")

@@ -1,6 +1,8 @@
-import pickle
-import boto3
 import os
+import pickle
+
+import boto3
+
 
 class ClassifierLoader:
     _classifier = None
@@ -26,9 +28,17 @@ class ClassifierLoader:
 
             # get model file with the latest version
             bucket_objects = s3.list_objects(Bucket=bucket_name)
-            get_last_modified = lambda object: int(object['LastModified'].strftime('%s'))
-            model_objects = [model_object for model_object in bucket_objects['Contents'] if "classifier" in model_object['Key']]
-            latest_model_file = [object['Key'] for object in sorted(model_objects, key=get_last_modified)][0]
+            get_last_modified = lambda object: int(
+                object["LastModified"].strftime("%s")
+            )
+            model_objects = [
+                model_object
+                for model_object in bucket_objects["Contents"]
+                if "classifier" in model_object["Key"]
+            ]
+            latest_model_file = [
+                object["Key"] for object in sorted(model_objects, key=get_last_modified)
+            ][0]
 
             s3.download_file(bucket_name, latest_model_file, latest_model_file)
 
@@ -36,7 +46,12 @@ class ClassifierLoader:
                 cls._classifier = pickle.load(fh)
                 cls._classifier_version = latest_model_file[11:-4]
 
-            print('Successfully loaded model file: {latest_model_file}'.format(latest_model_file=latest_model_file), flush=True)
+            print(
+                "Successfully loaded model file: {latest_model_file}".format(
+                    latest_model_file=latest_model_file
+                ),
+                flush=True,
+            )
 
         return cls._classifier
 
