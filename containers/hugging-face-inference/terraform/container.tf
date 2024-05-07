@@ -18,11 +18,3 @@ resource "scaleway_container" "inference-hugging-face" {
   max_scale      = 1
   deploy   = true
 }
-
-resource scaleway_container_cron "inference_cron" {
-    container_id = scaleway_container.inference-hugging-face.id
-    schedule = var.inference_cron_schedule
-    args = jsonencode({
-      "message" : "Hello! It's sunny today. How are you doing?"
-    })
-}

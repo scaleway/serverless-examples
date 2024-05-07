@@ -20,11 +20,6 @@ variable "region" {
   default = "fr-par"
 }
 
-variable "inference_cron_schedule" {
-  type = string
-  default = "*/15 * * * *"
-}
-
 variable "hf_model_file_name" {
   type = string
 }
