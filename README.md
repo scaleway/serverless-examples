@@ -71,6 +71,7 @@ Table of Contents:
 | **[Python S3 upload](containers/python-s3-upload/README.md)** <br/> A Python + Flask HTTP server that receives file uploads and writes them to S3.                                          | Python       | [Terraform]            |
 | **[Terraform NGINX hello world](containers/terraform-nginx-hello-world/README.md)** <br/> A minimal example running the base NGINX image in a serverless container deployed with Terraform. | N/A          | [Terraform]            |
 | **[Triggers with Terraform](containers/terraform-triggers/README.md)** <br/> Configuring two SQS triggers, used to trigger two containers, one public, one private.                         | N/A          | [Terraform]            |
+| **[Inference with Hugging Face Models](containers/hugging-face-inference/README.md)** <br/> Experimentation to deploy and benchmark some lightweight Hugging Face Models in Serverless Containers.                | N/A          | [Terraform]            |
 
 ### ⚙️ Jobs
 
