@@ -28,7 +28,7 @@ apply() {
 }
 
 # Destroy resources of each Terraform workspace
-destroy(){
+destroy() {
        for model_file_name in "${!hf_models[@]}";
        do
          terraform workspace select $model_file_name
@@ -38,7 +38,7 @@ destroy(){
        done
 }
 
-# Script actions per flag
+# Script actions
 while getopts "ad" option; do
   case $option in
     a)
