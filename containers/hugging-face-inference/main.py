@@ -1,7 +1,10 @@
 from fastapi import FastAPI
 from llama_cpp import Llama
+from pydantic import BaseModel
 import os
-import prompt
+
+class Message(BaseModel):
+    content: str
 
 MODEL_FILE_NAME=os.environ["MODEL_FILE_NAME"]
 
@@ -23,11 +26,11 @@ def hello():
     }
 
 @app.post("/")
-def infer(prompt: prompt.Prompt):
-
+def infer(message: Message):
+    """Post a message and receive a response"""
     print("inference endpoint is called", flush=True)
 
-    output = llm(prompt=prompt.message, max_tokens=200)
+    output = llm(prompt=message.content, max_tokens=200)
 
     print("output is successfully inferred", flush=True)
 
