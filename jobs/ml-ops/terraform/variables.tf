@@ -27,14 +27,15 @@ variable "s3_url" {
 
 variable "data_fetch_cron_schedule" {
   type = string
+  default = "* */10 * * *"
 }
 
 variable "training_cron_schedule" {
   type = string
-  default = "0 */12 * * *"
+  default = "* */11 * * *"
 }
 
 variable "inference_cron_schedule" {
   type = string
-  default = "0 */14 * * *"
+  default = "* */12 * * *"
 }
