@@ -39,13 +39,7 @@ export TF_VAR_secret_key=<your-secret-key>
 export TF_VAR_project_id=<your-project-id> # you can create a separate project for this example
 ```
 
-You can optionally configure non-default CRON schedules to orderly fetch data then train a model, and finally re-load a new model within the inference server. For this, set the following Terraform environment variables:
-
-```console
-export TF_VAR_data_fetch_cron_schedule=<cron-schedule-expression>
-export TF_VAR_training_cron_schedule=<cron-schedule-expression>
-export TF_VAR_inference_cron_schedule=<cron-schedule-expression>
-```
+By default, both jobs and container trigger in the example run regularly on a schedule. The default values for these schedules are configured in `jobs/ml-ops/terraform/variables.tf`, and can be overridden using Terraform variables, e.g. `export TF_VAR_data_fetch_cron_schedule="0 10 * * *"`.
 
 Then deploy MLOps infrastructure using the following:
 
