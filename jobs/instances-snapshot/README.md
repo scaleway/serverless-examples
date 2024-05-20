@@ -56,6 +56,14 @@ On Scaleway Console on the following link you can create a new Job Definition: h
 
 On your created Job Definition, just click the button "Run Job" and within seconds it should be successful.
 
+# Possible improvements
+
+You can exercice by adding the following features:
+
+- Instead of managing a single instance, make it account wide
+- Add disk backups
+- Add alerts if something goes wrong
+
 # Additional content
 
 - [Jobs Documentation](https://www.scaleway.com/en/docs/serverless/jobs/how-to/create-job-from-scaleway-registry/)
