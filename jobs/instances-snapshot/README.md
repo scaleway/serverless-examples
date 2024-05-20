@@ -14,7 +14,7 @@ This example is very simple, it generates snapshots of your desired Instance.
 
 ## Step 1 : Build and push to Container registry
 
-Serverless Jobs, like Serverless Containers (which are suited for HTTP applications) works
+Serverless Jobs, like Serverless Containers (which are suited for HTTP applications), works
 with Containers. So first, using your terminal reach this folder and run the following commands:
 
 ```shell
