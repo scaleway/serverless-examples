@@ -12,7 +12,7 @@ terraform {
   required_version = ">= 1.0"
 }
 
-variable "swc_project_id" {
+variable "scw_project_id" {
   type = string
 }
 
@@ -43,7 +43,7 @@ resource "scaleway_function" "main" {
   deploy       = true
 
   secret_environment_variables = {
-    TEM_PROJECT_ID = var.swc_project_id
+    TEM_PROJECT_ID = var.scw_project_id
     SECRET_KEY = var.scw_secret_key
   }
 }

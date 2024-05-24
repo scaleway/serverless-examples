@@ -43,7 +43,7 @@ Use the Terraform configuration to deploy the function.
 
 ```shell
 terraform init
-terraform apply -var "swc_project_id=$TEM_PROJECT_ID" -var "scw_secret_key=$SECRET_KEY"
+terraform apply -var "scw_project_id=$TEM_PROJECT_ID" -var "scw_secret_key=$SECRET_KEY"
 ```
 
 ## Call the function
