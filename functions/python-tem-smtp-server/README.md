@@ -1,4 +1,4 @@
-# Send TEM from a serverless function
+# Send Transactional Emails from a Serverless Function
 
 This example demonstrates how to send TEM with an SMTP server from Python functions.
 
@@ -8,10 +8,17 @@ and for TEM [here](https://www.scaleway.com/en/docs/managed-services/transaction
 
 ## Requirements
 
-* You have configured your domain with Transactional Email
 * You have generated an API key with the permission `TransactionalEmailFullAccess`
 * You have [Python](https://www.python.org/) installed on your machine
 * You have [Terraform](https://registry.terraform.io/providers/scaleway/scaleway/latest/docs) installed on your machine
+
+## Setup
+
+You have to configure your domain with Transactional Email (tutorial available [here](https://www.scaleway.com/en/docs/managed-services/transactional-email/quickstart/))
+
+Then, edit the file `handler.py` to set the sender and the recipient of the email. 
+
+Also, depending on your SMTP server, you might also need to change the value of the variables `host` and `port`.
 
 ## Testing with serverless offline for Python
 

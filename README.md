@@ -49,7 +49,7 @@ Table of Contents:
 | **[Python MultiPart Upload to S3](functions/python-upload-file-s3-multipart/README.md)** <br/> A function to upload file from form-data to S3.                                        | python311 | [Python API Framework] |
 | **[Python SQS Trigger Hello World](functions/python-sqs-trigger-hello-world/README.md)** <br/> Trigger a function by sending a message to a SQS queue.                                | python311 | [Terraform]            |
 | **[Python SQS Trigger Async Worker](functions/python-sqs-trigger-async-worker/README.md)** <br/> Use SQS queues and function triggers to scheule an async task from another function. | python311 | [Terraform]            |
-| **[Python TEM SMTP Server](functions/python-tem-smtp-server/README.md)** <br/> Send TEM from a serverless function.                   | python311 | [Terraform]            |
+| **[Python TEM SMTP Server](functions/python-tem-smtp-server/README.md)** <br/> Send Transactional Emails from a serverless function.                                                  | python311 | [Terraform]            |
 | **[Redis TLS](functions/redis-tls/README.md)** <br/> How to connect a function to a Scaleway Redis cluster with TLS enabled.                                                          | python310 | [Terraform]            |
 | **[Rust MNIST](functions/rust-mnist/README.md)** <br/> A Rust function to recognize hand-written digits with a simple neural network.                                                 | rust165   | [Serverless Framework] |
 | **[PostgreSQL Python](functions/postgre-sql-python/README.md)** <br/> A Python function to perform a query on a PostgreSQL managed database.                                          | python310 | [Serverless Framework] |
