@@ -47,4 +47,9 @@ def classify(profile: data.ClientProfile):
     classifier = ClassifierLoader.load()
     prediction = classifier.predict(data_point_processed)
 
-    return {"predicted_class": int(prediction)}
+    response = "This client is likely to respond positively to a cold call"
+
+    if int(prediction) == 0:
+        response = "This client is likely to respond negatively to a cold call"
+
+    return {"prediction": response}
