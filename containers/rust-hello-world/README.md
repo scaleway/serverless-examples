@@ -53,7 +53,7 @@ To complete the actions presented below, you must have:
 
     ```bash
     docker tag crabnet:latest rg.fr-par.scw.cloud/hello-rust/crabnet:latest
-    docker push rg.fr-par.scw.cloud/hello-ryst/crabnet:latest
+    docker push rg.fr-par.scw.cloud/hello-rust/crabnet:latest
     ```
 
 ### Deploying the image
