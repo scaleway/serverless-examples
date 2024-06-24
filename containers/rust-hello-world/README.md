@@ -46,14 +46,14 @@ To complete the actions presented below, you must have:
 1. In a terminal, access this directory (containing the Dockerfile), and run the following command to build the image:
 
     ```bash
-    docker build -t crabnet:latest .
+    docker build -t crabnet:v1.0.0 .
     ```
 
 1. Tag and push the image to the registry namespace:
 
     ```bash
-    docker tag crabnet:latest rg.fr-par.scw.cloud/hello-rust/crabnet:latest
-    docker push rg.fr-par.scw.cloud/hello-rust/crabnet:latest
+    docker tag crabnet:v1.0.0 rg.fr-par.scw.cloud/hello-rust/crabnet:v1.0.0
+    docker push rg.fr-par.scw.cloud/hello-rust/crabnet:v1.0.0
     ```
 
 ### Deploying the image
@@ -70,7 +70,7 @@ In a terminal, run the following command to create a Serverless Containers names
 1. Run the following command to create and deploy the container:
 
     ```bash
-    scw container container create namespace-id=<PREVIOUS_NAMESPACE_ID> name=crabnet registry-image=rg.fr-par.scw.cloud/hello-rust/crabnet:latest
+    scw container container create namespace-id=<PREVIOUS_NAMESPACE_ID> name=crabnet registry-image=rg.fr-par.scw.cloud/hello-rust/crabnet:v1.0.0
     ```
     The container information displays.
 

@@ -15,6 +15,8 @@ fn main() {
 
 fn handle_connection(mut stream: TcpStream) {
     let buf_reader = BufReader::new(&mut stream);
+
+    // variable not used but you can manipulate it to get useful informations of the incoming request and manage parameters.
     let _http_request: Vec<_> = buf_reader
         .lines()
         .map(|result| result.unwrap())
