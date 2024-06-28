@@ -1,7 +1,8 @@
-import boto3
 import os
 import urllib.request
 import zipfile
+
+import boto3
 
 DATA_DIR = "dataset"
 

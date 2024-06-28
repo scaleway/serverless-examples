@@ -1,17 +1,19 @@
-import pandas as pd
 import os
 import pickle
+from datetime import datetime
+
 import boto3
+import pandas as pd
 import training as ml
-from sklearn.metrics import RocCurveDisplay
-from sklearn.metrics import ConfusionMatrixDisplay
+from sklearn.metrics import ConfusionMatrixDisplay, RocCurveDisplay
+
+VERSION = datetime.now().strftime("%Y%m%d%H%M")
 
 DATA_FILE_NAME = "bank-additional-full.csv"
-
-MODEL_FILE = "classifier.pkl"
-PERF_FILE = "performance.pkl"
-ROC_AUC_FILE = "roc_auc.png"
-CONFUSION_MATRIX_FILE = "confusion_matrix.png"
+MODEL_FILE = "classifier_" + VERSION + ".pkl"
+PERF_FILE = "performance_" + VERSION + ".pkl"
+ROC_AUC_FILE = "roc_auc_" + VERSION + ".png"
+CONFUSION_MATRIX_FILE = "confusion_matrix_" + VERSION + ".png"
 
 
 def main() -> int:

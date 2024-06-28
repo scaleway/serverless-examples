@@ -12,7 +12,7 @@ resource "scaleway_container" "inference" {
   cpu_limit      = 2000
   memory_limit   = 2048
   min_scale      = 1
-  max_scale      = 5
+  max_scale      = 1
   environment_variables = {
     "S3_BUCKET_NAME" = scaleway_object_bucket.main.name
     "S3_URL"         = var.s3_url
@@ -23,4 +23,10 @@ resource "scaleway_container" "inference" {
     "SECRET_KEY" = var.secret_key
   }
   deploy   = true
+}
+
+resource scaleway_container_cron "inference_cron" {
+    container_id = scaleway_container.inference.id
+    schedule = var.inference_cron_schedule
+    args = jsonencode({})
 }

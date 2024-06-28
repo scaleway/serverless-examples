@@ -37,14 +37,22 @@ Set your Scaleway access key, secret key and project ID in environment variables
 export TF_VAR_access_key=<your-access-key>
 export TF_VAR_secret_key=<your-secret-key>
 export TF_VAR_project_id=<your-project-id> # you can create a separate project for this example
+```
 
+By default, both jobs and container trigger in the example run regularly on a schedule. The default values for these schedules are configured in `jobs/ml-ops/terraform/variables.tf`, and can be overridden using Terraform variables, e.g. `export TF_VAR_data_fetch_cron_schedule="0 10 * * *"`.
+
+Then deploy MLOps infrastructure using the following:
+
+```console
 cd terraform
 terraform init
 terraform plan
 terraform apply
 ```
 
-### Step 2. Run the data and training Jobs
+### Step 2. Optional: trigger jobs manually
+
+The pipeline is automatic, all jobs will be run at their respective scheduled time. This step can be ignored unless for debugging or test purposes.
 
 To run the jobs for the data and training, we can use the Scaleway CLI:
 
@@ -60,12 +68,17 @@ You can also trigger the jobs from the [Jobs section](https://console.scaleway.c
 
 ### Step 3. Use the inference API
 
+Load model with the latest version using:
+
 ```
 cd terraform
 export INFERENCE_URL=$(terraform output raw endpoint)
+curl -X POST ${INFERENCE_URL}
+```
 
-curl -X POST ${INFERENCE_URL}/load
+Then post data to infer the class:
 
+```
 curl -X POST \
   -H "Content-Type: application/json" \
   -d @../inference/example.json

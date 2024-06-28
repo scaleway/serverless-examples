@@ -4,7 +4,10 @@ resource "scaleway_job_definition" "fetch_data" {
   memory_limit = 1024
   image_uri    = docker_image.data.name
   timeout      = "10m"
-
+  cron {
+    schedule = var.data_fetch_cron_schedule
+    timezone = "Europe/Paris"
+  }
   env = {
     "S3_BUCKET_NAME" : scaleway_object_bucket.main.name,
     "S3_URL" : var.s3_url,
@@ -20,7 +23,10 @@ resource "scaleway_job_definition" "training" {
   memory_limit = 4096
   image_uri    = docker_image.training.name
   timeout      = "10m"
-
+  cron {
+    schedule = var.training_cron_schedule
+    timezone = "Europe/Paris"
+  }
   env = {
     "S3_BUCKET_NAME" : scaleway_object_bucket.main.name,
     "S3_URL" : var.s3_url,
