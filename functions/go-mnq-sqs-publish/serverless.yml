@@ -1,0 +1,27 @@
+service: go-mnq-sqs
+configValidationMode: off
+provider:
+  name: scaleway
+  runtime: go121
+
+# Enable use of .env file
+useDotenv: true
+
+plugins:
+  - serverless-scaleway-functions
+
+package:
+  patterns:
+    - '!node_modules/**'
+    - '!.gitignore'
+    - '!.git/**'
+
+functions:
+  gomnq:
+    handler: Handle
+
+    # For more details please check https://github.com/scaleway/serverless-scaleway-functions/blob/master/docs/secrets.md
+    secret:
+      SCW_DEFAULT_ORGANIZATION_ID: ${env:SCW_DEFAULT_ORGANIZATION_ID}
+      SQS_ACCESS_KEY: ${env:SQS_ACCESS_KEY}
+      SQS_SECRET_KEY: ${env:SQS_SECRET_KEY}

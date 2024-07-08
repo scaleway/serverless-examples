@@ -1,0 +1,15 @@
+{
+  "name": "go-nmq-sqs",
+  "version": "1.0.0",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {},
+  "devDependencies": {
+    "serverless-scaleway-functions": "^0.4.10"
+  },
+  "description": ""
+}

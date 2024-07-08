@@ -1,4 +1,5 @@
-use hyper::{http::response, Body, Request, Response, StatusCode};
+use axum::{body::Body, extract::Request, response::Response};
+use http::StatusCode;
 
 // See: https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS#the_http_response_headers
 pub fn with_permissive_cors(r: response::Builder) -> response::Builder {

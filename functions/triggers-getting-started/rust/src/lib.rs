@@ -1,4 +1,5 @@
-use hyper::{Body, Request, Response, StatusCode};
+use axum::{body::{{Body, to_bytes}}, extract::Request, response::Response};
+use http::{{method::Method, StatusCode}};
 
 // Reference: https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.product
 fn factorial(n: u64) -> u64 {
@@ -6,7 +7,7 @@ fn factorial(n: u64) -> u64 {
 }
 
 pub async fn handler(req: Request<Body>) -> Response<Body> {
-    if req.method() != hyper::Method::POST {
+    if req.method() != Method::POST {
         return Response::builder()
             .status(StatusCode::METHOD_NOT_ALLOWED)
             .header("Content-Type", "text/plain")
@@ -15,7 +16,7 @@ pub async fn handler(req: Request<Body>) -> Response<Body> {
     }
 
     // The SQS trigger sends the message content in the body.
-    let body = hyper::body::to_bytes(req.into_body()).await.unwrap();
+    let body = to_bytes(req.into_body(), usize::MAX).await.unwrap();
     let n = match String::from_utf8(body.to_vec()).unwrap().parse::<u64>() {
         Ok(n) => n,
         Err(e) => {

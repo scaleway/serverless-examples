@@ -7,7 +7,7 @@ edition = "2021"
 name = "test-server"
 
 [dependencies]
-axum = "0.6.1"
+axum = "0.7.5"
 tower = "0.4"
 tower-http = { version = "0.3.4", features = ["cors"] }
 tokio-test = "0.4"
@@ -17,10 +17,10 @@ rust-s3 = { version = "0.32.3", default-features = false, features = [
 tokio = { version = "1.2", features = ["rt-multi-thread", "macros"] }
 anyhow = "1.0"
 dfdx = { version = "0.10.0" }
-hyper = { version = "0.14", features = ["server"] }
 serde = { version = "1", features = ["derive"] }
 serde_json = { version = "1" }
 pollster = "0.2.5"
+http = "1.1.0"
 
 [dependencies.common]
 path = "./common"

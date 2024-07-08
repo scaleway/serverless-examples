@@ -2,8 +2,8 @@ use anyhow::{Context, Result};
 use serde::{Deserialize, Serialize};
 use std::{env, fmt::Display, fs::File, io::Write};
 
-use hyper::http::response;
-use hyper::{Body, Method, Request, Response, StatusCode};
+use axum::{body::{{Body, to_bytes}}, extract::Request, response::Response};
+use http::{{method::Method, StatusCode, response}};
 
 use common::{scaleway_bucket_from_env, Mlp, MODEL_PATH};
 use dfdx::prelude::*;
@@ -70,7 +70,7 @@ pub async fn handler(req: Request<Body>) -> Response<Body> {
 
     let body = req.into_body();
 
-    let res = match hyper::body::to_bytes(body).await {
+    let res = match to_bytes(body, usize::MAX).await {
         Ok(body) => serde_json::from_slice::<LabelingRequest>(&body),
         Err(e) => return handle_error(e, None),
     };
@@ -102,7 +102,8 @@ pub async fn handler(req: Request<Body>) -> Response<Body> {
 
 #[cfg(test)]
 mod tests {
-    use hyper::{Body, Request, StatusCode};
+    use axum::{body::Body, extract::Request};
+    use http::StatusCode;
     use serde_json::json;
     use tokio_test::*;
 
@@ -117,7 +118,7 @@ mod tests {
         let (parts, body) = crate::handler(request).await.into_parts();
         println!(
             "{}",
-            String::from_utf8(hyper::body::to_bytes(body).await.unwrap().to_vec()).unwrap()
+            String::from_utf8(to_bytes(body, usize::MAX).await.unwrap().to_vec()).unwrap()
         );
 
         assert_eq!(parts.status, StatusCode::OK)

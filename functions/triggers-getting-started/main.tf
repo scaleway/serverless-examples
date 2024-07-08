@@ -22,7 +22,7 @@ locals {
     }
     "rust" = {
       path    = "rust"
-      runtime = "rust165"
+      runtime = "rust179"
       handler = "handler"
     }
   }
