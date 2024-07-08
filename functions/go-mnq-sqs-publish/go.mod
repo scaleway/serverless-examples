@@ -1,6 +1,6 @@
 module go-mnq-publish
 
-go 1.18
+go 1.21
 
 require (
 	github.com/aws/aws-sdk-go v1.44.189
