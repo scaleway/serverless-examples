@@ -9,7 +9,7 @@ AWS_SECRET_ACCESS_KEY = os.environ["AWS_SECRET_ACCESS_KEY"]
 MAX_FACTORIAL_REQUESTS = 20
 
 params = {
-    "endpoint_url": "http://sqs-sns.mnq.fr-par.scw.cloud",
+    "endpoint_url": "https://sqs.mnq.fr-par.scw.cloud",
     "aws_access_key_id": AWS_ACCESS_KEY_ID,
     "aws_secret_access_key": AWS_SECRET_ACCESS_KEY,
     "region_name": "fr-par",

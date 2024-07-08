@@ -2,7 +2,7 @@ service: cors-rust
 configValidationMode: off
 provider:
   name: scaleway
-  runtime: rust165
+  runtime: rust179
 
 plugins:
   - serverless-scaleway-functions

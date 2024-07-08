@@ -3,7 +3,7 @@ configValidationMode: off
 
 provider:
   name: scaleway
-  runtime: node16
+  runtime: node22
 
   secret:
     ACCESS_KEY: <bucket scw access key>

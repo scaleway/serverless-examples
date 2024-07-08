@@ -3,7 +3,7 @@ configValidationMode: off
 useDotenv: true
 provider:
   name: scaleway
-  runtime: go118
+  runtime: go122
   scwToken: ${env:SCW_SECRET_KEY}
   scwProject: ${env:SCW_DEFAULT_PROJECT_ID}
 
