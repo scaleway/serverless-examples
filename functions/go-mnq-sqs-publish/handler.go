@@ -25,7 +25,7 @@ func init() {
 
 	sqsSession := session.Must(session.NewSession(&aws.Config{
 		Region:      aws.String("fr-par"),
-		Endpoint:    aws.String("https://sqs.mnq.fr-par.scaleway.cloud"),
+		Endpoint:    aws.String("https://sqs.mnq.fr-par.scw.cloud"),
 		Credentials: credentials.NewStaticCredentials(accessKey, secretKey, ""),
 	}))
 
