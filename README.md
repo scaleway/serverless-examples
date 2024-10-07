@@ -18,7 +18,7 @@ Table of Contents:
   - [Examples](#examples)
     - [🚀 Functions](#-functions)
     - [📦 Containers](#-containers)
-    - [⚙️ Jobs](#-jobs)
+    - [⚙️ Jobs](#️-jobs)
     - [💬 Messaging and Queueing](#-messaging-and-queueing)
     - [💜 Projects](#-projects)
   - [Contributing](#contributing)
@@ -41,6 +41,7 @@ Table of Contents:
 | **[Go MultiPart Upload to S3](functions/go-upload-file-s3-multipart)** <br/> A function to upload file from form-data to S3.                                                          | go120     | [Serverless Framework] |
 | **[Image Transform](functions/image-transform-node/README.md)** <br/> A function that resizes images from an S3 bucket.                                                               | node22    | [Serverless Framework] |
 | **[Image Transform with triggers](functions/trigger-image-transform-node/README.md)** <br/> A function that resizes images from an S3 bucket and use SQS triggers to smooth traffic.  | node20    | [Serverless Framework] |
+| **[Node Terraform](functions/node-terraform/README.md)** <br/> A simple example of deploying a Node Serverless function using Terraform.                                              | node22    | [Terraform]            |
 | **[Node MultiPart Upload to S3](functions/node-upload-file-s3-multipart/README.md)** <br/> A function to upload file from form-data to S3.                                            | node19    | [Serverless Framework] |
 | **[PHP write to S3](functions/php-s3/README.md)** <br/> A PHP function that connects to, and writes to an S3 bucket.                                                                  | php82     | [Terraform]            |
 | **[PostgeSQL Node](functions/postgre-sql-node/README.md)** <br/> A Node function to connect and interact with PostgreSQL database.                                                    | node18    | [Serverless Framework] |
