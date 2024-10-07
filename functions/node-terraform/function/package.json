@@ -1,0 +1,19 @@
+{
+  "name": "node-terraform",
+  "version": "1.0.0",
+  "description": "Node Serverless Function deployed using Scaleway's Terraform Provider",
+  "main": "index.js",
+  "scripts": {
+    "start": "NODE_ENV=development node index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "rss": "^1.2.2",
+    "rss-parser": "^3.13.0"
+  },
+  "devDependencies": {
+    "@scaleway/serverless-functions": "^1.1.2"
+  }
+}
