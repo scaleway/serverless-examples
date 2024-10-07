@@ -41,7 +41,7 @@ resource "scaleway_function" "main" {
 
   environment_variables = {
     "SOURCE_FEED_URL"   = "https://lobste.rs/rss"
-    "WORTHWHILE_TOPICS" = "nixos, nix, serverless, terraform"
+    "WORTHWHILE_TOPICS" = "nixos, nix, serverless, terraform, gleam"
   }
 
   deploy = true
