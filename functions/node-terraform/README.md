@@ -1,6 +1,6 @@
 # Node Terraform
 
-A simple example of deploying a Node Serverless function using Terraform. The function is a simple `rss` feed that filters the content of a source feed and returns the filtered content.
+An example deploying a Node Serverless function using Terraform. The function is a simple `rss` feed that filters the content of a source feed and returns the filtered content.
 
 ## Requirements
 
