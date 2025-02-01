@@ -1,6 +1,8 @@
 package main
 
 import (
+	"encoding/json"
+	"errors"
 	"fmt"
 	"os"
 	"strconv"
@@ -58,6 +60,23 @@ func main() {
 	}
 
 	if err := cleanSnapshots(deleteAfterDays, instanceAPI); err != nil {
+		var precondErr *scw.PreconditionFailedError
+
+		if errors.As(err, &precondErr) {
+			fmt.Println("\nExtracted Error Details:")
+			fmt.Println("Precondition:", precondErr.Precondition)
+			fmt.Println("Help Message:", precondErr.HelpMessage)
+
+			// Decode RawBody (if available)
+			if len(precondErr.RawBody) > 0 {
+				var parsedBody map[string]interface{}
+				if json.Unmarshal(precondErr.RawBody, &parsedBody) == nil {
+					fmt.Println("RawBody (Decoded):", parsedBody)
+				} else {
+					fmt.Println("RawBody (Raw):", string(precondErr.RawBody))
+				}
+			}
+		}
 		panic(err)
 	}
 }
