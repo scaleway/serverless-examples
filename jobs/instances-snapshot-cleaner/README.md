@@ -72,7 +72,8 @@ You can exercice by adding the following features:
 
 - Add tags to exclude
 - Add alerts if a Job goes in error
-- Use secret manager
+- Use Secret Manager instead of job environment variables
+- Support multiple zones dans projects
 
 # Additional content
 

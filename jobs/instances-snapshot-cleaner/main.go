@@ -81,7 +81,10 @@ func main() {
 	}
 }
 
+// cleanSnapshots when called will clean snapshots in the project (if specified)
+// that are older than the number of days.
 func cleanSnapshots(days int, instanceAPI *instance.API) error {
+	// Get the list of all snapshots
 	snapshotsList, err := instanceAPI.ListSnapshots(&instance.ListSnapshotsRequest{
 		Zone:    scw.Zone(os.Getenv(envZone)),
 		Project: scw.StringPtr(os.Getenv(envProjectID)),
@@ -95,10 +98,13 @@ func cleanSnapshots(days int, instanceAPI *instance.API) error {
 
 	currentTime := time.Now()
 
+	// For each snapshot, check conditions
 	for _, snapshot := range snapshotsList.Snapshots {
+		// Check if snapshot is in ready state and if it's older than the number of days definied.
 		if snapshot.State == instance.SnapshotStateAvailable && (currentTime.Sub(*snapshot.CreationDate).Hours()/hoursPerDay) > float64(days) {
 			fmt.Printf("\nDeleting snapshot <%s>:%s created at: %s\n", snapshot.ID, snapshot.Name, snapshot.CreationDate.Format(time.RFC3339))
 
+			// Delete snapshot found.
 			err := instanceAPI.DeleteSnapshot(&instance.DeleteSnapshotRequest{
 				SnapshotID: snapshot.ID,
 				Zone:       snapshot.Zone,
@@ -112,6 +118,7 @@ func cleanSnapshots(days int, instanceAPI *instance.API) error {
 	return nil
 }
 
+// Check for mandatory variables before starting to work.
 func init() {
 	mandatoryVariables := [...]string{envOrgID, envAccessKey, envSecretKey, envZone, envProjectID}
 
