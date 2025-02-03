@@ -72,7 +72,7 @@ You can exercice by adding the following features:
 - Instead of managing a single instance, make it account wide
 - Add disk backups
 - Add alerts if something goes wrong
-- Use secret manager
+- Use secret manager instead of job environment variables
 
 # Additional content
 
