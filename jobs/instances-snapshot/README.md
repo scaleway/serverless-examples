@@ -11,6 +11,7 @@ This example is very simple, it generates snapshots of your desired Instance.
 - Scaleway Account
 - Docker daemon running to build the image
 - Container registry namespace created, for this example we assume that your namespace name is `jobs-snapshot`: [doc here](https://www.scaleway.com/en/docs/containers/container-registry/how-to/create-namespace/)
+- API keys generated, Access Key and Secret Key [doc here](https://www.scaleway.com/en/docs/iam/how-to/create-api-keys/)
 
 ## Step 1 : Build and push to Container registry
 

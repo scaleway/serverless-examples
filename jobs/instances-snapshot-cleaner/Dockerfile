@@ -13,4 +13,4 @@ COPY *.go ./
 RUN go build -o /jobs-snapshot-cleaner
 
 # Run the executable
-CMD [ "/jobs-snapshot-cleaner" ]
+ENTRYPOINT [ "/jobs-snapshot-cleaner" ]

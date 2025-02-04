@@ -13,4 +13,4 @@ COPY *.go ./
 RUN go build -o /jobs-snapshot
 
 # Run the executable
-CMD [ "/jobs-snapshot" ]
+ENTRYPOINT [ "/jobs-snapshot" ]
