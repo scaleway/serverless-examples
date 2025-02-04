@@ -1,5 +1,5 @@
 # Using apline/golang image
-FROM golang:1.22-alpine
+FROM golang:1.23-alpine
 
 # Set destination for COPY
 WORKDIR /app

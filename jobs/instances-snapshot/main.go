@@ -3,9 +3,18 @@ package main
 import (
 	"fmt"
 	"os"
+	"time"
 
 	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
+)
+
+const (
+	envOrgID        = "SCW_DEFAULT_ORGANIZATION_ID"
+	envAccessKey    = "SCW_ACCESS_KEY"
+	envSecretKey    = "SCW_SECRET_KEY"
+	envInstanceID   = "INSTANCE_ID"
+	envInstanceZone = "INSTANCE_ZONE"
 )
 
 func main() {
@@ -14,12 +23,13 @@ func main() {
 	// Create a Scaleway client with credentials from environment variables.
 	client, err := scw.NewClient(
 		// Get your organization ID at https://console.scaleway.com/organization/settings
-		scw.WithDefaultOrganizationID(os.Getenv("SCW_DEFAULT_ORGANIZATION_ID")),
+		scw.WithDefaultOrganizationID(os.Getenv(envOrgID)),
 
 		// Get your credentials at https://console.scaleway.com/iam/api-keys
-		scw.WithAuth(os.Getenv("SCW_ACCESS_KEY"), os.Getenv("SCW_SECRET_KEY")),
+		scw.WithAuth(os.Getenv(envAccessKey), os.Getenv(envSecretKey)),
 
-		// Get more about our availability zones at https://www.scaleway.com/en/docs/console/my-account/reference-content/products-availability/
+		// Get more about our availability
+		// zones at https://www.scaleway.com/en/docs/console/my-account/reference-content/products-availability/
 		scw.WithDefaultRegion(scw.RegionFrPar),
 	)
 	if err != nil {
@@ -43,16 +53,24 @@ func createSnapshots(instanceAPI *instance.API) error {
 		return fmt.Errorf("error while getting instance %w", err)
 	}
 
+	now := time.Now().Format(time.DateOnly)
+
 	for _, volume := range gotInstance.Server.Volumes {
+		snapshotName := fmt.Sprintf("snap-vol-%s-%s-%s",
+			volume.VolumeType.String(),
+			now,
+			os.Getenv(envInstanceZone))
+
 		snapshotResp, err := instanceAPI.CreateSnapshot(&instance.CreateSnapshotRequest{
-			Name:       volume.Name + RandomString(4),
+			Name:       snapshotName,
 			VolumeID:   &volume.ID,
-			VolumeType: instance.SnapshotVolumeTypeBSSD,
-			Zone:       scw.Zone(os.Getenv("INSTANCE_ZONE")),
+			VolumeType: instance.SnapshotVolumeType(volume.VolumeType),
+			Zone:       scw.Zone(os.Getenv(envInstanceZone)),
 		})
 		if err != nil {
-			return fmt.Errorf("error while creating snapshopt %w", err)
+			return fmt.Errorf("error while creating snapshot %w", err)
 		}
+
 		fmt.Println("created snapshot ", snapshotResp.Snapshot.ID)
 	}
 
@@ -60,23 +78,11 @@ func createSnapshots(instanceAPI *instance.API) error {
 }
 
 func init() {
-	if os.Getenv("SCW_DEFAULT_ORGANIZATION_ID") == "" {
-		panic("missing SCW_DEFAULT_ORGANIZATION_ID")
-	}
+	mandatoryVariables := [...]string{envOrgID, envAccessKey, envSecretKey, envInstanceID, envInstanceZone}
 
-	if os.Getenv("SCW_ACCESS_KEY") == "" {
-		panic("missing SCW_ACCESS_KEY")
-	}
-
-	if os.Getenv("SCW_SECRET_KEY") == "" {
-		panic("missing SCW_SECRET_KEY")
-	}
-
-	if os.Getenv("INSTANCE_ID") == "" {
-		panic("missing INSTANCE_ID")
-	}
-
-	if os.Getenv("INSTANCE_ZONE") == "" {
-		panic("missing INSTANCE_ZONE")
+	for idx := range mandatoryVariables {
+		if os.Getenv(mandatoryVariables[idx]) == "" {
+			panic("missing environment variable " + mandatoryVariables[idx])
+		}
 	}
 }
