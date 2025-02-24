@@ -1,6 +1,6 @@
 # Scaleway Container Registry Tag Cleaner
 
-This project aims to clean up Scaleway Container Registry tags to keep only the N latest tags for each image. It is useful for managing disk space and keeping the registry organized.
+This project aims to clean up Scaleway Container Registry tags to keep only the N latest tags for each image, which is useful for managing disk space and organizing the registry.
 
 ## Requirements
 
@@ -9,22 +9,22 @@ This project aims to clean up Scaleway Container Registry tags to keep only the 
 - Container registry namespace created, for this example we assume that your namespace name is `registry-cleaner`: [doc here](https://www.scaleway.com/en/docs/containers/container-registry/how-to/create-namespace/)
 - API keys generated, Access Key and Secret Key [doc here](https://www.scaleway.com/en/docs/iam/how-to/create-api-keys/)
 
-## Step 1 : Build and push to Container registry
+## Step 1: Build and Push to Container Registry
 
 Serverless Jobs, like Serverless Containers (which are suited for HTTP applications), works
 with containers. So first, use your terminal reach this folder and run the following commands:
 
 ```shell
-# First command is to login to container registry, you can find it in Scaleway console
+# First, log in to the container registry. You can find your login details in the Scaleway console.
 docker login rg.fr-par.scw.cloud/registry-cleaner -u nologin --password-stdin <<< "$SCW_SECRET_KEY"
 
-# Here we build the image to push
+# Build the image to push.
 docker build -t rg.fr-par.scw.cloud/registry-cleaner/versions-retention:v1 .
 
-## TIP: for Apple Silicon or other ARM processors, please use the following command as Serverless Jobs supports amd64 architecture
+## TIP: For Apple Silicon or other ARM processors, use the following command as Serverless Jobs supports the amd64 architecture.
 # docker buildx build --platform linux/amd64 -t rg.fr-par.scw.cloud/registry-cleaner/versions-retention:v1 .
 
-# Push the image online to be used on Serverless Jobs
+# Push the image online to be used on Serverless Jobs.
 docker push rg.fr-par.scw.cloud/registry-cleaner/versions-retention:v1
 ```
 

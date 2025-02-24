@@ -1,6 +1,6 @@
 # Scaleway Container Registry Cleaner
 
-This project helps you clean up your Container Registry by deleting namespaces without images inside.
+This project helps you clean up your Container Registry by deleting namespaces that do not contain any images.
 
 ## Requirements
 
@@ -9,22 +9,22 @@ This project helps you clean up your Container Registry by deleting namespaces w
 - Container registry namespace created, for this example we assume that your namespace name is `registry-cleaner`: [doc here](https://www.scaleway.com/en/docs/containers/container-registry/how-to/create-namespace/)
 - API keys generated, Access Key and Secret Key [doc here](https://www.scaleway.com/en/docs/iam/how-to/create-api-keys/)
 
-## Step 1 : Build and push to Container registry
+## Step 1: Build and Push to Container Registry
 
 Serverless Jobs, like Serverless Containers (which are suited for HTTP applications), works
 with containers. So first, use your terminal reach this folder and run the following commands:
 
 ```shell
-# First command is to login to container registry, you can find it in Scaleway console
+# The first command logs in to the container registry; you can find it in the Scaleway console
 docker login rg.fr-par.scw.cloud/registry-cleaner -u nologin --password-stdin <<< "$SCW_SECRET_KEY"
 
-# Here we build the image to push
+# The next command builds the image to push
 docker build -t rg.fr-par.scw.cloud/registry-cleaner/empty-namespaces:v1 .
 
-## TIP: for Apple Silicon or other ARM processors, please use the following command as Serverless Jobs supports amd64 architecture
+## TIP: For Apple Silicon or other ARM processors, please use the following command as Serverless Jobs supports amd64 architecture
 # docker buildx build --platform linux/amd64 -t rg.fr-par.scw.cloud/registry-cleaner/empty-namespaces:v1 .
 
-# Push the image online to be used on Serverless Jobs
+# This command pushes the image online to be used on Serverless Jobs
 docker push rg.fr-par.scw.cloud/registry-cleaner/empty-namespaces:v1
 ```
 
