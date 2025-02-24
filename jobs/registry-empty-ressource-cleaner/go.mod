@@ -1,4 +1,4 @@
-module github.com/scaleway/serverless-examples/jobs/registry-version-based-retention
+module github.com/scaleway/serverless-examples/jobs/registry-empty-ressource-cleaner
 
 go 1.24.0
 

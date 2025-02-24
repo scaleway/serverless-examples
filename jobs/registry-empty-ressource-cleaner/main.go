@@ -3,7 +3,6 @@ package main
 import (
 	"log/slog"
 	"os"
-	"strconv"
 	"strings"
 
 	"github.com/scaleway/scaleway-sdk-go/scw"
@@ -16,7 +15,6 @@ const (
 	envSecretKey = "SCW_SECRET_KEY"              // Scaleway API secret key
 	envProjectID = "SCW_PROJECT_ID"              // Scaleway project ID
 
-	envNTagsToKeep = "SCW_NUMBER_VERSIONS_TO_KEEP" // Number of container registry tags to keep
 	// If set to "true", older tags will be deleted.
 	// Otherwise, only a dry run will be performed
 	envNoDryRun = "SCW_NO_DRY_RUN"
@@ -25,7 +23,7 @@ const (
 // Check for mandatory variables before starting to work.
 func init() {
 	// Slice of environmental variables that must be set for the application to run
-	mandatoryVariables := [...]string{envOrgID, envAccessKey, envSecretKey, envProjectID, envNTagsToKeep}
+	mandatoryVariables := [...]string{envOrgID, envAccessKey, envSecretKey, envProjectID}
 
 	// Iterate through the slice and check if any variables are not set
 	for idx := range mandatoryVariables {
@@ -59,19 +57,6 @@ func main() {
 	// RegistryAPI is a custom interface for interacting with the Scaleway container registry
 	regAPI := NewRegistryAPI(client, os.Getenv(scw.ScwDefaultProjectIDEnv))
 
-	// Parse the number of tags to keep from the environment variable, which should be a string
-	numberTagsToKeep, err := strconv.Atoi(os.Getenv(envNTagsToKeep))
-	if err != nil {
-		panic(err)
-	}
-
-	// Get the tags to delete by specifying the number of tags to keep
-	// The function returns both the tags to be deleted and an error, if any
-	tagsToDelete, err := regAPI.GetTagsAfterNVersions(numberTagsToKeep)
-	if err != nil {
-		panic(err)
-	}
-
 	// Determine whether to perform a dry run or delete the tags
 	// Default behavior is to perform a dry run (no deletion)
 	dryRun := true
@@ -84,7 +69,7 @@ func main() {
 	}
 
 	// Delete the tags or perform a dry run, depending on the dryRun flag
-	if err := regAPI.DeleteTags(tagsToDelete, dryRun); err != nil {
+	if err := regAPI.DeleteEmptyNamespace(dryRun); err != nil {
 		panic(err)
 	}
 }

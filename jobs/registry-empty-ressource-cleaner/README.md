@@ -1,6 +1,6 @@
-# Scaleway Container Registry Tag Cleaner
+# Scaleway Container Registry Cleaner
 
-This project aims to clean up Scaleway Container Registry tags to keep only the N latest tags for each image. It is useful for managing disk space and keeping the registry organized.
+This project helps you clean up your Container Registry by deleting namespaces without images inside.
 
 ## Requirements
 
@@ -19,13 +19,13 @@ with containers. So first, use your terminal reach this folder and run the follo
 docker login rg.fr-par.scw.cloud/registry-cleaner -u nologin --password-stdin <<< "$SCW_SECRET_KEY"
 
 # Here we build the image to push
-docker build -t rg.fr-par.scw.cloud/registry-cleaner/versions-retention:v1 .
+docker build -t rg.fr-par.scw.cloud/registry-cleaner/empty-namespaces:v1 .
 
 ## TIP: for Apple Silicon or other ARM processors, please use the following command as Serverless Jobs supports amd64 architecture
-# docker buildx build --platform linux/amd64 -t rg.fr-par.scw.cloud/registry-cleaner/versions-retention:v1 .
+# docker buildx build --platform linux/amd64 -t rg.fr-par.scw.cloud/registry-cleaner/empty-namespaces:v1 .
 
 # Push the image online to be used on Serverless Jobs
-docker push rg.fr-par.scw.cloud/registry-cleaner/versions-retention:v1
+docker push rg.fr-par.scw.cloud/registry-cleaner/empty-namespaces:v1
 ```
 
 > [!TIP]
@@ -38,7 +38,7 @@ To check if everyting is ok, on the Scaleway Console you can verify if your tag 
 On Scaleway Console on the following link you can create a new Job Definition: https://console.scaleway.com/serverless-jobs/jobs/create?region=fr-par
 
 1. On Container image, select the image you created in the step before.
-2. You can set the image name to something clear like `registry-version-retention` too.
+2. You can set the image name to something clear like `registry-namespace-cleaner` too.
 3. For the region you can select the one you prefer :)
 4. Regarding the resources you can keep the default values, this job is fast and do not require specific compute power or memory.
 5. To schedule your job for example every night at 2am, you can set the cron to `0 2 * * *`.
@@ -52,7 +52,6 @@ On Scaleway Console on the following link you can create a new Job Definition: h
   - `SCW_ACCESS_KEY`: Your Scaleway API access key.
   - `SCW_SECRET_KEY`: Your Scaleway API secret key.
   - `SCW_PROJECT_ID`: Your Scaleway project ID.
-  - `SCW_NUMBER_VERSIONS_TO_KEEP`: The number of latest tags to keep for each image.
   - `SCW_NO_DRY_RUN`: Set to `true` to delete namespaces; otherwise, it will perform a dry run.
 
 * Then click "Create Job"
