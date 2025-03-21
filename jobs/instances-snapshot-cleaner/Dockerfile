@@ -10,7 +10,7 @@ COPY go.sum ./
 COPY *.go ./
 
 # Build the executable
-RUN go build -o /jobs-snapshot
+RUN go build -o /jobs-snapshot-cleaner
 
 # Run the executable
-ENTRYPOINT [ "/jobs-snapshot" ]
+ENTRYPOINT [ "/jobs-snapshot-cleaner" ]

@@ -83,6 +83,9 @@ Table of Contents:
 | **[Serverless Jobs Hello World](jobs/terraform-hello-world/README.md)** <br/> An example of building a container image and running it as a Serverless Job using Terraform. | N/A      | [Terraform]-[Console]       |
 | **[Serverless MLOps](jobs/ml-ops/README.md)** <br/> An example of running a Serverless Machine Leaning workflow.                                                           | Python   | [Terraform]-[Console]-[CLI] |
 | **[Auto Snapshot Instances](jobs/instances-snapshot/README.md)** <br/> Use Serverless Jobs to create snapshots of your instances                                           | Go       | [Console]                   |
+| **[Instance Snapshot Cleaner](jobs/instances-snapshot-cleaner/README.md)** <br/> Use Serverless Jobs to clean old instances snapshots                                      | Go       | [Console]                   |
+| **[Registry Tag Cleaner](jobs/registry-version-based-retention/README.md)** <br/> Use Serverless Jobs to keep a desired amount of tags for each image                      | Go       | [Console]                   |
+| **[Registry Empty Image Cleaner](jobs/registry-empty-ressource-cleaner/README.md)** <br/> Use Serverless Jobs to clean container registry empty namespaces and images      | Go       | [Console]                   |
 
 ### 💬 Messaging and Queueing
 
