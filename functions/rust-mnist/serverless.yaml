@@ -3,7 +3,7 @@ configValidationMode: off
 useDotenv: true
 provider:
   name: scaleway
-  runtime: rust179
+  runtime: rust185
 
 plugins:
   - serverless-scaleway-functions
