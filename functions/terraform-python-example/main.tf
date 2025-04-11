@@ -81,7 +81,7 @@ resource "scaleway_function_namespace" "main" {
 resource "scaleway_function" "main" {
   namespace_id = scaleway_function_namespace.main.id
   name         = "instancewake"
-  runtime      = "python312"
+  runtime      = "python313"
   handler      = "handler.handle"
   privacy      = "public"
   zip_file     = data.archive_file.source_zip.output_path
