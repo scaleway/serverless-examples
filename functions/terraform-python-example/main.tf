@@ -6,8 +6,8 @@ resource "scaleway_instance_ip" "public_ip-prod" {
 resource "scaleway_instance_server" "scw-instance-prod" {
   name       = "prod"
   project_id = var.project_id
-  type       = "GP1-S"
-  image      = "ubuntu_focal"
+  type       = "GP1-XS"
+  image      = "ubuntu_noble"
 
   tags = ["terraform instance", "scw-instance", "production"]
 
@@ -29,8 +29,8 @@ resource "scaleway_instance_ip" "public_ip-dev" {
 resource "scaleway_instance_server" "scw-instance-dev" {
   name       = "dev"
   project_id = var.project_id
-  type       = "DEV1-L"
-  image      = "ubuntu_focal"
+  type       = "DEV1-S"
+  image      = "ubuntu_noble"
 
   tags = ["terraform instance", "scw-instance", "dev"]
 
@@ -81,7 +81,7 @@ resource "scaleway_function_namespace" "main" {
 resource "scaleway_function" "main" {
   namespace_id = scaleway_function_namespace.main.id
   name         = "instancewake"
-  runtime      = "python310"
+  runtime      = "python312"
   handler      = "handler.handle"
   privacy      = "public"
   zip_file     = data.archive_file.source_zip.output_path
