@@ -10,6 +10,7 @@ For this example, [Scaleway Console](https://console.scaleway.com/) will be used
 ## Requirements
 
 - MongoDB created [documentation](https://www.scaleway.com/en/docs/managed-mongodb-databases/quickstart/#how-to-create-a-database-instance)
+- The MongoDB instance must be public (not listening to a private network only since Serverless Functions do not support private networks yet)
 
 ## Step 1 - Mongo
 
