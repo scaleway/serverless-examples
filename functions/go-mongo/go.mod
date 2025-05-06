@@ -1,6 +1,6 @@
 module github.com/scaleway/serverless-examples/functions/go-mongo
 
-go 1.24.1
+go 1.24
 
 require (
 	github.com/scaleway/serverless-functions-go v0.1.2

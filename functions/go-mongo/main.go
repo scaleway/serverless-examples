@@ -39,7 +39,7 @@ func init() {
 	}
 
 	// This is a basic sample that does not use certificate for authentication, not recommended for production.
-	mongo_uri := fmt.Sprintf(`mongodb+srv://%s:%s@%s/?tls=true&tlsInsecure=true`,
+	mongoURI := fmt.Sprintf(`mongodb+srv://%s:%s@%s/?tls=true&tlsInsecure=true`,
 		mongoUser,
 		mongoPassword,
 		mongoPublicEndpoint)

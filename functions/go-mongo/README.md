@@ -13,7 +13,7 @@ For this example, [Scaleway Console](https://console.scaleway.com/) will be used
 
 ## Step 1 - Mongo
 
-After Mongo DB creation, in the console find the public endpoint of the database, it should look lile: `<scw_database_id>.mgdb.<scw_region>.scw.cloud`
+After Mongo DB creation, in the console find the public endpoint of the database, it should look like: `<scw_database_id>.mgdb.<scw_region>.scw.cloud`
 
 Once you get the endpoint, keep it somewhere for later use.
 
@@ -30,8 +30,8 @@ Before creating a the Function, we need to package it into a zip file.
 > ```
 
 - Create a Serverless Function namespace. [Documentation](https://www.scaleway.com/en/docs/serverless-functions/how-to/create-manage-delete-functions-namespace/#creating-a-serverless-functions-namespace)
-- In the created namespace, create Serverless Function
-- Select the Go runtime
+- In the created namespace, create a Serverless Function
+- Select the latest Go runtime
 - Upload the previously created `go-mongo.zip`
 - Ensure the handler is `Handle`
 - Add required Secrets to the Function:
