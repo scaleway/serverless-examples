@@ -15,13 +15,17 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
+// client is a global variable that holds the MongoDB client instance.
 var client *mongo.Client
 
+// RandomDocument represents a document in the MongoDB collection with an ID and a Name.
 type RandomDocument struct {
 	ID   int    `bson:"id"`
 	Name string `bson:"name"`
 }
 
+// init initializes the MongoDB client connection.
+// It reads the MongoDB connection details from environment variables and establishes a connection.
 func init() {
 	mongoPublicEndpoint := os.Getenv("MONGO_PUBLIC_ENDPOINT")
 	if mongoPublicEndpoint == "" {
@@ -45,7 +49,8 @@ func init() {
 		mongoPublicEndpoint)
 
 	var err error
-	client, err = mongo.Connect(context.TODO(), options.Client().ApplyURI(mongo_uri))
+
+	client, err = mongo.Connect(context.TODO(), options.Client().ApplyURI(mongoURI))
 	if err != nil {
 		panic(err)
 	}
@@ -58,7 +63,9 @@ func init() {
 	slog.Info("Connected to MongoDB")
 }
 
-func Handle(w http.ResponseWriter, r *http.Request) {
+// Handle is an HTTP handler function that inserts a random document into the MongoDB collection
+// and returns the inserted document as a JSON response.
+func Handle(w http.ResponseWriter, _ *http.Request) {
 	collection := client.Database("testdb").Collection("testcollection")
 
 	randomID := rand.Intn(100000000)
@@ -70,22 +77,24 @@ func Handle(w http.ResponseWriter, r *http.Request) {
 
 	insertResult, err := collection.InsertOne(context.TODO(), doc)
 	if err != nil {
-		panic(err)
+		http.Error(w, "Failed to insert document", http.StatusInternalServerError)
+		return
 	}
 
-	slog.Info("Inserted document with ID:", insertResult.InsertedID)
+	slog.Info("Inserted document", "id", insertResult.InsertedID)
 
 	var result RandomDocument
 
 	if err := collection.FindOne(context.TODO(), bson.M{"_id": insertResult.InsertedID}).Decode(&result); err != nil {
-		panic(err)
+		http.Error(w, "Failed to find document", http.StatusInternalServerError)
+		return
 	}
 
-	slog.Info("Found document", result.Name, result.ID)
+	slog.Info("Found document", "name", result.Name, "id", result.ID)
 
 	w.Header().Set("Content-Type", "application/json")
 
 	if err := json.NewEncoder(w).Encode(result); err != nil {
-		panic(err)
+		http.Error(w, "Failed to encode response", http.StatusInternalServerError)
 	}
 }

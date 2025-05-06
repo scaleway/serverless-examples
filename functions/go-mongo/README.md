@@ -1,25 +1,25 @@
 # Mongo + Go example
 
-Example to demonstrate the possibility to connect Serverless Functions to MongoDB.
+Example to demonstrate the possibility of connecting Serverless Functions to MongoDB.
 
 For this example, [Scaleway Console](https://console.scaleway.com/) will be used for deployment.
 
 > [!WARNING]
-> This is a basic sample that does not use certificate for authentication, not recommended for production.
+> This is a basic sample that does not use a certificate for authentication, not recommended for production.
 
 ## Requirements
 
-- Mongo DB created [documentation](https://www.scaleway.com/en/docs/managed-mongodb-databases/quickstart/#how-to-create-a-database-instance)
+- MongoDB created [documentation](https://www.scaleway.com/en/docs/managed-mongodb-databases/quickstart/#how-to-create-a-database-instance)
 
 ## Step 1 - Mongo
 
-After Mongo DB creation, in the console find the public endpoint of the database, it should look like: `<scw_database_id>.mgdb.<scw_region>.scw.cloud`
+After MongoDB creation, in the console, find the public endpoint of the database; it should look like: `<scw_database_id>.mgdb.<scw_region>.scw.cloud`
 
 Once you get the endpoint, keep it somewhere for later use.
 
 ## Step 2 - Function Creation
 
-Before creating a the Function, we need to package it into a zip file.
+Before creating the Function, we need to package it into a zip file.
 
 > [!TIP]
 > It's recommended to do it via command line tools, so the following example shows how to zip this current folder:
@@ -30,17 +30,17 @@ Before creating a the Function, we need to package it into a zip file.
 > ```
 
 - Create a Serverless Function namespace. [Documentation](https://www.scaleway.com/en/docs/serverless-functions/how-to/create-manage-delete-functions-namespace/#creating-a-serverless-functions-namespace)
-- In the created namespace, create a Serverless Function
-- Select the latest Go runtime
-- Upload the previously created `go-mongo.zip`
-- Ensure the handler is `Handle`
+- In the created namespace, create a Serverless Function.
+- Select the latest Go runtime.
+- Upload the previously created `go-mongo.zip`.
+- Ensure the handler is `Handle`.
 - Add required Secrets to the Function:
 
 | Key                   | Value                                                                                                          |
 | --------------------- | -------------------------------------------------------------------------------------------------------------- |
-| MONGO_PUBLIC_ENDPOINT | (replace with required values): `<scw_database_id>.mgdb.<scw_region>.scw.cloud` |
-| MONGO_USER            | user created during Mongo DB setup                                                                             |
-| MONGO_PASSWORD        | password created during Mongo DB user setup                                                                    |
+| MONGO_PUBLIC_ENDPOINT | (replace with required values): `<scw_database_id>.mgdb.<scw_region>.scw.cloud`                                  |
+| MONGO_USER            | user created during MongoDB setup                                                                              |
+| MONGO_PASSWORD        | password created during MongoDB user setup                                                                     |
 
 ## Step 3 - Test
 
@@ -54,6 +54,6 @@ Result should be similar to:
 
 ## Local testing
 
-For testing you can use [Go Offline Testing](https://github.com/scaleway/serverless-functions-go).
+For testing, you can use [Go Offline Testing](https://github.com/scaleway/serverless-functions-go).
 
 To run locally, execute: `go run cmd/main.go`.
