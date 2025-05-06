@@ -37,7 +37,7 @@ func init() {
 		panic("MONGO_USER is required")
 	}
 
-	mongoPassword := url.PathEscape(os.Getenv("MONGO_PASSWORD"))
+	mongoPassword := url.QueryEscape(os.Getenv("MONGO_PASSWORD"))
 	if mongoPassword == "" {
 		panic("MONGO_PASSWORD is required")
 	}
