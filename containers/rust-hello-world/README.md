@@ -5,7 +5,6 @@ This example demonstrates the deployment of a simple rust http service on Scalew
 This can be useful if you come from Serverless Functions and you need to install specific dependencies on your system.
 
 For this example, we will use the CLI to deploy the container, but you can use [other methods](https://www.scaleway.com/en/docs/serverless/containers/reference-content/deploy-container/).
-You can also use the CLI directly from Scaleway console without having to use your credentials.
 
 ## Workflow
 
@@ -43,10 +42,10 @@ To complete the actions presented below, you must have:
 
   At this point, you have correctly set up Docker to be able to push your image online.
 
-1. In a terminal, access this directory (containing the Dockerfile), and run the following command to build the image:
+1. In a terminal, access this directory (containing the Dockerfile), and run the following command to build and tag the image:
 
     ```bash
-    docker build -t crabnet:v1.0.0 .
+    docker docker build --platform linux/amd64 -t rg.fr-par.scw.cloud/hello-rust/crabnet:v1.0.0 .
     ```
 
 1. Tag and push the image to the registry namespace:
