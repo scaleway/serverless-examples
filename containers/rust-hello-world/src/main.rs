@@ -1,10 +1,12 @@
 use std::{
-    io::{prelude::*, BufReader},
+    env,
+    io::{BufReader, prelude::*},
     net::{TcpListener, TcpStream},
 };
 
 fn main() {
-    let listener = TcpListener::bind("127.0.0.1:8080").unwrap();
+    let port = env::var("PORT").unwrap_or_else(|_| "8080".to_string());
+    let listener = TcpListener::bind(format!("0.0.0.0:{}", port)).unwrap();
 
     for stream in listener.incoming() {
         let stream = stream.unwrap();
@@ -24,7 +26,7 @@ fn handle_connection(mut stream: TcpStream) {
         .collect();
 
     let status_line = "HTTP/1.1 200 OK";
-    let contents = "hello world";
+    let contents = "Hello from Scaleway!";
     let length = contents.len();
 
     let response = format!("{status_line}\r\nContent-Length: {length}\r\n\r\n{contents}");
