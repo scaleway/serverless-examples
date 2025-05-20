@@ -76,6 +76,7 @@ Table of Contents:
 | **[Terraform NGINX hello world](containers/terraform-nginx-hello-world/README.md)** <br/> A minimal example running the base NGINX image in a serverless container deployed with Terraform. | N/A          | [Terraform]            |
 | **[Triggers with Terraform](containers/terraform-triggers/README.md)** <br/> Configuring two SQS triggers, used to trigger two containers, one public, one private.                         | N/A          | [Terraform]            |
 | **[gRPC HTTP2 in Go](containers/grpc-http2-go/README.md)** <br/> A Go gRPC Container using http2                                                                                            | Go/Protobuf  | [CLI]                  |
+| **[.NET C#](containers/csharp-hello-world)** <br/> A .NET C# Container hello world                                                                                                          | C# .NET      | [CLI]                  |
 | **[Ruby Hello World](containers/ruby-hello-world/)** <br/> A simple Ruby Hello world Container                                                                                              | Ruby         | [CLI]                  |
 
 ### ⚙️ Jobs
