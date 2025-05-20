@@ -45,7 +45,7 @@ To complete the actions presented below, you must have:
 1. In a terminal, access this directory (containing the Dockerfile), and run the following command to build and tag the image:
 
     ```bash
-    docker docker build --platform linux/amd64 -t rg.fr-par.scw.cloud/hello-rust/crabnet:v1.0.0 .
+    docker build --platform linux/amd64 -t rg.fr-par.scw.cloud/hello-rust/crabnet:v1.0.0 .
     ```
 
 1. Tag and push the image to the registry namespace:
