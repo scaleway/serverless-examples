@@ -79,6 +79,7 @@ Table of Contents:
 | **[Rust hello world](containers/rust-hello-world)** <br/> A simple Rust hello world Container                                                                                               | Rust         | [CLI]                  |
 | **[.NET C#](containers/csharp-hello-world)** <br/> A .NET C# Container hello world                                                                                                          | C# .NET      | [CLI]                  |
 | **[Ruby Hello World](containers/ruby-hello-world/)** <br/> A simple Ruby Hello world Container                                                                                              | Ruby         | [CLI]                  |
+| **[Deploy Memos app](containers/memos-terraform/)** <br/> A journaling application with it's database deployed with Terraform                                                               | Terraform    | [Terraform]            |
 
 ### ⚙️ Jobs
 
