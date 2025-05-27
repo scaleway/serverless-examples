@@ -4,7 +4,7 @@
 
 ## Context
 
-Memos requires a database and can be deployed on Serverless Containers. For cost optimised setup, for persistent storage this tutorial takes advantage of Scaleway Serverless SQL Database. Serverless Containers associated with Serverless Databases makes the setup cost efficient due to pay per use products.
+Memos requires a database and can be deployed on Serverless Containers. For a cost-optimized setup with persistent storage, this tutorial takes advantage of Scaleway's Serverless SQL Database. Serverless Containers combined with Serverless Databases make the setup cost-efficient thanks to their pay-per-use model.
 
 ## Requirements
 
@@ -17,7 +17,7 @@ Memos requires a database and can be deployed on Serverless Containers. For cost
 * Create a new `memos` project
 * Create required IAM permissions and key
 * Create the Serverless SQL Database (postgres)
-* Create the Serverless Container running `memos` configured to use the created SQL Database
+* Create the Serverless Container running `memos` and configured to use the newly created SQL Database
 
 Deploy the project using Terraform:
 
@@ -28,7 +28,7 @@ terraform apply
 
 ## Delete changes
 
-In case you need to delete everything created before (Database, Container, IAM configuration and Project), run:
+In case you need to delete everything created earlier (Database, Container, IAM configuration and Project), run the following command:
 
 ```bash
 terraform destroy
