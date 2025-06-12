@@ -3,8 +3,8 @@ package main
 import (
 	"fmt"
 	"os"
-	"time"
 
+	"github.com/scaleway/scaleway-sdk-go/api/block/v1"
 	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
@@ -13,6 +13,7 @@ const (
 	envOrgID        = "SCW_DEFAULT_ORGANIZATION_ID"
 	envAccessKey    = "SCW_ACCESS_KEY"
 	envSecretKey    = "SCW_SECRET_KEY"
+	envProjectID    = "SCW_DEFAULT_PROJECT_ID"
 	envInstanceID   = "INSTANCE_ID"
 	envInstanceZone = "INSTANCE_ZONE"
 )
@@ -39,12 +40,14 @@ func main() {
 	// Create SDK objects for Scaleway Instance product
 	instanceAPI := instance.NewAPI(client)
 
-	if err := createSnapshots(instanceAPI); err != nil {
+	blockAPI := block.NewAPI(client)
+
+	if err := createSnapshots(instanceAPI, blockAPI); err != nil {
 		panic(err)
 	}
 }
 
-func createSnapshots(instanceAPI *instance.API) error {
+func createSnapshots(instanceAPI *instance.API, blockAPI *block.API) error {
 	gotInstance, err := instanceAPI.GetServer(&instance.GetServerRequest{
 		ServerID: os.Getenv("INSTANCE_ID"),
 		Zone:     scw.Zone(os.Getenv("INSTANCE_ZONE")),
@@ -53,25 +56,17 @@ func createSnapshots(instanceAPI *instance.API) error {
 		return fmt.Errorf("error while getting instance %w", err)
 	}
 
-	now := time.Now().Format(time.DateOnly)
-
 	for _, volume := range gotInstance.Server.Volumes {
-		snapshotName := fmt.Sprintf("snap-vol-%s-%s-%s",
-			volume.VolumeType.String(),
-			now,
-			os.Getenv(envInstanceZone))
-
-		snapshotResp, err := instanceAPI.CreateSnapshot(&instance.CreateSnapshotRequest{
-			Name:       snapshotName,
-			VolumeID:   &volume.ID,
-			VolumeType: instance.SnapshotVolumeType(volume.VolumeType),
-			Zone:       scw.Zone(os.Getenv(envInstanceZone)),
+		snapshotResp, err := blockAPI.CreateSnapshot(&block.CreateSnapshotRequest{
+			Zone:      scw.Zone(os.Getenv(envInstanceZone)),
+			VolumeID:  volume.ID,
+			ProjectID: os.Getenv(envProjectID),
 		})
 		if err != nil {
 			return fmt.Errorf("error while creating snapshot %w", err)
 		}
 
-		fmt.Println("created snapshot ", snapshotResp.Snapshot.ID)
+		fmt.Println("created snapshot ", snapshotResp.ID)
 	}
 
 	return nil
