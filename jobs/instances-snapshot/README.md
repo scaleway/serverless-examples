@@ -55,6 +55,7 @@ On Scaleway Console on the following link you can create a new Job Definition: h
 - `SCW_ACCESS_KEY`: your access key
 - `SCW_SECRET_KEY`: your secret key
 - `SCW_DEFAULT_ORGANIZATION_ID`: your organzation ID
+- `SCW_DEFAULT_PROJECT_ID`: your project ID
 
 * Then click "create job"
 
