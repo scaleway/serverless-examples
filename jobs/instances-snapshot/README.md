@@ -51,7 +51,7 @@ On Scaleway Console on the following link you can create a new Job Definition: h
 > For sensitive data like `SCW_ACCESS_KEY` and `SCW_SECRET_KEY` we recommend to inject them via Secret Manager, [more info here](https://www.scaleway.com/en/docs/serverless/jobs/how-to/reference-secret-in-job/).
 
 - `INSTANCE_ID`: grab the instance ID you want to create snapshots from
-- `INSTANCE_ZONE`: you need to give the ZONE of you instance, like `fr-par-2`
+- `SCW_ZONE`: you need to give the ZONE of you instance, like `fr-par-2`
 - `SCW_ACCESS_KEY`: your access key
 - `SCW_SECRET_KEY`: your secret key
 - `SCW_DEFAULT_ORGANIZATION_ID`: your organzation ID
