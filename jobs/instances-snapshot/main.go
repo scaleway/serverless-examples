@@ -13,8 +13,8 @@ const (
 	envOrgID        = "SCW_DEFAULT_ORGANIZATION_ID"
 	envAccessKey    = "SCW_ACCESS_KEY"
 	envSecretKey    = "SCW_SECRET_KEY"
+	envInstanceZone = "SCW_ZONE"
 	envInstanceID   = "INSTANCE_ID"
-	envInstanceZone = "INSTANCE_ZONE"
 )
 
 func main() {
@@ -46,8 +46,8 @@ func main() {
 
 func createSnapshots(instanceAPI *instance.API) error {
 	gotInstance, err := instanceAPI.GetServer(&instance.GetServerRequest{
-		ServerID: os.Getenv("INSTANCE_ID"),
-		Zone:     scw.Zone(os.Getenv("INSTANCE_ZONE")),
+		ServerID: os.Getenv(envInstanceID),
+		Zone:     scw.Zone(os.Getenv(envInstanceZone)),
 	})
 	if err != nil {
 		return fmt.Errorf("error while getting instance %w", err)

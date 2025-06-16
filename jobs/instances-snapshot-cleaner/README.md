@@ -51,7 +51,7 @@ On Scaleway Console on the following link you can create a new Job Definition: h
 > For sensitive data like `SCW_ACCESS_KEY` and `SCW_SECRET_KEY` we recommend to inject them via Secret Manager, [more info here](https://www.scaleway.com/en/docs/serverless/jobs/how-to/reference-secret-in-job/).
 
 - `SCW_DELETE_AFTER_DAYS`: number of days after the snapshots will be deleted
-- `SCW_PROJECT_ID`: project you want to clean up
+- `SCW_DEFAULT_PROJECT_ID`: project you want to clean up
 - `SCW_ZONE`: you need to give the ZONE of your snapshot you want to clean, like `fr-par-2`
 - `SCW_ACCESS_KEY`: your access key
 - `SCW_SECRET_KEY`: your secret key

@@ -16,7 +16,7 @@ const (
 	envOrgID     = "SCW_DEFAULT_ORGANIZATION_ID"
 	envAccessKey = "SCW_ACCESS_KEY"
 	envSecretKey = "SCW_SECRET_KEY"
-	envProjectID = "SCW_PROJECT_ID"
+	envProjectID = "SCW_DEFAULT_PROJECT_ID"
 	envZone      = "SCW_ZONE"
 
 	// envDeleteAfter name of env variable to deleter older images.
