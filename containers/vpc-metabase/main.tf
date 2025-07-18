@@ -1,6 +1,6 @@
 locals {
   name                = "metabase-example"
-  db_postgres_version = "15"
+  db_postgres_version = "16"
   base_tags           = ["metabase", "vpc"]
 }
 
