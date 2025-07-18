@@ -4,8 +4,9 @@ variable "db_admin_username" {
 }
 
 variable "db_admin_password" {
-  type      = string
-  sensitive = true
+  type        = string
+  sensitive   = true
+  description = "The password for the database administrator. This value is sensitive and should be kept secure."
 }
 
 variable "db_username" {
