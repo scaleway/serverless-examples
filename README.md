@@ -80,6 +80,7 @@ Table of Contents:
 | **[.NET C#](containers/csharp-hello-world)** <br/> A .NET C# Container hello world                                                                                                          | C# .NET      | [CLI]                  |
 | **[Ruby Hello World](containers/ruby-hello-world/)** <br/> A simple Ruby Hello world Container                                                                                              | Ruby         | [CLI]                  |
 | **[Deploy Memos app](containers/memos-terraform/)** <br/> A journaling application with its database deployed with Terraform                                                               | Terraform    | [Terraform]            |
+| **[Metabase on VPC](containers/vpc-metabase/README.md)** <br/> A Metabase instance running in a private network with a PostgreSQL database.                                               | N/A          | [Terraform]            |
 
 ### ⚙️ Jobs
 
