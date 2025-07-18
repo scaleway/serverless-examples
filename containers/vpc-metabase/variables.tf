@@ -15,6 +15,7 @@ variable "db_username" {
 }
 
 variable "db_password" {
-  type      = string
-  sensitive = true
+  type        = string
+  sensitive   = true
+  description = "The password for the Metabase database user."
 }
