@@ -1,11 +1,16 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"os"
+	"slices"
 
 	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
+
+	"github.com/minio/minio-go/v7"
+	"github.com/minio/minio-go/v7/pkg/credentials"
 )
 
 // Environment variable constants used to configure the Scaleway API client.
@@ -29,11 +34,11 @@ const (
 	// envBucket is a custom environment variable for specifying the name of an S3-compatible bucket.
 	// This is not a standard Scaleway variable and is application-specific.
 	envBucket = "SCW_BUCKET_NAME"
+
+	envBucketEndpoint = "SCW_BUCKET_ENDPOINT"
 )
 
 func main() {
-	fmt.Println("moving snapshots to s3...")
-
 	// Create a Scaleway client with credentials from environment variables.
 	client, err := scw.NewClient(
 		// Get your organization ID at https://console.scaleway.com/organization/settings
@@ -52,25 +57,50 @@ func main() {
 		panic(err)
 	}
 
+	fmt.Println("Initializing instance API...")
+
 	instanceAPI := instance.NewAPI(client)
+
+	fmt.Println("Reading all snapshots for the project...")
 
 	snapList, err := instanceAPI.ListSnapshots(&instance.ListSnapshotsRequest{}, scw.WithAllPages())
 	if err != nil {
 		panic(err)
 	}
 
-	fmt.Printf("number of snapshots: %d\n", snapList.TotalCount)
+	fmt.Println("Reading all snapshots already in the bucket...")
+
+	filesInBucket, err := listBucketFiles()
+	if err != nil {
+		panic(err)
+	}
+
+	const snapshotExtension = ".qcow2"
 
 	for _, snapshot := range snapList.Snapshots {
-		fmt.Printf("snap %s\n", snapshot.Name)
+		fmt.Printf("Checking for snapshot %s\n", snapshot.Name)
 
 		if snapshot.State == instance.SnapshotStateAvailable {
-			fmt.Printf("Exporting snapshot %s (ID: %s) to bucket %s...\n", snapshot.Name, snapshot.ID, os.Getenv(envBucket))
+			// Check if file already exists in bucket
+			if slices.Contains(filesInBucket, snapshot.Name+snapshotExtension) {
+				fmt.Printf("File %s already exists in bucket, can delete the snapshot and skip it\n", snapshot.Name+snapshotExtension)
+
+				err = instanceAPI.DeleteSnapshot(&instance.DeleteSnapshotRequest{
+					SnapshotID: snapshot.ID,
+				})
+				if err != nil {
+					panic(err)
+				}
+
+				continue
+			}
+
+			fmt.Printf("File %s not present in the  bucket, expording it to the bucket...\n", snapshot.Name+".qcow2")
 
 			snap, err := instanceAPI.ExportSnapshot(&instance.ExportSnapshotRequest{
 				SnapshotID: snapshot.ID,
 				Bucket:     os.Getenv(envBucket),
-				Key:        snapshot.Name + ".qcow2",
+				Key:        snapshot.Name + snapshotExtension,
 			})
 			if err != nil {
 				fmt.Printf("Failed to export snapshot %s: %v\n", snapshot.Name, err)
@@ -87,11 +117,57 @@ func main() {
 
 // Check for mandatory variables before starting to work.
 func init() {
-	mandatoryVariables := [...]string{envOrgID, envAccessKey, envSecretKey, envZone, envProjectID, envBucket}
+	mandatoryVariables := [...]string{
+		envOrgID,
+		envAccessKey,
+		envSecretKey,
+		envZone,
+		envProjectID,
+		envBucket,
+		envBucketEndpoint,
+	}
 
 	for idx := range mandatoryVariables {
 		if os.Getenv(mandatoryVariables[idx]) == "" {
 			panic("missing environment variable " + mandatoryVariables[idx])
 		}
 	}
+}
+
+func listBucketFiles() ([]string, error) {
+	// Retrieve S3-compatible endpoint and credentials from environment
+	endpoint := os.Getenv(envBucketEndpoint)
+	accessKeyID := os.Getenv(envAccessKey)
+	secretAccessKey := os.Getenv(envSecretKey)
+
+	// Create new MinIO client
+	minioClient, err := minio.New(endpoint, &minio.Options{
+		Creds:  credentials.NewStaticV4(accessKeyID, secretAccessKey, ""),
+		Secure: true,
+	})
+	if err != nil {
+		return nil, err
+	}
+
+	// Set up context and result slice
+	ctx := context.Background()
+	var files []string
+
+	// Channel to signal listing completion
+	doneCh := make(chan struct{})
+	defer close(doneCh)
+
+	// List all objects in the bucket
+	for object := range minioClient.ListObjects(ctx, os.Getenv(envBucket), minio.ListObjectsOptions{
+		Recursive:    false,
+		WithMetadata: true,
+	}) {
+		if object.Err != nil {
+			return nil, object.Err
+		}
+
+		files = append(files, object.Key)
+	}
+
+	return files, nil
 }
