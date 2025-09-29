@@ -10,6 +10,8 @@ def handle(event, context):
         },
     }
 
+
 if __name__ == "__main__":
     from scaleway_functions_python import local
+
     local.serve_handler(handle)
