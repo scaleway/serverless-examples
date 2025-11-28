@@ -30,7 +30,7 @@ Table of Contents:
 <!-- markdownlint-disable MD033 -->
 
 | Example                                                                                                                                                                               | Runtime   | Deployment             |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------- | ---------------------- |
+|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------|------------------------|
 | **[Badge PHP](functions/badge-php/README.md)** <br/> A PHP function to generate repository badges.                                                                                    | php82     | [Serverless Framework] |
 | **[CORS Go](functions/cors-go/README.md)** <br/> A Go function which allows CORS requests.                                                                                            | go122     | [Serverless Framework] |
 | **[CORS Node](functions/cors-node/README.md)** <br/> A Node function which allows CORS requests.                                                                                      | node18    | [Serverless Framework] |
@@ -66,27 +66,28 @@ Table of Contents:
 
 ### 📦 Containers
 
-| Example                                                                                                                                                                                     | Language     | Deployment             |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ | ---------------------- |
-| **[Container Bash Script](containers/bash-scheduled-job/README.md)** <br/> A Bash script runnning on a schedule using serverless containers.                                                | Bash         | [Serverless Framework] |
-| **[Function Handler Java](containers/function-handler-java/README.md)** <br/> A Java function handler deployed on CaaS.                                                                     | Java         | [Serverless Framework] |
-| **[NGINX CORS Private](containers/nginx-cors-private-python/README.md)** <br/> An NGINX proxy to allow CORS requests to a private container.                                                | Python Flask | [Terraform]            |
-| **[NGINX hello world](containers/nginx-hello-world/README.md)** <br/> A minimal example running the base NGINX image in a serverless container.                                             | N/A          | [Serverless Framework] |
-| **[Python hello world](containers/python-hello-world/README.md)** <br/> A minimal example running a Flask HTTP server in a serverless container.                                            | Python       | [Serverless Framework] |
-| **[Python S3 upload](containers/python-s3-upload/README.md)** <br/> A Python + Flask HTTP server that receives file uploads and writes them to S3.                                          | Python       | [Terraform]            |
-| **[Terraform NGINX hello world](containers/terraform-nginx-hello-world/README.md)** <br/> A minimal example running the base NGINX image in a serverless container deployed with Terraform. | N/A          | [Terraform]            |
-| **[Triggers with Terraform](containers/terraform-triggers/README.md)** <br/> Configuring two SQS triggers, used to trigger two containers, one public, one private.                         | N/A          | [Terraform]            |
-| **[gRPC HTTP2 in Go](containers/grpc-http2-go/README.md)** <br/> A Go gRPC Container using http2                                                                                            | Go/Protobuf  | [CLI]                  |
-| **[Rust hello world](containers/rust-hello-world)** <br/> A simple Rust hello world Container                                                                                               | Rust         | [CLI]                  |
-| **[.NET C#](containers/csharp-hello-world)** <br/> A .NET C# Container hello world                                                                                                          | C# .NET      | [CLI]                  |
-| **[Ruby Hello World](containers/ruby-hello-world/)** <br/> A simple Ruby Hello world Container                                                                                              | Ruby         | [CLI]                  |
-| **[Deploy Memos app](containers/memos-terraform/)** <br/> A journaling application with its database deployed with Terraform                                                               | Terraform    | [Terraform]            |
-| **[Metabase on VPC](containers/vpc-metabase/README.md)** <br/> A Metabase instance running in a private network with a PostgreSQL database.                                               | N/A          | [Terraform]            |
+| Example                                                                                                                                                                                     | Language           | Deployment             |
+|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------|------------------------|
+| **[Container Bash Script](containers/bash-scheduled-job/README.md)** <br/> A Bash script runnning on a schedule using serverless containers.                                                | Bash               | [Serverless Framework] |
+| **[Function Handler Java](containers/function-handler-java/README.md)** <br/> A Java function handler deployed on CaaS.                                                                     | Java               | [Serverless Framework] |
+| **[NGINX CORS Private](containers/nginx-cors-private-python/README.md)** <br/> An NGINX proxy to allow CORS requests to a private container.                                                | Python Flask       | [Terraform]            |
+| **[NGINX hello world](containers/nginx-hello-world/README.md)** <br/> A minimal example running the base NGINX image in a serverless container.                                             | N/A                | [Serverless Framework] |
+| **[Python hello world](containers/python-hello-world/README.md)** <br/> A minimal example running a Flask HTTP server in a serverless container.                                            | Python             | [Serverless Framework] |
+| **[Python S3 upload](containers/python-s3-upload/README.md)** <br/> A Python + Flask HTTP server that receives file uploads and writes them to S3.                                          | Python             | [Terraform]            |
+| **[Terraform NGINX hello world](containers/terraform-nginx-hello-world/README.md)** <br/> A minimal example running the base NGINX image in a serverless container deployed with Terraform. | N/A                | [Terraform]            |
+| **[Triggers with Terraform](containers/terraform-triggers/README.md)** <br/> Configuring two SQS triggers, used to trigger two containers, one public, one private.                         | N/A                | [Terraform]            |
+| **[gRPC HTTP2 in Go](containers/grpc-http2-go/README.md)** <br/> A Go gRPC Container using http2                                                                                            | Go/Protobuf        | [CLI]                  |
+| **[Rust hello world](containers/rust-hello-world)** <br/> A simple Rust hello world Container                                                                                               | Rust               | [CLI]                  |
+| **[.NET C#](containers/csharp-hello-world)** <br/> A .NET C# Container hello world                                                                                                          | C# .NET            | [CLI]                  |
+| **[Ruby Hello World](containers/ruby-hello-world/)** <br/> A simple Ruby Hello world Container                                                                                              | Ruby               | [CLI]                  |
+| **[Deploy Memos app](containers/memos-terraform/)** <br/> A journaling application with its database deployed with Terraform                                                                | Terraform          | [Terraform]            |
+| **[Metabase on VPC](containers/vpc-metabase/README.md)** <br/> A Metabase instance running in a private network with a PostgreSQL database.                                                 | N/A                | [Terraform]            |
+| **[MongoDB on VPC](containers/vpc-mongodb/README.md)** <br/> A MongoDB instance running in a private network with a sample application connecting to it.                                    | TypeScript on Deno | [Terraform]            |
 
 ### ⚙️ Jobs
 
 | Example                                                                                                                                                                    | Language | Deployment                  |
-| -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- | --------------------------- |
+|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------|-----------------------------|
 | **[Serverless Jobs Hello World](jobs/terraform-hello-world/README.md)** <br/> An example of building a container image and running it as a Serverless Job using Terraform. | N/A      | [Terraform]-[Console]       |
 | **[Serverless MLOps](jobs/ml-ops/README.md)** <br/> An example of running a Serverless Machine Leaning workflow.                                                           | Python   | [Terraform]-[Console]-[CLI] |
 | **[Auto Snapshot Instances](jobs/instances-snapshot/README.md)** <br/> Use Serverless Jobs to create snapshots of your instances                                           | Go       | [Console]                   |
@@ -97,7 +98,7 @@ Table of Contents:
 ### 💬 Messaging and Queueing
 
 | Example                                                                                                                                                | Services         | Language | Deployment  |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------------- | -------- | ----------- |
+|--------------------------------------------------------------------------------------------------------------------------------------------------------|------------------|----------|-------------|
 | **[Manage large message](mnq/large-messages/README.md)** <br/> An example of infrastructure to manage large messages.                                  | PaaS & S3        | Python   | [Terraform] |
 | **[Serverless scraping](mnq/serverless-scraping/README.md)** <br/> An example of infrastructure to scrape the hackernews website.                      | PaaS & RDB       | Python   | [Terraform] |
 | **[SNS Instances Notification System](mnq/sns-instances-notification-system/README.md)** <br/> An example of infrastructure to use SNS with Instances. | PaaS & Instances | Golang   | [Terraform] |
@@ -105,7 +106,7 @@ Table of Contents:
 ### 💜 Projects
 
 | Example                                                                                                                                   | Services    | Language | Deployment             |
-| ----------------------------------------------------------------------------------------------------------------------------------------- | ----------- | -------- | ---------------------- |
+|-------------------------------------------------------------------------------------------------------------------------------------------|-------------|----------|------------------------|
 | **[Kong API Gateway](projects/kong-api-gateway/README.md)** <br/> Deploying a Kong Gateway on containers to provide routing to functions. | CaaS & FaaS | Python   | [Serverless Framework] |
 | **[Serverless Gateway](https://github.com/scaleway/serverless-gateway)** <br/> Our serverless gateway for functions and containers.       | API Gateway | Python   | [Python API Framework] |
 | **[Monitoring Glaciers](projects/blogpost-glacier/README.md)** <br/> A project to monitor glaciers and the impact of global warming.      | S3 & RDB    | Golang   | [Serverless Framework] |
