@@ -82,7 +82,7 @@ Table of Contents:
 | **[Ruby Hello World](containers/ruby-hello-world/)** <br/> A simple Ruby Hello world Container                                                                                              | Ruby               | [CLI]                  |
 | **[Deploy Memos app](containers/memos-terraform/)** <br/> A journaling application with its database deployed with Terraform                                                                | Terraform          | [Terraform]            |
 | **[Metabase on VPC](containers/vpc-metabase/README.md)** <br/> A Metabase instance running in a private network with a PostgreSQL database.                                                 | N/A                | [Terraform]            |
-| **[MongoDB on VPC](containers/vpc-mongodb/README.md)** <br/> A MongoDB instance running in a private network with a sample application connecting to it.                                    | TypeScript on Deno | [Terraform]            |
+| **[MongoDB® on VPC](containers/vpc-mongodb/README.md)** <br/> A MongoDB® instance running in a private network with a sample application connecting to it.                                  | TypeScript on Deno | [Terraform]            |
 
 ### ⚙️ Jobs
 
