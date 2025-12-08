@@ -1,0 +1,10 @@
+{
+  "tasks": {
+    "dev": "deno run --watch main.ts"
+  },
+  "imports": {
+    "@std/assert": "jsr:@std/assert@1",
+    "@std/random": "jsr:@std/random@^0.1.4",
+    "mongoose": "npm:mongoose@^8.20.1"
+  }
+}
