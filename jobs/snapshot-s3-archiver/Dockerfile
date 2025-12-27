@@ -1,16 +1,27 @@
-# Using apline/golang image
-FROM golang:1.25-alpine
+# Build stage
+FROM golang:1.25-alpine AS builder
 
-# Set destination for COPY
 WORKDIR /app
 
 # Copy required files
-COPY go.mod ./
-COPY go.sum ./
-COPY main.go ./
+COPY go.mod go.sum ./
+RUN go mod download
+
+COPY *.go ./
 
 # Build the executable
-RUN go build -o /jobs-snapshot-s3
+RUN CGO_ENABLED=0 GOOS=linux go build -o /jobs-snapshot-s3
+
+# Final stage
+FROM alpine:latest
+
+WORKDIR /app
+
+# Install CA certificates for HTTPS
+RUN apk --no-cache add ca-certificates
+
+# Copy the binary from the builder stage
+COPY --from=builder /jobs-snapshot-s3 /app/jobs-snapshot-s3
 
 # Run the executable
-ENTRYPOINT [ "/jobs-snapshot-s3" ]
+ENTRYPOINT [ "/app/jobs-snapshot-s3" ]
