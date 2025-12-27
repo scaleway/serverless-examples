@@ -1,8 +1,8 @@
 module github.com/scaleway/serverless-examples/jobs/instances-snapshot
 
-go 1.24
+go 1.25
 
-require github.com/scaleway/scaleway-sdk-go v1.0.0-beta.33
+require github.com/scaleway/scaleway-sdk-go v1.0.0-beta.36
 
 require (
 	github.com/kr/pretty v0.3.1 // indirect

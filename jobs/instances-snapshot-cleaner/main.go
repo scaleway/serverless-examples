@@ -85,6 +85,7 @@ func main() {
 // that are older than the number of days.
 func cleanSnapshots(days int, instanceAPI *instance.API) error {
 	// Get the list of all snapshots
+	// TODO: use block api here?
 	snapshotsList, err := instanceAPI.ListSnapshots(&instance.ListSnapshotsRequest{
 		Zone:    scw.Zone(os.Getenv(envZone)),
 		Project: scw.StringPtr(os.Getenv(envProjectID)),
