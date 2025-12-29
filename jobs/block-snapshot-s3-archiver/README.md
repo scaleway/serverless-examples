@@ -1,4 +1,4 @@
-# Scaleway Instance Snapshot Archiver
+# Scaleway Block Storage Snapshot Archiver
 
 Automated Serverless Job to archive Scaleway Block Storage snapshots to Object Storage S3.
 
