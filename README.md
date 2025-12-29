@@ -94,6 +94,7 @@ Table of Contents:
 | **[Instance Snapshot Cleaner](jobs/instances-snapshot-cleaner/README.md)** <br/> Use Serverless Jobs to clean old instances snapshots                                      | Go       | [Console]                   |
 | **[Registry Tag Cleaner](jobs/registry-version-based-retention/README.md)** <br/> Use Serverless Jobs to keep a desired amount of tags for each image                      | Go       | [Console]                   |
 | **[Registry Empty Image Cleaner](jobs/registry-empty-ressource-cleaner/README.md)** <br/> Use Serverless Jobs to clean container registry empty namespaces and images      | Go       | [Console]                   |
+| **[Block snapshots to S3](jobs/block-snapshot-s3-archiver/README.md)** <br/> Use Serverless Jobs to move Block Storage snapshots to S3 Object Storage                      | Go       | [Console]                   |
 
 ### 💬 Messaging and Queueing
 
