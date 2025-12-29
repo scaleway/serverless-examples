@@ -10,7 +10,7 @@ RUN go mod download
 COPY *.go ./
 
 # Build the executable
-RUN CGO_ENABLED=0 GOOS=linux go build -o /jobs-snapshot
+RUN CGO_ENABLED=0 GOOS=linux go build -o /jobs-snapshot-s3
 
 # Final stage
 FROM alpine:latest
@@ -21,7 +21,7 @@ WORKDIR /app
 RUN apk --no-cache add ca-certificates
 
 # Copy the binary from the builder stage
-COPY --from=builder /jobs-snapshot /app/jobs-snapshot
+COPY --from=builder /jobs-snapshot-s3 /app/jobs-snapshot-s3
 
 # Run the executable
-ENTRYPOINT [ "/app/jobs-snapshot" ]
+ENTRYPOINT [ "/app/jobs-snapshot-s3" ]

@@ -1,9 +1,11 @@
 package main
 
 import (
+	"context"
 	"encoding/json"
 	"errors"
 	"fmt"
+	"log/slog"
 	"os"
 	"strconv"
 	"time"
@@ -18,6 +20,7 @@ const (
 	envSecretKey = "SCW_SECRET_KEY"
 	envProjectID = "SCW_DEFAULT_PROJECT_ID"
 	envZone      = "SCW_ZONE"
+	envLogLevel  = "LOG_LEVEL"
 
 	// envDeleteAfter name of env variable to deleter older images.
 	envDeleteAfter = "SCW_DELETE_AFTER_DAYS"
@@ -26,8 +29,28 @@ const (
 	defaultDaysDeleteAfter = int(90)
 )
 
+var logger *slog.Logger
+
 func main() {
-	fmt.Println("cleaning instances snapshots...")
+	// Initialize structured logger
+	logLevel := slog.LevelInfo
+	if lvl := os.Getenv(envLogLevel); lvl != "" {
+		switch lvl {
+		case "DEBUG":
+			logLevel = slog.LevelDebug
+		case "WARN":
+			logLevel = slog.LevelWarn
+		case "ERROR":
+			logLevel = slog.LevelError
+		}
+	}
+
+	h := slog.NewJSONHandler(os.Stdout, &slog.HandlerOptions{Level: logLevel})
+	logger = slog.New(h)
+	slog.SetDefault(logger)
+
+	ctx := context.Background()
+	logger.InfoContext(ctx, "starting instances snapshots cleaner")
 
 	// Create a Scaleway client with credentials from environment variables.
 	client, err := scw.NewClient(
@@ -42,6 +65,7 @@ func main() {
 		scw.WithDefaultRegion(scw.RegionFrPar),
 	)
 	if err != nil {
+		logger.ErrorContext(ctx, "failed to create scaleway client", "error", err)
 		panic(err)
 	}
 
@@ -55,35 +79,41 @@ func main() {
 	if deleteAfterDaysVar != "" {
 		deleteAfterDays, err = strconv.Atoi(deleteAfterDaysVar)
 		if err != nil {
+			logger.ErrorContext(ctx, "failed to parse delete after days", "value", deleteAfterDaysVar, "error", err)
 			panic(err)
 		}
 	}
 
-	if err := cleanSnapshots(deleteAfterDays, instanceAPI); err != nil {
+	logger.InfoContext(ctx, "cleaning snapshots", "delete_after_days", deleteAfterDays)
+
+	if err := cleanSnapshotsWithLogging(ctx, deleteAfterDays, instanceAPI); err != nil {
 		var precondErr *scw.PreconditionFailedError
 
 		if errors.As(err, &precondErr) {
-			fmt.Println("\nExtracted Error Details:")
-			fmt.Println("Precondition:", precondErr.Precondition)
-			fmt.Println("Help Message:", precondErr.HelpMessage)
+			logger.ErrorContext(ctx, "scaleway precondition failed",
+				"precondition", precondErr.Precondition,
+				"help_message", precondErr.HelpMessage)
 
 			// Decode RawBody (if available)
 			if len(precondErr.RawBody) > 0 {
 				var parsedBody map[string]interface{}
 				if json.Unmarshal(precondErr.RawBody, &parsedBody) == nil {
-					fmt.Println("RawBody (Decoded):", parsedBody)
+					logger.ErrorContext(ctx, "scaleway error raw body", "body", parsedBody)
 				} else {
-					fmt.Println("RawBody (Raw):", string(precondErr.RawBody))
+					logger.ErrorContext(ctx, "scaleway error raw body", "body", string(precondErr.RawBody))
 				}
 			}
 		}
+		logger.ErrorContext(ctx, "failed to clean snapshots", "error", err)
 		panic(err)
 	}
+
+	logger.InfoContext(ctx, "successfully cleaned snapshots")
 }
 
-// cleanSnapshots when called will clean snapshots in the project (if specified)
+// cleanSnapshotsWithLogging when called will clean snapshots in the project (if specified)
 // that are older than the number of days.
-func cleanSnapshots(days int, instanceAPI *instance.API) error {
+func cleanSnapshotsWithLogging(ctx context.Context, days int, instanceAPI *instance.API) error {
 	// Get the list of all snapshots
 	snapshotsList, err := instanceAPI.ListSnapshots(&instance.ListSnapshotsRequest{
 		Zone:    scw.Zone(os.Getenv(envZone)),
@@ -102,7 +132,10 @@ func cleanSnapshots(days int, instanceAPI *instance.API) error {
 	for _, snapshot := range snapshotsList.Snapshots {
 		// Check if snapshot is in ready state and if it's older than the number of days definied.
 		if snapshot.State == instance.SnapshotStateAvailable && (currentTime.Sub(*snapshot.CreationDate).Hours()/hoursPerDay) > float64(days) {
-			fmt.Printf("\nDeleting snapshot <%s>:%s created at: %s\n", snapshot.ID, snapshot.Name, snapshot.CreationDate.Format(time.RFC3339))
+			logger.InfoContext(ctx, "deleting snapshot",
+				"id", snapshot.ID,
+				"name", snapshot.Name,
+				"created_at", snapshot.CreationDate.Format(time.RFC3339))
 
 			// Delete snapshot found.
 			err := instanceAPI.DeleteSnapshot(&instance.DeleteSnapshotRequest{
