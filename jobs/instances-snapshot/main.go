@@ -97,7 +97,7 @@ func createSnapshots(ctx context.Context, instanceAPI *instance.API, blockAPI *b
 			Zone:      zone,
 			VolumeID:  volume.ID,
 			ProjectID: os.Getenv(envProjectID),
-			Name:      fmt.Sprintf("snapshot-%s-%s", volumeHydrated.Name, time.Now().Format("2006-01-02")),
+			Name:      fmt.Sprintf("snapshot-%s-%s", volumeHydrated.Name, time.Now().UTC().Format(time.RFC3339)),
 		}, scw.WithContext(ctx))
 		if err != nil {
 			return fmt.Errorf("error while creating snapshot: %w", err)
