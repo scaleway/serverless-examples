@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log/slog"
 	"os"
+	"time"
 
 	"github.com/scaleway/scaleway-sdk-go/api/block/v1"
 	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
@@ -81,11 +82,22 @@ func createSnapshots(ctx context.Context, instanceAPI *instance.API, blockAPI *b
 	}
 
 	for _, volume := range gotInstance.Server.Volumes {
+		slog.Info("getting volume informations", "volume_id", volume.ID)
+
+		volumeHydrated, err := blockAPI.GetVolume(&block.GetVolumeRequest{
+			VolumeID: volume.ID,
+			Zone:     zone,
+		})
+		if err != nil {
+			return fmt.Errorf("erro while reading volume informations: %w", err)
+		}
+
 		slog.Info("creating snapshot for volume", "volume_id", volume.ID)
 		snapshotResp, err := blockAPI.CreateSnapshot(&block.CreateSnapshotRequest{
 			Zone:      zone,
 			VolumeID:  volume.ID,
 			ProjectID: os.Getenv(envProjectID),
+			Name:      fmt.Sprintf("snapshot-%s-%s", volumeHydrated.Name, time.Now().UTC().Format(time.RFC3339)),
 		}, scw.WithContext(ctx))
 		if err != nil {
 			return fmt.Errorf("error while creating snapshot: %w", err)
