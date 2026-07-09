@@ -1,10 +1,6 @@
 # Node.js
 node_modules/
 
-# direnv
-.envrc
-.direnv/
-
 # Local .terraform directories
 .terraform/
 
