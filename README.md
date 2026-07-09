@@ -83,6 +83,7 @@ Table of Contents:
 | **[Deploy Memos app](containers/memos-terraform/)** <br/> A journaling application with its database deployed with Terraform                                                                | Terraform          | [Terraform]            |
 | **[Metabase on VPC](containers/vpc-metabase/README.md)** <br/> A Metabase instance running in a private network with a PostgreSQL database.                                                 | N/A                | [Terraform]            |
 | **[MongoDB® on VPC](containers/vpc-mongodb/README.md)** <br/> A MongoDB® instance running in a private network with a sample application connecting to it.                                  | TypeScript on Deno | [Terraform]            |
+| **[pg-connection-retry](containers/pg-connection-retry/README.md)** <br/> A Node.js container that retries its VPC connection to a Postgres database on startup.                             | Node.js            | [Terraform]            |
 
 ### ⚙️ Jobs
 
