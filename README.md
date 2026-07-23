@@ -83,6 +83,7 @@ Table of Contents:
 | **[Deploy Memos app](containers/memos-terraform/)** <br/> A journaling application with its database deployed with Terraform                                                                | Terraform          | [Terraform]            |
 | **[Metabase on VPC](containers/vpc-metabase/README.md)** <br/> A Metabase instance running in a private network with a PostgreSQL database.                                                 | N/A                | [Terraform]            |
 | **[MongoDB® on VPC](containers/vpc-mongodb/README.md)** <br/> A MongoDB® instance running in a private network with a sample application connecting to it.                                  | TypeScript on Deno | [Terraform]            |
+| **[FastAPI Streaming (SSE)](containers/python-fastapi-stream/README.md)** <br/> A FastAPI container streaming Server-Sent Events to debug proxy buffering and connection timeouts.          | Python             | [CLI]                  |
 
 ### ⚙️ Jobs
 

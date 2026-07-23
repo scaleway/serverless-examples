@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FastAPI Streaming Test</title>
+    <style>
+        :root {
+            font-family: system-ui, -apple-system, sans-serif;
+            background: #1a1a2e;
+            color: #e0e0e0;
+        }
+        body {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        h1 { color: #7ec8e3; }
+        .controls {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            align-items: flex-end;
+            margin-bottom: 1.5rem;
+        }
+        label {
+            display: flex;
+            flex-direction: column;
+            font-size: 0.85rem;
+            gap: 0.25rem;
+        }
+        input, button {
+            padding: 0.5rem;
+            border: 1px solid #444;
+            border-radius: 6px;
+            background: #16213e;
+            color: #e0e0e0;
+            font-size: 0.95rem;
+        }
+        input { width: 100px; }
+        button {
+            cursor: pointer;
+            background: #0f3460;
+            color: #7ec8e3;
+            font-weight: bold;
+            border: none;
+            padding: 0.55rem 1.2rem;
+        }
+        button:hover { background: #1a4a7a; }
+        button:disabled { opacity: 0.5; cursor: not-allowed; }
+        #stop { background: #5a1a1a; color: #ff9999; }
+        #stop:hover { background: #7a2a2a; }
+        #status {
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            color: #aaa;
+        }
+        #events {
+            background: #0f0f23;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 1rem;
+            height: 400px;
+            overflow-y: auto;
+            font-family: "SF Mono", "Fira Code", monospace;
+            font-size: 0.85rem;
+            line-height: 1.5;
+        }
+        .event {
+            margin-bottom: 0.3rem;
+            padding: 0.3rem 0.5rem;
+            border-radius: 4px;
+            background: #1a1a3e;
+        }
+        .event.done { color: #7ec8e3; font-weight: bold; }
+        .event.error { color: #ff6b6b; }
+        .meta { color: #888; font-size: 0.8rem; }
+    </style>
+</head>
+<body>
+    <h1>FastAPI Streaming Test</h1>
+
+    <div class="controls">
+        <label>
+            Chunks
+            <input type="number" id="chunks" value="10" min="1" max="10000">
+        </label>
+        <label>
+            Delay (s)
+            <input type="number" id="delay" value="1" min="0" step="0.1">
+        </label>
+        <button id="start">Start Stream</button>
+        <button id="stop" disabled>Stop</button>
+        <button id="clear">Clear</button>
+    </div>
+
+    <div id="status">Ready.</div>
+    <div id="events"></div>
+
+    <script>
+        const startBtn = document.getElementById('start');
+        const stopBtn  = document.getElementById('stop');
+        const clearBtn = document.getElementById('clear');
+        const statusEl = document.getElementById('status');
+        const eventsEl = document.getElementById('events');
+        let controller = null;
+
+        function setStatus(msg) { statusEl.textContent = msg; }
+
+        function addEvent(text, cls = '') {
+            const div = document.createElement('div');
+            div.className = 'event ' + cls;
+            div.textContent = text;
+            eventsEl.appendChild(div);
+            eventsEl.scrollTop = eventsEl.scrollHeight;
+        }
+
+        clearBtn.addEventListener('click', () => { eventsEl.innerHTML = ''; });
+
+        startBtn.addEventListener('click', async () => {
+            const chunks = document.getElementById('chunks').value;
+            const delay  = document.getElementById('delay').value;
+            const url = `/public/completions?chunks=${chunks}&delay=${delay}`;
+
+            startBtn.disabled = true;
+            stopBtn.disabled = false;
+            eventsEl.innerHTML = '';
+            setStatus(`Connecting to ${url} ...`);
+            addEvent(`→ POST ${url}`, 'meta');
+
+            const startTime = performance.now();
+            controller = new AbortController();
+
+            try {
+                const resp = await fetch(url, {
+                    method: 'POST',
+                    signal: controller.signal,
+                });
+
+                if (!resp.ok) {
+                    addEvent(`✗ HTTP ${resp.status} ${resp.statusText}`, 'error');
+                    setStatus(`Error: HTTP ${resp.status}`);
+                    return;
+                }
+
+                setStatus(`Connected (HTTP ${resp.status}). Streaming...`);
+
+                const reader = resp.body.getReader();
+                const decoder = new TextDecoder();
+                let buffer = '';
+                let count = 0;
+
+                while (true) {
+                    const { done, value } = await reader.read();
+                    if (done) break;
+
+                    buffer += decoder.decode(value, { stream: true });
+
+                    const lines = buffer.split('\n');
+                    buffer = lines.pop(); // keep incomplete line
+
+                    for (const line of lines) {
+                        if (line.startsWith('data: ')) {
+                            count++;
+                            const jsonStr = line.slice(6);
+                            try {
+                                const data = JSON.parse(jsonStr);
+                                if (data.done) {
+                                    addEvent(`✓ DONE — total chunks: ${data.total_chunks ?? count}`, 'done');
+                                } else {
+                                    addEvent(`#${count}  ${jsonStr}`);
+                                }
+                            } catch {
+                                addEvent(`#${count}  ${jsonStr}`);
+                            }
+                        }
+                    }
+                }
+
+                const elapsed = ((performance.now() - startTime) / 1000).toFixed(2);
+                setStatus(`Finished. ${count} events in ${elapsed}s`);
+            } catch (err) {
+                if (err.name === 'AbortError') {
+                    setStatus('Stream aborted by user.');
+                    addEvent('✗ Aborted', 'error');
+                } else {
+                    setStatus(`Network error: ${err.message}`);
+                    addEvent(`✗ ${err.name}: ${err.message}`, 'error');
+                }
+            } finally {
+                startBtn.disabled = false;
+                stopBtn.disabled = true;
+                controller = null;
+            }
+        });
+
+        stopBtn.addEventListener('click', () => {
+            if (controller) controller.abort();
+        });
+    </script>
+</body>
+</html>
