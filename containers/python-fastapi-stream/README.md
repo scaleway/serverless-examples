@@ -26,10 +26,9 @@ A minimal FastAPI container with Server-Sent Events (SSE) streaming responses, d
 | `duration` | `300`   | Total seconds to stream |
 | `interval` | `5`     | Seconds between events  |
 
-## Local development (Nix)
+## Local development
 
 ```bash
-nix-shell
 pip install -r requirements.txt
 uvicorn app.main:app --host 0.0.0.0 --port 8080
 ```
