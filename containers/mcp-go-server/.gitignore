@@ -1,0 +1,16 @@
+# Terraform
+.terraform/
+terraform.tfstate*
+*.tfvars
+*.tfplan
+
+# Serverless Framework / OSLS
+.serverless/
+node_modules/
+
+# Go build artifacts
+mcp-server
+*.exe
+
+# Local env files
+.env
