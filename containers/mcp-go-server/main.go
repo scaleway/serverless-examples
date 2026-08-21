@@ -106,6 +106,14 @@ func handleMCP(w http.ResponseWriter, r *http.Request) {
 						"required": []string{"message"},
 					},
 				},
+				{
+					"name":        "get_app_name",
+					"description": "Returns the SCW_APPLICATION_NAME environment variable from the container",
+					"inputSchema": map[string]any{
+						"type":       "object",
+						"properties": map[string]any{},
+					},
+				},
 			},
 		}
 
@@ -136,6 +144,20 @@ func handleMCP(w http.ResponseWriter, r *http.Request) {
 					{
 						"type": "text",
 						"text": fmt.Sprintf("Echo from Scaleway: %s", msg),
+					},
+				},
+			}
+		case "get_app_name":
+			appName := os.Getenv("SCW_APPLICATION_NAME")
+			if appName == "" {
+				appName = "[NOT_SET]"
+			}
+
+			resp.Result = map[string]any{
+				"content": []map[string]any{
+					{
+						"type": "text",
+						"text": fmt.Sprintf("SCW_APPLICATION_NAME: %s", appName),
 					},
 				},
 			}
