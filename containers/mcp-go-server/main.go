@@ -71,7 +71,7 @@ func handleMCP(w http.ResponseWriter, r *http.Request) {
 	switch req.Method {
 	case "initialize":
 		resp.Result = map[string]any{
-			"protocolVersion": "2024-11-05",
+			"protocolVersion": "2026-07-28",
 			"capabilities": map[string]any{
 				"tools": map[string]any{},
 			},
