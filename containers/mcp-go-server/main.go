@@ -1,41 +1,79 @@
 package main
 
 import (
-	"cmp"
-	"encoding/json"
+	"context"
 	"fmt"
 	"log/slog"
 	"net/http"
 	"os"
 	"time"
+
+	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
 
-type JSONRPCRequest struct {
-	JSONRPC string          `json:"jsonrpc"`
-	ID      any             `json:"id,omitempty"`
-	Method  string          `json:"method"`
-	Params  json.RawMessage `json:"params,omitempty"`
-}
-
-type JSONRPCResponse struct {
-	JSONRPC string `json:"jsonrpc"`
-	ID      any    `json:"id,omitempty"`
-	Result  any    `json:"result,omitempty"`
-	Error   any    `json:"error,omitempty"`
+type echoArgs struct {
+	Message string `json:"message" jsonschema:"The string to echo back"`
 }
 
 func main() {
-	// cmp.Or eliminates verbose env var fallback checks
-	port := cmp.Or(os.Getenv("PORT"), "8080")
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080"
+	}
+
+	server := mcp.NewServer(&mcp.Implementation{
+		Name:    "scaleway-test-mcp",
+		Version: "1.1.0",
+	}, nil)
+
+	mcp.AddTool(server, &mcp.Tool{
+		Name:        "get_server_time",
+		Description: "Returns current UTC time from the Scaleway container",
+	}, func(ctx context.Context, req *mcp.CallToolRequest, _ any) (*mcp.CallToolResult, any, error) {
+		return &mcp.CallToolResult{
+			Content: []mcp.Content{&mcp.TextContent{
+				Text: fmt.Sprintf("Scaleway Container UTC Time: %s", time.Now().UTC().Format(time.RFC3339)),
+			}},
+		}, nil, nil
+	})
+
+	mcp.AddTool(server, &mcp.Tool{
+		Name:        "echo",
+		Description: "Echoes back the input message",
+	}, func(ctx context.Context, req *mcp.CallToolRequest, in echoArgs) (*mcp.CallToolResult, any, error) {
+		return &mcp.CallToolResult{
+			Content: []mcp.Content{&mcp.TextContent{
+				Text: "Echo from Scaleway: " + in.Message,
+			}},
+		}, nil, nil
+	})
+
+	mcp.AddTool(server, &mcp.Tool{
+		Name:        "get_app_name",
+		Description: "Returns the SCW_APPLICATION_NAME environment variable from the container",
+	}, func(ctx context.Context, req *mcp.CallToolRequest, _ any) (*mcp.CallToolResult, any, error) {
+		appName := os.Getenv("SCW_APPLICATION_NAME")
+		if appName == "" {
+			appName = "[NOT_SET]"
+		}
+		return &mcp.CallToolResult{
+			Content: []mcp.Content{&mcp.TextContent{
+				Text: "SCW_APPLICATION_NAME: " + appName,
+			}},
+		}, nil, nil
+	})
 
 	mux := http.NewServeMux()
 
-	// Native method routing in Go 1.22+
 	mux.HandleFunc("GET /health", handleHealth)
-	mux.HandleFunc("OPTIONS /mcp", handleCORS)
-	mux.HandleFunc("POST /mcp", handleMCP)
+	mux.Handle("/mcp", mcp.NewStreamableHTTPHandler(func(r *http.Request) *mcp.Server {
+		return server
+	}, &mcp.StreamableHTTPOptions{
+		Stateless:                  true,
+		DisableLocalhostProtection: true, // auth is enforced upstream by the Scaleway platform
+	}))
 
-	slog.Info("Starting modern MCP server", "port", port)
+	slog.Info("Starting MCP server", "port", port)
 	if err := http.ListenAndServe(":"+port, mux); err != nil {
 		slog.Error("Server crashed", "error", err)
 		os.Exit(1)
@@ -45,129 +83,4 @@ func main() {
 func handleHealth(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 	_, _ = w.Write([]byte("OK"))
-}
-
-func handleCORS(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Access-Control-Allow-Origin", "*")
-	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
-	w.WriteHeader(http.StatusOK)
-}
-
-func handleMCP(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Access-Control-Allow-Origin", "*")
-	w.Header().Set("Content-Type", "application/json")
-
-	var req JSONRPCRequest
-	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
-		http.Error(w, "Invalid JSON", http.StatusBadRequest)
-		return
-	}
-
-	resp := JSONRPCResponse{
-		JSONRPC: "2.0",
-		ID:      req.ID,
-	}
-
-	switch req.Method {
-	case "initialize":
-		resp.Result = map[string]any{
-			"protocolVersion": "2026-07-28",
-			"capabilities": map[string]any{
-				"tools": map[string]any{},
-			},
-			"serverInfo": map[string]any{
-				"name":    "scaleway-test-mcp",
-				"version": "1.1.0",
-			},
-		}
-
-	case "tools/list":
-		resp.Result = map[string]any{
-			"tools": []map[string]any{
-				{
-					"name":        "get_server_time",
-					"description": "Returns current UTC time from the Scaleway container",
-					"inputSchema": map[string]any{
-						"type":       "object",
-						"properties": map[string]any{},
-					},
-				},
-				{
-					"name":        "echo",
-					"description": "Echoes back the input message",
-					"inputSchema": map[string]any{
-						"type": "object",
-						"properties": map[string]any{
-							"message": map[string]any{
-								"type":        "string",
-								"description": "The string to echo back",
-							},
-						},
-						"required": []string{"message"},
-					},
-				},
-				{
-					"name":        "get_app_name",
-					"description": "Returns the SCW_APPLICATION_NAME environment variable from the container",
-					"inputSchema": map[string]any{
-						"type":       "object",
-						"properties": map[string]any{},
-					},
-				},
-			},
-		}
-
-	case "tools/call":
-		var params struct {
-			Name      string         `json:"name"`
-			Arguments map[string]any `json:"arguments"`
-		}
-		if err := json.Unmarshal(req.Params, &params); err != nil {
-			resp.Error = map[string]any{"code": -32602, "message": "Invalid params"}
-			break
-		}
-
-		switch params.Name {
-		case "get_server_time":
-			resp.Result = map[string]any{
-				"content": []map[string]any{
-					{
-						"type": "text",
-						"text": fmt.Sprintf("Scaleway Container UTC Time: %s", time.Now().UTC().Format(time.RFC3339)),
-					},
-				},
-			}
-		case "echo":
-			msg, _ := params.Arguments["message"].(string)
-			resp.Result = map[string]any{
-				"content": []map[string]any{
-					{
-						"type": "text",
-						"text": fmt.Sprintf("Echo from Scaleway: %s", msg),
-					},
-				},
-			}
-		case "get_app_name":
-			appName := os.Getenv("SCW_APPLICATION_NAME")
-			if appName == "" {
-				appName = "[NOT_SET]"
-			}
-
-			resp.Result = map[string]any{
-				"content": []map[string]any{
-					{
-						"type": "text",
-						"text": fmt.Sprintf("SCW_APPLICATION_NAME: %s", appName),
-					},
-				},
-			}
-		default:
-			resp.Error = map[string]any{"code": -32601, "message": "Tool not found"}
-		}
-
-	default:
-		resp.Result = map[string]any{}
-	}
-
-	_ = json.NewEncoder(w).Encode(resp)
 }

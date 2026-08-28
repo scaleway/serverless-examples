@@ -2,6 +2,8 @@
 
 A lightweight Go implementation of the **Model Context Protocol (MCP)** deployed as a Scaleway Serverless Container, enabling AI agents (like OpenCode, Claude, and Cursor) to securely invoke tools over HTTP.
 
+The server is built on the official [MCP Go SDK](https://github.com/modelcontextprotocol/go-sdk) (`github.com/modelcontextprotocol/go-sdk/mcp`), which handles the JSON-RPC protocol lifecycle, tool schemas/validation, and the Streamable HTTP transport.
+
 The server exposes three tools:
 
 | Tool | Description |
@@ -36,7 +38,7 @@ The Model Context Protocol (MCP) standardizes how LLMs interact with external to
 
 Local MCP servers communicate over standard input/output (`stdio`). Remote serverless MCP deployments require network-based transports over HTTP:
 
-- **Streamable HTTP / SSE:** The MCP server exposes a `/mcp` endpoint accepting POST requests for JSON-RPC 2.0 tool execution and streaming responses back over Server-Sent Events (SSE).
+- **Streamable HTTP / SSE:** The MCP server exposes a `/mcp` endpoint accepting POST requests for JSON-RPC 2.0 tool execution and streaming responses back over Server-Sent Events (SSE). This transport is provided by the SDK's `mcp.StreamableHTTPHandler` (deployed in `Stateless` mode, ideal for scale-to-zero containers).
 - **Isolated Routing:** This example uses Go's `http.NewServeMux` (Go 1.22+ method routing) rather than the global default router, preventing route hijacking and allowing clean middleware integration.
 
 A `/health` endpoint is also exposed for container health checks.
@@ -122,6 +124,7 @@ Add the deployed remote endpoint to your client configuration (such as `opencode
     "scaleway-tools": {
       "type": "remote",
       "url": "https://<container-name>.<namespace-id>.functions.fnc.fr-par.scw.cloud/mcp",
+      "oauth": false,
       "headers": {
         "X-Auth-Token": "YOUR_SCALEWAY_IAM_SECRET_KEY"
       }
