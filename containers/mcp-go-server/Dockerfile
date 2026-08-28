@@ -15,7 +15,7 @@ RUN CGO_ENABLED=0 GOOS=linux go build \
     -o mcp-server main.go
 
 # Step 2: Minimal non-root distroless runtime (~5MB final image)
-FROM gcr.io/distroless/static-debian12:nonroot
+FROM gcr.io/distroless/static-debian13:nonroot
 
 WORKDIR /
 
