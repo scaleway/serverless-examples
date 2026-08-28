@@ -21,62 +21,20 @@ terraform {
   }
 }
 
+# Credentials (SCW_ACCESS_KEY, SCW_SECRET_KEY) and the target project
+# (SCW_DEFAULT_PROJECT_ID) are read from the environment by the provider.
 provider "scaleway" {
-  region     = "fr-par"
-  access_key = var.scw_access_key
-  secret_key = var.scw_secret_key
-  project_id = var.project_id
-}
-
-variable "scw_access_key" {
-  description = "Scaleway IAM access key. Read from SCW_ACCESS_KEY env var if unset."
-  type        = string
-  default     = null
-  sensitive   = true
-}
-
-variable "scw_secret_key" {
-  description = "Scaleway IAM secret key. Read from SCW_SECRET_KEY env var if unset."
-  type        = string
-  default     = null
-  sensitive   = true
-}
-
-variable "project_id" {
-  description = "Scaleway project ID. Uses the default project if null."
-  type        = string
-  default     = null
-}
-
-variable "application_name" {
-  description = "Value exposed by the get_app_name MCP tool (SCW_APPLICATION_NAME env var)."
-  type        = string
-  default     = "scaleway-mcp-go-server"
-}
-
-variable "container_port" {
-  description = "Port the MCP server listens on (matches Dockerfile EXPOSE)."
-  type        = number
-  default     = 8080
-}
-
-variable "min_scale" {
-  description = "Minimum number of container instances (0 = scale to zero)."
-  type        = number
-  default     = 0
-}
-
-variable "max_scale" {
-  description = "Maximum number of container instances."
-  type        = number
-  default     = 5
+  region = "fr-par"
 }
 
 locals {
-  name_prefix = "mcp-go-server"
-  tags        = ["serverless-examples", "mcp", "go", "terraform"]
-  image_name  = "mcp-server"
-  image_tag   = "latest"
+  name_prefix    = "mcp-go-server"
+  tags           = ["serverless-examples", "mcp", "go", "terraform"]
+  image_name     = "mcp-server"
+  image_tag      = "latest"
+  container_port = 8080
+  min_scale      = 0
+  max_scale      = 5
 }
 
 # Scaleway registry namespace names are unique per-region,
@@ -84,18 +42,18 @@ locals {
 resource "random_string" "registry_suffix" {
   length  = 4
   lower   = true
+  upper   = false
+  numeric = true
   special = false
 }
 
 resource "scaleway_registry_namespace" "main" {
-  name       = "${local.name_prefix}-registry-${random_string.registry_suffix.result}"
-  project_id = var.project_id
+  name = "${local.name_prefix}-registry-${random_string.registry_suffix.result}"
 }
 
 resource "scaleway_container_namespace" "main" {
   name        = "${local.name_prefix}-ns"
   description = "Namespace for the MCP Go server example"
-  project_id  = var.project_id
   tags        = local.tags
 }
 
@@ -112,8 +70,10 @@ resource "null_resource" "build_and_push" {
   provisioner "local-exec" {
     command = <<-EOT
       set -euo pipefail
-      docker login "${scaleway_registry_namespace.main.endpoint}" -u nologin -p "${var.scw_secret_key}"
-      docker build -t "${scaleway_registry_namespace.main.endpoint}/${local.image_name}:${local.image_tag}" .
+      # $${...} is escaped so the shell expands SCW_SECRET_KEY from the
+      # environment at apply time (Terraform otherwise treats it as a reference).
+      docker login "${scaleway_registry_namespace.main.endpoint}" -u nologin -p "$${SCW_SECRET_KEY}"
+      docker build --platform linux/amd64 -t "${scaleway_registry_namespace.main.endpoint}/${local.image_name}:${local.image_tag}" .
       docker push "${scaleway_registry_namespace.main.endpoint}/${local.image_name}:${local.image_tag}"
     EOT
   }
@@ -125,36 +85,30 @@ resource "scaleway_container" "main" {
   name           = local.name_prefix
   namespace_id   = scaleway_container_namespace.main.id
   registry_image = "${scaleway_registry_namespace.main.endpoint}/${local.image_name}:${local.image_tag}"
-  port           = var.container_port
+  port           = local.container_port
   tags           = local.tags
 
   cpu_limit          = 1000
   memory_limit_bytes = 1024 * 1024 * 1024 # 1 GiB
-  min_scale          = var.min_scale
-  max_scale          = var.max_scale
+  min_scale          = local.min_scale
+  max_scale          = local.max_scale
 
-  # privacy = "private" enforces IAM token authentication via the API Gateway,
+  # WARN: Set privacy = "private" to enforces IAM token authentication via the API Gateway,
   # so only callers with a valid X-Auth-Token header reach the container.
-  privacy  = "private"
-  protocol = "http1"
-
-  environment_variables = {
-    PORT                 = tostring(var.container_port)
-    SCW_APPLICATION_NAME = var.application_name
-  }
+  privacy  = "public"
 }
 
 output "container_domain" {
   description = "Public HTTPS endpoint of the deployed MCP server."
-  value       = "https://${scaleway_container.main.public_endpoint}"
+  value       = scaleway_container.main.public_endpoint
 }
 
 output "mcp_endpoint" {
   description = "Full URL of the /mcp JSON-RPC endpoint."
-  value       = "https://${scaleway_container.main.public_endpoint}/mcp"
+  value       = "${scaleway_container.main.public_endpoint}/mcp"
 }
 
 output "health_endpoint" {
   description = "Health check endpoint."
-  value       = "https://${scaleway_container.main.public_endpoint}/health"
+  value       = "${scaleway_container.main.public_endpoint}/health"
 }

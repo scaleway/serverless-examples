@@ -63,7 +63,6 @@ Copy `.env.example` to `.env` and fill in your values:
 | :--- | :--- | :--- |
 | `SCW_ACCESS_KEY` | Yes | Scaleway IAM access key. |
 | `SCW_SECRET_KEY` | Yes | Scaleway IAM secret key. |
-| `SCW_APPLICATION_NAME` | No | Value returned by the `get_app_name` tool. Defaults to `scaleway-mcp-go-server` in Terraform, or `[NOT_SET]` at runtime. |
 | `SCW_DEFAULT_PROJECT_ID` | No | Target project ID. Uses your default project if omitted. |
 
 ```bash
@@ -92,12 +91,6 @@ terraform apply
 
 When prompted, type `yes` to confirm. The apply output will print the container URL, the MCP endpoint, and the health endpoint.
 
-To override defaults (e.g. application name or scaling):
-
-```bash
-terraform apply -var="application_name=my-app" -var="max_scale=3"
-```
-
 ### Option 2: Scaleway CLI (`deploy.sh`)
 
 The `deploy.sh` script builds the Docker image, pushes it, and creates/deployes the container using only `scw` commands.
@@ -124,7 +117,6 @@ Add the deployed remote endpoint to your client configuration (such as `opencode
     "scaleway-tools": {
       "type": "remote",
       "url": "https://<container-name>.<namespace-id>.functions.fnc.fr-par.scw.cloud/mcp",
-      "oauth": false,
       "headers": {
         "X-Auth-Token": "YOUR_SCALEWAY_IAM_SECRET_KEY"
       }

@@ -113,9 +113,9 @@ DOMAIN="$(scw container container get \
   -o json | jq -r '.public_endpoint')"
 
 echo ""
-echo "Container URL:    https://${DOMAIN}"
-echo "MCP endpoint:     https://${DOMAIN}/mcp"
-echo "Health endpoint:  https://${DOMAIN}/health"
+echo "Container URL:    ${DOMAIN}"
+echo "MCP endpoint:     ${DOMAIN}/mcp"
+echo "Health endpoint:  ${DOMAIN}/health"
 
 # =============================================================================
 # Cleanup / Remove
