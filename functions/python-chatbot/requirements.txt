@@ -1,2 +1,3 @@
 pytz
-chatterbot==1.0.4
+chatterbot==1.2.11
+
